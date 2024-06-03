@@ -1,4 +1,4 @@
---- 
+---
 title: "Introduction to evolutionary and coevolutionary theory"
 author: "Leandro G. Cosmo"
 date: "`r Sys.Date()`"
@@ -15,11 +15,16 @@ link-citations: yes
 github-repo: lgcosmo/evo_coevo
 ---
 
+<style>
+body {
+text-align: justify}
+</style>
+
 # Preface
 
 Coevolution, the reciprocal evolutionary influence between two or more interacting species, underpins the diversity and complexity of ecosystems. However, understanding coevolution in empirical systems is challenging because of the different time scales at which coevolution operates. Mathematical models, in turn, enable us to simulate various scenarios, predict outcomes, and test hypotheses, providing a deeper understanding of how coevolution shapes biodiversity, ecological stability, and the emergence of new traits. Therefore, the main goal of the course is to introduce the basic concepts and tools that can be used to model coevolution in ecological communities. To do so, the course is divided into two blocks. In the first block, we will introduce the main concepts and the mathematical foundations of evolutionary biology that will be used to model coevolution. For the second block we will provide an overview on how to build coevolutionary models from basic evolutionary and ecological principles. The coevolutionary models covered in the course can be applied to both discrete and continuously varying traits, for instance, the frequency of different flower color morphs in a population of plants or the length of their floral tube, respectively. Furthermore, we will demonstrate how to progress the coevolutionary models from isolated pairwise of interacting species to entire communities that form networks. Conceptual lectures will occur in the morning, from 10:00-12:00am. The conceptual lectures will be followed by an exercise section in the afternoon, from 14:00-17:00pm, where the models will be implemented via computer simulations and analyzed.
 
-## Usage 
+## Usage
 
 Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
 
@@ -31,9 +36,9 @@ The `index.Rmd` file is required, and is also your first book chapter. It will b
 
 You can render the HTML version of this example book without changing anything:
 
-1. Find the **Build** pane in the RStudio IDE, and
+1.  Find the **Build** pane in the RStudio IDE, and
 
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
+2.  Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
 
 Or build the book from the R console:
 
@@ -50,7 +55,6 @@ As you work, you may start a local server to live preview this HTML book. This p
 ```{r eval=FALSE}
 bookdown::serve_book()
 ```
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
