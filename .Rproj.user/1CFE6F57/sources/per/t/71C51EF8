@@ -3,7 +3,7 @@
     "path": "D:/Research/Projects/evo_coevo/index.Rmd",
     "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "901485337",
+    "hash": "3086707675",
     "contents": "",
     "dirty": false,
     "created": 1717443196350.0,
@@ -12,20 +12,20 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "0,0",
+        "cursorPosition": "27,0",
         "scrollLine": "0",
         "rmdVisualMode": "true",
         "rmdVisualCollapsedChunks": "",
-        "rmdVisualModeLocation": "527:0",
+        "rmdVisualModeLocation": "3267:900",
         "rmdVisualWrapConfigured": "true",
         "docOutlineVisible": "1"
     },
     "folds": "",
-    "lastKnownWriteTime": 1717666476,
+    "lastKnownWriteTime": 1718097597,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1717666476625,
+    "last_content_update": 1718097597458,
     "read_only": false,
     "read_only_alternatives": []
 }
