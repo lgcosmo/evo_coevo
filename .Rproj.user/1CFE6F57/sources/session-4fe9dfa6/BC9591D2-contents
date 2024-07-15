@@ -1,3 +1,0 @@
-a<-0.2
-
-g<-D(expression(-a*(theta-z)^2), "z")

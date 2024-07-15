@@ -1,0 +1,5 @@
+"0",""
+"0","dw=D(expression(log(1+beta*z)), ""z"")"
+"0","print(dw)"
+"1","beta/(1 + beta * z)
+"

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Exercise: Simulating evolution using the Price theorem | Introduction to evolutionary and coevolutionary theory</title>
+  <meta name="description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Exercise: Simulating evolution using the Price theorem | Introduction to evolutionary and coevolutionary theory" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="github-repo" content="lgcosmo/evo_coevo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Exercise: Simulating evolution using the Price theorem | Introduction to evolutionary and coevolutionary theory" />
+  
+  <meta name="twitter:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  
+
+<meta name="author" content="Leandro G. Cosmo" />
+
+
+<meta name="date" content="2024-07-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exercise-evolution-of-allele-frequencies.html"/>
+<link rel="next" href="exercise-simulating-evolution-using-landes-equation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Course notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.1</b> Registration</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i><b>1.2</b> Course schedule</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#bibliography"><i class="fa fa-check"></i><b>1.3</b> Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html"><i class="fa fa-check"></i><b>2</b> Introduction to the course</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#the-fundamental-concepts-of-evolution-by-natural-selection"><i class="fa fa-check"></i><b>2.1</b> The fundamental concepts of evolution by natural selection</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#natural-selection-and-the-evolution-of-allele-frequencies-within-populations"><i class="fa fa-check"></i><b>2.2</b> Natural selection and the evolution of allele frequencies within populations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#building-our-first-equation"><i class="fa fa-check"></i><b>2.2.1</b> Building our first equation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#wrights-equation-for-the-adaptive-landscape-of-alleles"><i class="fa fa-check"></i><b>2.2.2</b> Wright’s equation for the adaptive landscape of alleles</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#references"><i class="fa fa-check"></i><b>2.2.3</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html"><i class="fa fa-check"></i><b>3</b> Exercise: Evolution of allele frequencies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies"><i class="fa fa-check"></i><b>3.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="3.2" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b"><i class="fa fa-check"></i><b>3.2</b> Using different assumptions for the fitness of alleles A and B</a></li>
+<li class="chapter" data-level="3.3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape"><i class="fa fa-check"></i><b>3.3</b> Simulating Wright’s adaptive landscape</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html"><i class="fa fa-check"></i><b>4</b> Exercise: Simulating evolution using the Price theorem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1"><i class="fa fa-check"></i><b>4.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="4.2" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection"><i class="fa fa-check"></i><b>4.2</b> The regression of fitness on phenotypes and the modes of selection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html"><i class="fa fa-check"></i><b>5</b> Exercise: Simulating evolution using Lande’s equation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-evolutionary-changes-in-continuous-traits"><i class="fa fa-check"></i><b>5.1</b> Simulating evolutionary changes in continuous traits</a></li>
+<li class="chapter" data-level="5.2" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-the-adaptive-landscape-of-a-continuous-trait"><i class="fa fa-check"></i><b>5.2</b> Simulating the adaptive landscape of a continuous trait</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to evolutionary and coevolutionary theory</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-simulating-evolution-using-the-price-theorem" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Exercise: Simulating evolution using the Price theorem<a href="exercise-simulating-evolution-using-the-price-theorem.html#exercise-simulating-evolution-using-the-price-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simulating-evolutionary-changes-in-allele-frequencies-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Simulating evolutionary changes in allele frequencies<a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In our second lecture we studied and derived the Price theorem (Price 1970) that can be used to predict how the mean value of any measurable property of a population change from one generation to the other. For this exercise section, we will use the Price theorem to gain more intuition about how the moments of the distribution of traits in a population can evolve by natural selection. Building upon the core results of the theorem, We will also study how we can predict the mode of selection in a population (directional, stabilizing and disruptive) using linear regressions.</p>
+<p>We begin with the Price theorem, that can be expressed as the following equation (Rice 2005):</p>
+<p><span class="math display">\[
+\Delta \overline{z}=\frac{1}{\overline{W}}\left[Cov(W, z) + E(W\overline{\delta}) \right]
+\]</span> As we studied during the lecture, the equation is comprised of two terms. The first term, <span class="math inline">\(\frac{1}{\overline{W}}Cov(W, z)\)</span> encompass the changes due to differential survival and reproduction, while the second one, comprises changes resulting from any process involved in reproduction. For this exercise section we will assume that <span class="math inline">\(E(W\overline{\delta})=0\)</span> and will work with the simplified version of the Price theorem, <span class="math inline">\(\Delta \overline{z}=\frac{1}{\overline{W}}Cov(W, z)\)</span>.</p>
+<p>We begin simulating a measurable trait, <span class="math inline">\(z\)</span>, that follows a normal distribution with mean <span class="math inline">\(\mu=5.0\)</span> and <span class="math inline">\(\sigma^2=1.0\)</span> in a population of 10000 individuals:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb12-3"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-4" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">10000</span> <span class="co">#Population size</span></span>
+<span id="cb12-5"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-5" tabindex="-1"></a>z_u<span class="ot">=</span><span class="dv">5</span> <span class="co">#Mean trait value</span></span>
+<span id="cb12-6"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-6" tabindex="-1"></a>z_var<span class="ot">=</span><span class="dv">1</span> <span class="co">#Variance</span></span>
+<span id="cb12-7"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-7" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean=</span>z_u, <span class="at">sd=</span><span class="fu">sqrt</span>(z_var)) <span class="co">#Sampling from a normal distribution with mean=5 and variance=1 (the standard deviation is equal to the square root of the variance).</span></span>
+<span id="cb12-8"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-9" tabindex="-1"></a><span class="co"># Plotting the distribution</span></span>
+<span id="cb12-10"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-10" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(z))<span class="sc">+</span></span>
+<span id="cb12-11"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-11" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z))<span class="sc">+</span></span>
+<span id="cb12-12"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Trait value&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Density&quot;</span>)<span class="sc">+</span></span>
+<span id="cb12-13"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb12-13" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="65%" height="65%" /></p>
+<p>Now that we have a distribution of traits, we can begin to use the Price theorem to predict how the moments of this distribution can change because of differential survival and reproduction. Here we will focus on the first and second moments of the distribution - the mean and the variance - but the theorem can also be used for other higher order moments. As examples, we will use three different types of functions for how the fitness of individuals vary with trait values: (1) <span class="math inline">\(W=1+c+\epsilon\)</span>; (2) <span class="math inline">\(W=1+\beta z +\epsilon\)</span> (3) <span class="math inline">\(W=e^{-\alpha\left(\theta-z+\epsilon\right)^2}\)</span>; where <span class="math inline">\(c\)</span> is a constant; <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span> are parameters that control the shape of the functions; and <span class="math inline">\(\epsilon\)</span> is a small amount of random noise that we will sample from a normal distribution. In the code block below we define these functions.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-1" tabindex="-1"></a><span class="co">#Defining the parameters of the fitness functions:</span></span>
+<span id="cb13-2"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-3" tabindex="-1"></a>e<span class="ot">=</span><span class="fu">rnorm</span>(n, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="fl">0.05</span>) <span class="co">#Sampling random noise</span></span>
+<span id="cb13-4"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-4" tabindex="-1"></a>c<span class="ot">=</span><span class="dv">1</span> <span class="co"># Parameter of fitness function (1)</span></span>
+<span id="cb13-5"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-5" tabindex="-1"></a>beta<span class="ot">=</span><span class="fl">0.5</span> <span class="co"># Parameter of fitness functions (2)</span></span>
+<span id="cb13-6"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-6" tabindex="-1"></a>alpha<span class="ot">=</span><span class="fl">0.5</span>; theta<span class="ot">=</span><span class="fl">4.0</span> <span class="co"># Parameters of fitness function (3)</span></span>
+<span id="cb13-7"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-8" tabindex="-1"></a>w1<span class="ot">=</span><span class="dv">1</span><span class="sc">+</span>c<span class="sc">+</span>e <span class="co">#Fitness function (1)</span></span>
+<span id="cb13-9"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-9" tabindex="-1"></a>w2<span class="ot">=</span><span class="dv">1</span><span class="sc">+</span>beta<span class="sc">*</span>z<span class="sc">+</span>e <span class="co">#Fitness function (2)</span></span>
+<span id="cb13-10"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb13-10" tabindex="-1"></a>w3<span class="ot">=</span><span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>alpha<span class="sc">*</span>(theta<span class="sc">-</span>z<span class="sc">+</span>e)<span class="sc">^</span><span class="dv">2</span>) <span class="co">#Fitness function (3)</span></span></code></pre></div>
+<p>Now that we have trait values and their corresponding fitness, we can use Price’s theorem to predict the change in the mean and variance of the trait distribution from one generation to the other. For the mean, we need to compute the covariance between trait values and fitness, <span class="math inline">\(Cov(W,z)\)</span>, while for the variance, we need to compute the covariance between fitness and the squared deviation of trait values to the mean, <span class="math inline">\(Cov\left[W, (z-\overline{z})^2\right]\)</span>. Then, we divide the two covariances by the average fitness of the population, <span class="math inline">\(\overline{W}\)</span>. Finally, we can plot the new distribution on top of the old one. The code to perform these steps for the fitness function <span class="math inline">\(W=1+c+\epsilon\)</span> is as follows:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-1" tabindex="-1"></a>delta_z<span class="ot">=</span><span class="fu">cov</span>(w1,z)<span class="sc">/</span><span class="fu">mean</span>(w1) <span class="co">#Change in the mean of z</span></span>
+<span id="cb14-2"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-2" tabindex="-1"></a>delta_zvar<span class="ot">=</span><span class="fu">cov</span>(w1,(z<span class="sc">-</span><span class="fu">mean</span>(z))<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">mean</span>(w1) <span class="co">#Change in the variance of z</span></span>
+<span id="cb14-3"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-4" tabindex="-1"></a><span class="co"># Getting new distribution of trait values</span></span>
+<span id="cb14-5"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-6" tabindex="-1"></a>z_new<span class="ot">=</span><span class="fu">rnorm</span>(n, <span class="at">mean=</span>z_u<span class="sc">+</span>delta_z, <span class="at">sd=</span><span class="fu">sqrt</span>(z_var<span class="sc">+</span>delta_z))</span>
+<span id="cb14-7"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-8" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span><span class="fu">data.frame</span>(<span class="at">z=</span>z, <span class="at">z_new=</span>z_new))<span class="sc">+</span></span>
+<span id="cb14-9"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-9" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z), <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)<span class="sc">+</span></span>
+<span id="cb14-10"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-10" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z_new))<span class="sc">+</span></span>
+<span id="cb14-11"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Trait value&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Counts&quot;</span>)<span class="sc">+</span></span>
+<span id="cb14-12"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb14-12" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="65%" height="65%" /></p>
+<p>In the figure above, the dashed line represent the previous trait distribution, while the solid line the new one. The distributions look pretty much the same and the change in the mean and variance of the distribution of trait values is negligible. Considering the fitness function <span class="math inline">\(W=1+c+\epsilon\)</span>, try to explain why there was no change in the distribution. Use the code above to predict how the distribution changes for the other two fitness functions. What differences can you observe?</p>
+</div>
+<div id="the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> The regression of fitness on phenotypes and the modes of selection<a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we know how to compute the change in the mean and variance of the distribution of traits in a population, we can try to gain intuition about the different modes of selection. To do so, we will use the two remaining fitness functions, <span class="math inline">\(W=1+\beta z +\epsilon\)</span> and <span class="math inline">\(W=e^{-\alpha\left(\theta-z\right)^2+\epsilon}\)</span>. In the lecture we studied that the Price theorem can be rewritten as a regression of fitness on trait values, as follows:</p>
+<p><span class="math display">\[
+\Delta \overline{z}=\frac{1}{\overline{W}}\beta_{(W,z)} Var(z)
+\]</span> From the above equation, we can study how natural selection drives the evolution of the mean and the variance of trait values with the corresponding regression coefficients. These regression coefficients can be computed from the covariances and variances as <span class="math inline">\(\beta_{(W,z)}=\frac{Cov(W,z)}{Var(z)}\)</span>. When the trait itself is <span class="math inline">\((z-\overline{z})^2\)</span>, the regression coefficient can be computed as <span class="math inline">\(\beta_{\left[W,(z-\overline{z})^2\right]}=\frac{Cov\left[W,(z-\overline{z})^2\right]}{Var\left[(z-\overline{z})^2\right]}\)</span>. When the regression coefficient of fitness on the trait <span class="math inline">\(z\)</span> is non zero, the trait is under <em>directional selection</em>. Similarly, if the regression coefficient of fitness on <span class="math inline">\((z-\overline{z})^2\)</span> is non zero, the trait is either under <em>stabilizing selection</em> (<span class="math inline">\(\beta_{\left[W,(z-\overline{z})^2\right]}&lt;0\)</span>) or <em>disruptive selection</em> (<span class="math inline">\(\beta_{\left[W,(z-\overline{z})^2\right]}&gt;0\)</span>). For the fitness functions that we are going to use in this part of the exercise section, we can visually assess the modes of selection acting on trait <span class="math inline">\(z\)</span>. The code to do so is reproduced below:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb15-2"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-3" tabindex="-1"></a><span class="co"># Creating a data frame with variables z, the squared deviations of z to the mean, and the fitness of individuals in the population when using fitness functions (2) and (3)</span></span>
+<span id="cb15-4"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-5" tabindex="-1"></a>z_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">z=</span>z, <span class="at">z2=</span>(z<span class="sc">-</span><span class="fu">mean</span>(z))<span class="sc">^</span><span class="dv">2</span>, <span class="at">w2=</span>w2, <span class="at">w3=</span>w3)</span>
+<span id="cb15-6"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-7" tabindex="-1"></a><span class="co"># Creating plots with the regression between z and w2, as well as (z-mean(z))^2 for w2</span></span>
+<span id="cb15-8"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-9" tabindex="-1"></a>p1 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data=</span>z_df, <span class="fu">aes</span>(<span class="at">x=</span>z, <span class="at">y=</span>w2))<span class="sc">+</span></span>
+<span id="cb15-10"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-10" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb15-11"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-11" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Trait values&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Fitness (function #2)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb15-12"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-12" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb15-13"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-13" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span>
+<span id="cb15-14"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-14" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-15" tabindex="-1"></a>p2 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data=</span>z_df, <span class="fu">aes</span>(<span class="at">x=</span>z2, <span class="at">y=</span>w2))<span class="sc">+</span></span>
+<span id="cb15-16"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-16" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb15-17"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-17" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Squared deviation of trait values to the mean&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Fitness (function #2)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb15-18"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-18" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb15-19"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-19" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span>
+<span id="cb15-20"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-20" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-21" tabindex="-1"></a><span class="co"># Creating plots with the regression between z and w2, as well as (z-mean(z))^2 for w3</span></span>
+<span id="cb15-22"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-22" tabindex="-1"></a></span>
+<span id="cb15-23"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-23" tabindex="-1"></a>p3 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data=</span>z_df, <span class="fu">aes</span>(<span class="at">x=</span>z, <span class="at">y=</span>w3))<span class="sc">+</span></span>
+<span id="cb15-24"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-24" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb15-25"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-25" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Trait values&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Fitness (function #3)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb15-26"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-26" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb15-27"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-27" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span>
+<span id="cb15-28"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-28" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-29" tabindex="-1"></a>p4 <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data=</span>z_df, <span class="fu">aes</span>(<span class="at">x=</span>z2, <span class="at">y=</span>w3))<span class="sc">+</span></span>
+<span id="cb15-30"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-30" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb15-31"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-31" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Squared deviation of trait values to the mean&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Fitness (function #3)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb15-32"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-32" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb15-33"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-33" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span>
+<span id="cb15-34"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-34" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-35" tabindex="-1"></a><span class="co"># Combining all plots using the patchwork package</span></span>
+<span id="cb15-36"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-36" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="exercise-simulating-evolution-using-the-price-theorem.html#cb15-37" tabindex="-1"></a>p1<span class="sc">+</span>p2<span class="sc">+</span>p3<span class="sc">+</span>p4 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>))</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="65%" height="65%" /></p>
+<p>From the plots above, try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>What are the modes of selection for the fitness functions (2) and (3)?</li>
+<li>What would be a possible biological interpretation of the parameter <span class="math inline">\(\theta\)</span> in the fitness function <span class="math inline">\(W=e^{-\alpha\left(\theta-z+\epsilon\right)^2}\)</span>?</li>
+<li>Try changing both <span class="math inline">\(\theta\)</span> (e.g. to <span class="math inline">\(\theta=6.0\)</span> instead of <span class="math inline">\(\theta=4.0\)</span>) and <span class="math inline">\(\alpha\)</span>. How these parameters change the relationship between fitness, trait values, and the regression coefficients?</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-evolution-of-allele-frequencies.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exercise-simulating-evolution-using-landes-equation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-ex2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

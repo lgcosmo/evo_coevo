@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Exercise: Evolution of allele frequencies | Introduction to evolutionary and coevolutionary theory</title>
+  <meta name="description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Exercise: Evolution of allele frequencies | Introduction to evolutionary and coevolutionary theory" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="github-repo" content="lgcosmo/evo_coevo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Exercise: Evolution of allele frequencies | Introduction to evolutionary and coevolutionary theory" />
+  
+  <meta name="twitter:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  
+
+<meta name="author" content="Leandro G. Cosmo" />
+
+
+<meta name="date" content="2024-07-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-the-course.html"/>
+<link rel="next" href="exercise-simulating-evolution-using-the-price-theorem.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Course notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.1</b> Registration</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i><b>1.2</b> Course schedule</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#bibliography"><i class="fa fa-check"></i><b>1.3</b> Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html"><i class="fa fa-check"></i><b>2</b> Introduction to the course</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#the-fundamental-concepts-of-evolution-by-natural-selection"><i class="fa fa-check"></i><b>2.1</b> The fundamental concepts of evolution by natural selection</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#natural-selection-and-the-evolution-of-allele-frequencies-within-populations"><i class="fa fa-check"></i><b>2.2</b> Natural selection and the evolution of allele frequencies within populations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#building-our-first-equation"><i class="fa fa-check"></i><b>2.2.1</b> Building our first equation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#wrights-equation-for-the-adaptive-landscape-of-alleles"><i class="fa fa-check"></i><b>2.2.2</b> Wright’s equation for the adaptive landscape of alleles</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#references"><i class="fa fa-check"></i><b>2.2.3</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html"><i class="fa fa-check"></i><b>3</b> Exercise: Evolution of allele frequencies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies"><i class="fa fa-check"></i><b>3.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="3.2" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b"><i class="fa fa-check"></i><b>3.2</b> Using different assumptions for the fitness of alleles A and B</a></li>
+<li class="chapter" data-level="3.3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape"><i class="fa fa-check"></i><b>3.3</b> Simulating Wright’s adaptive landscape</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html"><i class="fa fa-check"></i><b>4</b> Exercise: Simulating evolution using the Price theorem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1"><i class="fa fa-check"></i><b>4.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="4.2" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection"><i class="fa fa-check"></i><b>4.2</b> The regression of fitness on phenotypes and the modes of selection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html"><i class="fa fa-check"></i><b>5</b> Exercise: Simulating evolution using Lande’s equation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-evolutionary-changes-in-continuous-traits"><i class="fa fa-check"></i><b>5.1</b> Simulating evolutionary changes in continuous traits</a></li>
+<li class="chapter" data-level="5.2" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-the-adaptive-landscape-of-a-continuous-trait"><i class="fa fa-check"></i><b>5.2</b> Simulating the adaptive landscape of a continuous trait</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to evolutionary and coevolutionary theory</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-evolution-of-allele-frequencies" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Exercise: Evolution of allele frequencies<a href="exercise-evolution-of-allele-frequencies.html#exercise-evolution-of-allele-frequencies" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simulating-evolutionary-changes-in-allele-frequencies" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Simulating evolutionary changes in allele frequencies<a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the first lecture we studied and derived the classical Wright’s equation that predicts how natural selection can drive changes in the frequency of alleles over generations in a population. Throughout this exercise section, we will perform numerical simulations of this equation to gain more intuition about how evolution will proceed under different scenarios. We begin with the equation that we are trying to simulate:</p>
+<p><span class="math display">\[
+\Delta p=p^{(t)}(1-p^{(t)})\frac{\left(W_{A}^{(t)}-W_{B}^{(t)}\right)}{\overline{W}^{(t)}}
+\]</span></p>
+<p>Our first step is to define a vector that will store the frequencies, <span class="math inline">\(p\)</span> at each time step (generation) of the model, and an initial frequency of <span class="math inline">\(p\)</span>, <span class="math inline">\(p_{0}\)</span>. The choice of initial value is arbitrary and depends on your particular problem. Here we will start with <span class="math inline">\(p_{0}=0.1\)</span>, but feel free to use and explore different values.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="exercise-evolution-of-allele-frequencies.html#cb1-1" tabindex="-1"></a>dp <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb1-2"><a href="exercise-evolution-of-allele-frequencies.html#cb1-2" tabindex="-1"></a>p0 <span class="ot">=</span> <span class="fl">0.1</span></span>
+<span id="cb1-3"><a href="exercise-evolution-of-allele-frequencies.html#cb1-3" tabindex="-1"></a>dp[<span class="dv">1</span>] <span class="ot">=</span> p0</span></code></pre></div>
+<p>Now, we need to code how <span class="math inline">\(p\)</span> gets updated at each time step. From the equation, <span class="math inline">\(p\)</span> gets updated depending on its value at the current time step, <span class="math inline">\(t\)</span>, and the <em>fitness</em> of individuals carrying the alleles <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>. So, we also need to define what are the fitness functions of these individuals. We will explore different scenarios, but we will begin with a constant value:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exercise-evolution-of-allele-frequencies.html#cb2-1" tabindex="-1"></a>wA <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb2-2"><a href="exercise-evolution-of-allele-frequencies.html#cb2-2" tabindex="-1"></a>wB <span class="ot">=</span> <span class="dv">1</span></span></code></pre></div>
+<p>Now, we need to iterate over the equation so that we can obtain the frequencies at future generations. To do so, we will first define for how many generations, <span class="math inline">\(t_{max}\)</span>, we will run the simulation. Then, we will use a <em>for loop</em> to perform the iterations. In the <em>for loop</em> we will go through the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Set the value of <span class="math inline">\(p\)</span> to the one at the current time step, <span class="math inline">\(t\)</span></p></li>
+<li><p>Compute the average fitness of the population as <span class="math inline">\(pW_{A}+(1-p)W_{B}\)</span></p></li>
+<li><p>Update the value of <span class="math inline">\(p\)</span> using Wright’s equation</p></li>
+</ol>
+<p>These steps are highlighted in the block of code below:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exercise-evolution-of-allele-frequencies.html#cb3-1" tabindex="-1"></a>tmax <span class="ot">=</span> <span class="dv">50</span> <span class="co"># The simulation will run for 50 generations</span></span>
+<span id="cb3-2"><a href="exercise-evolution-of-allele-frequencies.html#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="exercise-evolution-of-allele-frequencies.html#cb3-3" tabindex="-1"></a><span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){ <span class="co">#Setting up the for loop</span></span>
+<span id="cb3-4"><a href="exercise-evolution-of-allele-frequencies.html#cb3-4" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="exercise-evolution-of-allele-frequencies.html#cb3-5" tabindex="-1"></a>  p <span class="ot">=</span> dp[t] <span class="co"># Step 1</span></span>
+<span id="cb3-6"><a href="exercise-evolution-of-allele-frequencies.html#cb3-6" tabindex="-1"></a>  w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co">#Step 2</span></span>
+<span id="cb3-7"><a href="exercise-evolution-of-allele-frequencies.html#cb3-7" tabindex="-1"></a>  dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span> p <span class="sc">+</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>(wA<span class="sc">-</span>wB)<span class="sc">/</span>w_avg) <span class="co">#Step 3</span></span>
+<span id="cb3-8"><a href="exercise-evolution-of-allele-frequencies.html#cb3-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>That is it! We have performed our first numerical simulation. Now that we have the outcome along generations, we can plot the results. To plot the results, we first set up a data frame with columns containing the outcome on our variable of interest. This variable is called a <em>state variable</em> and here it is the frequency of <span class="math inline">\(p\)</span> over the 50 generations of the population. With the data frame set up, we can plot how the <em>state variable</em> (on the y-axis) changes over the generations (x-axis). You can use a plot method of your choice. Here we are going to use the package <em>ggplot2</em> for all of the plots. The code to perform the steps above can be found below:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exercise-evolution-of-allele-frequencies.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="exercise-evolution-of-allele-frequencies.html#cb4-2" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb4-3"><a href="exercise-evolution-of-allele-frequencies.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="exercise-evolution-of-allele-frequencies.html#cb4-4" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dp=</span>dp, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax)</span>
+<span id="cb4-5"><a href="exercise-evolution-of-allele-frequencies.html#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="exercise-evolution-of-allele-frequencies.html#cb4-6" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb4-7"><a href="exercise-evolution-of-allele-frequencies.html#cb4-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>dp))<span class="sc">+</span></span>
+<span id="cb4-8"><a href="exercise-evolution-of-allele-frequencies.html#cb4-8" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-9"><a href="exercise-evolution-of-allele-frequencies.html#cb4-9" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="65%" height="65%" /></p>
+<p>Now that we have the code to perform the numerical simulations, it is convenient to put everything inside a function. For this example, our function will take as input arguments <span class="math inline">\(t_{max}\)</span>, <span class="math inline">\(W_{A}\)</span>, <span class="math inline">\(W_{B}\)</span> and the initial frequency of allele A in the population, <span class="math inline">\(p_{0}\)</span>. Then, the function will run the simulation and return a data frame containing the different values of <span class="math inline">\(p\)</span> over the <span class="math inline">\(t_{max}\)</span> generations of the simulation. The code of the implement the function is as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exercise-evolution-of-allele-frequencies.html#cb5-1" tabindex="-1"></a>evo_simulation<span class="ot">&lt;-</span><span class="cf">function</span>(tmax, p0, wA, wB){ <span class="co">#Defining the function and the input arguments</span></span>
+<span id="cb5-2"><a href="exercise-evolution-of-allele-frequencies.html#cb5-2" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="exercise-evolution-of-allele-frequencies.html#cb5-3" tabindex="-1"></a>  dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating the vector to store the outcome</span></span>
+<span id="cb5-4"><a href="exercise-evolution-of-allele-frequencies.html#cb5-4" tabindex="-1"></a>  dp[<span class="dv">1</span>]<span class="ot">&lt;-</span>p0 <span class="co">#Setting the initial frequency of p</span></span>
+<span id="cb5-5"><a href="exercise-evolution-of-allele-frequencies.html#cb5-5" tabindex="-1"></a>  </span>
+<span id="cb5-6"><a href="exercise-evolution-of-allele-frequencies.html#cb5-6" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){ <span class="co">#Setting up the for loop</span></span>
+<span id="cb5-7"><a href="exercise-evolution-of-allele-frequencies.html#cb5-7" tabindex="-1"></a>  </span>
+<span id="cb5-8"><a href="exercise-evolution-of-allele-frequencies.html#cb5-8" tabindex="-1"></a>  p <span class="ot">=</span> dp[t] <span class="co"># Step 1</span></span>
+<span id="cb5-9"><a href="exercise-evolution-of-allele-frequencies.html#cb5-9" tabindex="-1"></a>  w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co">#Step 2</span></span>
+<span id="cb5-10"><a href="exercise-evolution-of-allele-frequencies.html#cb5-10" tabindex="-1"></a>  dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span> p <span class="sc">+</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>(wA<span class="sc">-</span>wB)<span class="sc">/</span>w_avg) <span class="co">#Step 3</span></span>
+<span id="cb5-11"><a href="exercise-evolution-of-allele-frequencies.html#cb5-11" tabindex="-1"></a>}</span>
+<span id="cb5-12"><a href="exercise-evolution-of-allele-frequencies.html#cb5-12" tabindex="-1"></a>  </span>
+<span id="cb5-13"><a href="exercise-evolution-of-allele-frequencies.html#cb5-13" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dp=</span>dp, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Building the data frame</span></span>
+<span id="cb5-14"><a href="exercise-evolution-of-allele-frequencies.html#cb5-14" tabindex="-1"></a>  </span>
+<span id="cb5-15"><a href="exercise-evolution-of-allele-frequencies.html#cb5-15" tabindex="-1"></a>  <span class="fu">return</span>(r)</span>
+<span id="cb5-16"><a href="exercise-evolution-of-allele-frequencies.html#cb5-16" tabindex="-1"></a>  </span>
+<span id="cb5-17"><a href="exercise-evolution-of-allele-frequencies.html#cb5-17" tabindex="-1"></a>}</span>
+<span id="cb5-18"><a href="exercise-evolution-of-allele-frequencies.html#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="exercise-evolution-of-allele-frequencies.html#cb5-19" tabindex="-1"></a><span class="co"># Running the function to test it:</span></span>
+<span id="cb5-20"><a href="exercise-evolution-of-allele-frequencies.html#cb5-20" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="exercise-evolution-of-allele-frequencies.html#cb5-21" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">evo_simulation</span>(<span class="at">tmax=</span><span class="dv">50</span>, <span class="at">p0=</span><span class="fl">0.2</span>, <span class="at">wA=</span><span class="dv">2</span>, <span class="at">wB=</span><span class="dv">1</span>)</span>
+<span id="cb5-22"><a href="exercise-evolution-of-allele-frequencies.html#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="exercise-evolution-of-allele-frequencies.html#cb5-23" tabindex="-1"></a><span class="co"># Plotting the result</span></span>
+<span id="cb5-24"><a href="exercise-evolution-of-allele-frequencies.html#cb5-24" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="exercise-evolution-of-allele-frequencies.html#cb5-25" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb5-26"><a href="exercise-evolution-of-allele-frequencies.html#cb5-26" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>dp))<span class="sc">+</span></span>
+<span id="cb5-27"><a href="exercise-evolution-of-allele-frequencies.html#cb5-27" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span></span>
+<span id="cb5-28"><a href="exercise-evolution-of-allele-frequencies.html#cb5-28" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="65%" height="65%" /></p>
+<p>Now that we have a function that makes it very easy to simulate the changes in allele frequencies, try to explore how different values of <span class="math inline">\(p_{0}\)</span>, <span class="math inline">\(W_{A}\)</span> and <span class="math inline">\(W_{B}\)</span> affect the evolutionary dynamics. Try to also explore how different values of <span class="math inline">\(t_{max}\)</span>, or the time scale that we are looking at, can change our perception about how evolution is unfolding in a population.</p>
+</div>
+<div id="using-different-assumptions-for-the-fitness-of-alleles-a-and-b" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Using different assumptions for the fitness of alleles A and B<a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the previous section we simulated the evolutionary dynamics of allele frequencies when the fitness of individuals carrying either one of the alleles are constant values. However, what would happen when fitness can change over time? Now, we will explore the evolutionary dynamics when <span class="math inline">\(W_{A}\)</span> and <span class="math inline">\(W_{B}\)</span> depends not only on constant value but also can vary with the frequency of allele <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>. This is the case mentioned in the lecture notes that correspond to frequency-dependent values of fitness. To understand how frequency-dependence can affect the outcome, we will assume that <span class="math inline">\(W_{A}\)</span> and <span class="math inline">\(W_{B}\)</span> have the same constant baseline value, but can decrease with the frequency of their corresponding allele. This can be represented with the following two equations:</p>
+<p><span class="math display">\[\begin{align}
+W_{A}^{(t)}&amp;=1-\alpha p^{(t)} \\
+W_{B}^{(t)}&amp;=1-\beta (1-p^{(t)})
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> weight how much <span class="math inline">\(W_{A}\)</span> and <span class="math inline">\(W_{B}\)</span> is decreased depending on the frequency of alleles <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, respectively. Since it does not make biological sense to have negative fitness values, we just need to choose the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> so that fitness is never negative. Under this assumption, we can now build a now function that take as input arguments the <em>parameters</em> <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, instead of the constant values of <span class="math inline">\(W_{A}\)</span> and <span class="math inline">\(W_{B}\)</span>. The difference is that because fitness can vary across time, at each time step of the model we need to recompute fitness values. The code for the modified function is depicted below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exercise-evolution-of-allele-frequencies.html#cb6-1" tabindex="-1"></a>evo_simulation<span class="ot">&lt;-</span><span class="cf">function</span>(tmax, p0, alpha, beta){ <span class="co">#Defining the function and the input arguments</span></span>
+<span id="cb6-2"><a href="exercise-evolution-of-allele-frequencies.html#cb6-2" tabindex="-1"></a>  </span>
+<span id="cb6-3"><a href="exercise-evolution-of-allele-frequencies.html#cb6-3" tabindex="-1"></a>  dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating the vector to store the outcome</span></span>
+<span id="cb6-4"><a href="exercise-evolution-of-allele-frequencies.html#cb6-4" tabindex="-1"></a>  dp[<span class="dv">1</span>]<span class="ot">&lt;-</span>p0 <span class="co">#Setting the initial frequency of p</span></span>
+<span id="cb6-5"><a href="exercise-evolution-of-allele-frequencies.html#cb6-5" tabindex="-1"></a>  </span>
+<span id="cb6-6"><a href="exercise-evolution-of-allele-frequencies.html#cb6-6" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){ <span class="co">#Setting up the for loop</span></span>
+<span id="cb6-7"><a href="exercise-evolution-of-allele-frequencies.html#cb6-7" tabindex="-1"></a>  </span>
+<span id="cb6-8"><a href="exercise-evolution-of-allele-frequencies.html#cb6-8" tabindex="-1"></a>  p <span class="ot">=</span> dp[t] <span class="co"># Setting current frequency</span></span>
+<span id="cb6-9"><a href="exercise-evolution-of-allele-frequencies.html#cb6-9" tabindex="-1"></a>  wA <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">*</span>p) <span class="co">#Computing the fitness of A at the current generation</span></span>
+<span id="cb6-10"><a href="exercise-evolution-of-allele-frequencies.html#cb6-10" tabindex="-1"></a>  wB <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>(beta<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="co">#Computing the fitness of B at the current generation</span></span>
+<span id="cb6-11"><a href="exercise-evolution-of-allele-frequencies.html#cb6-11" tabindex="-1"></a>  w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co">#Computing the average fitness of the population</span></span>
+<span id="cb6-12"><a href="exercise-evolution-of-allele-frequencies.html#cb6-12" tabindex="-1"></a>  dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span> p <span class="sc">+</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>(wA<span class="sc">-</span>wB)<span class="sc">/</span>w_avg) <span class="co">#Updating frequencies</span></span>
+<span id="cb6-13"><a href="exercise-evolution-of-allele-frequencies.html#cb6-13" tabindex="-1"></a>}</span>
+<span id="cb6-14"><a href="exercise-evolution-of-allele-frequencies.html#cb6-14" tabindex="-1"></a>  </span>
+<span id="cb6-15"><a href="exercise-evolution-of-allele-frequencies.html#cb6-15" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dp=</span>dp, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Building the data frame</span></span>
+<span id="cb6-16"><a href="exercise-evolution-of-allele-frequencies.html#cb6-16" tabindex="-1"></a>  </span>
+<span id="cb6-17"><a href="exercise-evolution-of-allele-frequencies.html#cb6-17" tabindex="-1"></a>  <span class="fu">return</span>(r)</span>
+<span id="cb6-18"><a href="exercise-evolution-of-allele-frequencies.html#cb6-18" tabindex="-1"></a>  </span>
+<span id="cb6-19"><a href="exercise-evolution-of-allele-frequencies.html#cb6-19" tabindex="-1"></a>}</span>
+<span id="cb6-20"><a href="exercise-evolution-of-allele-frequencies.html#cb6-20" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="exercise-evolution-of-allele-frequencies.html#cb6-21" tabindex="-1"></a><span class="co"># Running the function to test it:</span></span>
+<span id="cb6-22"><a href="exercise-evolution-of-allele-frequencies.html#cb6-22" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="exercise-evolution-of-allele-frequencies.html#cb6-23" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">evo_simulation</span>(<span class="at">tmax=</span><span class="dv">50</span>, <span class="at">p0=</span><span class="fl">0.2</span>, <span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">beta=</span><span class="fl">0.2</span>)</span>
+<span id="cb6-24"><a href="exercise-evolution-of-allele-frequencies.html#cb6-24" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="exercise-evolution-of-allele-frequencies.html#cb6-25" tabindex="-1"></a><span class="co"># Plotting the result</span></span>
+<span id="cb6-26"><a href="exercise-evolution-of-allele-frequencies.html#cb6-26" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="exercise-evolution-of-allele-frequencies.html#cb6-27" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb6-28"><a href="exercise-evolution-of-allele-frequencies.html#cb6-28" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>dp))<span class="sc">+</span></span>
+<span id="cb6-29"><a href="exercise-evolution-of-allele-frequencies.html#cb6-29" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span></span>
+<span id="cb6-30"><a href="exercise-evolution-of-allele-frequencies.html#cb6-30" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))<span class="sc">+</span> <span class="co">#Setting the limits on the y-axis to be the same as in the previous model</span></span>
+<span id="cb6-31"><a href="exercise-evolution-of-allele-frequencies.html#cb6-31" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="65%" height="65%" /></p>
+<p>With this new function, explore how different values of <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(p_{0}\)</span> change the outcome. In your exploration, try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>How frequency-dependence changes the outcome of the evolutionary dynamics?</p></li>
+<li><p>Does the initial value of allele frequency in the population affect the final outcome?</p></li>
+<li><p>What is the role of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> in the outcome of the dynamics?</p></li>
+<li><p>What would be an ecological mechanism that can lead to the type of frequency dependence that we are exploring? What ecological pattern would you expect under this mechanism over the generations of a population?</p></li>
+</ol>
+</div>
+<div id="simulating-wrights-adaptive-landscape" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Simulating Wright’s adaptive landscape<a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Until now we have explored the evolutionary dynamics of allele frequencies a population under different assumptions of the fitness of individuals carrying these alleles. In the lecture notes we saw that the evolutionary dynamics of these alleles can be visualized as populations embedded in a fitness landscape, depicting the relationship between the average fitness of a population and trait values. We also studied that the direction and magnitude of the evolutionary change is given by the slope in this landscape at a particular point of allele frequency. Here, we will explore how we can visualize the fitness landscape of the populations and how the populations move across this landscape along the evolutionary dynamics. In our example, the fitness landscape depicts the relationship between the average fitness of the population and the frequency of one allele. Therefore, to build this landscape we need to simulate what would be the average fitness of a population for many different values of allele frequency. To do so, we will perform the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Define the fitness of alleles <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span></p></li>
+<li><p>Build a vector containing many different values of <span class="math inline">\(p\)</span>, varying from 0 to 1.</p></li>
+<li><p>Compute the average fitness of the population, <span class="math inline">\(\overline{W}\)</span>, for each of these values of <span class="math inline">\(p\)</span>.</p></li>
+<li><p>Plot and visualize the fitness landscape.</p></li>
+</ol>
+<p>We will begin with constant fitness values, and then, will explore how the landscape changes with frequency-dependent fitness values. These three steps are implemented and highlighted in the code below:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exercise-evolution-of-allele-frequencies.html#cb7-1" tabindex="-1"></a>wA <span class="ot">=</span> <span class="dv">2</span> <span class="co"># Step 1</span></span>
+<span id="cb7-2"><a href="exercise-evolution-of-allele-frequencies.html#cb7-2" tabindex="-1"></a>wB <span class="ot">=</span> <span class="dv">1</span> <span class="co"># Step 1</span></span>
+<span id="cb7-3"><a href="exercise-evolution-of-allele-frequencies.html#cb7-3" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>) <span class="co"># Step 2</span></span>
+<span id="cb7-4"><a href="exercise-evolution-of-allele-frequencies.html#cb7-4" tabindex="-1"></a>w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co">#Step 3</span></span>
+<span id="cb7-5"><a href="exercise-evolution-of-allele-frequencies.html#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="exercise-evolution-of-allele-frequencies.html#cb7-6" tabindex="-1"></a>land <span class="ot">=</span> <span class="fu">data.frame</span>(p, w_avg) <span class="co">#Building a data frame with values of p and the corresponding average fitness</span></span>
+<span id="cb7-7"><a href="exercise-evolution-of-allele-frequencies.html#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="exercise-evolution-of-allele-frequencies.html#cb7-8" tabindex="-1"></a><span class="co"># Plotting the landscape.</span></span>
+<span id="cb7-9"><a href="exercise-evolution-of-allele-frequencies.html#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="exercise-evolution-of-allele-frequencies.html#cb7-10" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb7-11"><a href="exercise-evolution-of-allele-frequencies.html#cb7-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>land, <span class="fu">aes</span>(<span class="at">x=</span>p, <span class="at">y=</span>w_avg))<span class="sc">+</span></span>
+<span id="cb7-12"><a href="exercise-evolution-of-allele-frequencies.html#cb7-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Average fitness of the population&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-13"><a href="exercise-evolution-of-allele-frequencies.html#cb7-13" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="65%" height="65%" /></p>
+<p>Well, this landscape resembles much more a “ladder” than a proper landscape. However, this makes complete sense when we think about the relationship between <span class="math inline">\(\overline{W}\)</span> and <span class="math inline">\(p\)</span> when fitness are constant values. In fact, we can understand this relationship better with the equation for <span class="math inline">\(\overline{W}\)</span> as a function of <span class="math inline">\(p\)</span>, as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+\overline{W}^{(t)}&amp;=p^{(t)}W_{A} + (1-p^{(t)})W_{B} \\
+\overline{W}^{(t)}&amp;=p^{(t)}W_{A} + W_{B} - p^{(t)}W_{B}
+\overline{W}^{(t)}&amp;=W_{B}+(W_{A}-W_{B})p^{(t)}
+\end{aligned}\]</span></p>
+<p>The equation above shows that the relationship between <span class="math inline">\(\overline{W}\)</span> and <span class="math inline">\(p\)</span> is the equation of a line. The line has intercept equal to <span class="math inline">\(W_{B}\)</span> and slope equal to <span class="math inline">\((W_{A}-W_{B})\)</span>. It is this slope that will determine the direction of evolutionary change. Now that we know how to build the landscape under a fitness function, we can also visualize how populations move in this landscape. We first build the landscape. Then, we use our function to simulate the evolutionary dynamics and plot the position of our population in the landscape in different generations. It is easier if we put everything inside a single function as we can find below:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exercise-evolution-of-allele-frequencies.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(viridis)</span></code></pre></div>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exercise-evolution-of-allele-frequencies.html#cb10-1" tabindex="-1"></a>evo_landscape<span class="ot">&lt;-</span><span class="cf">function</span>(tmax, p0, wA, wB){ <span class="co">#Defining the function and the input arguments</span></span>
+<span id="cb10-2"><a href="exercise-evolution-of-allele-frequencies.html#cb10-2" tabindex="-1"></a>  </span>
+<span id="cb10-3"><a href="exercise-evolution-of-allele-frequencies.html#cb10-3" tabindex="-1"></a>p_theo <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>) <span class="co"># Defining the theoretical values of p to build the fitness landscape</span></span>
+<span id="cb10-4"><a href="exercise-evolution-of-allele-frequencies.html#cb10-4" tabindex="-1"></a>w_avg_theo <span class="ot">=</span> p_theo<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p_theo)<span class="sc">*</span>wB <span class="co">#Computing the average fitness</span></span>
+<span id="cb10-5"><a href="exercise-evolution-of-allele-frequencies.html#cb10-5" tabindex="-1"></a>land <span class="ot">=</span> <span class="fu">data.frame</span>(p_theo, w_avg_theo) <span class="co">#Building a data frame with values of p and the corresponding average fitness</span></span>
+<span id="cb10-6"><a href="exercise-evolution-of-allele-frequencies.html#cb10-6" tabindex="-1"></a>  </span>
+<span id="cb10-7"><a href="exercise-evolution-of-allele-frequencies.html#cb10-7" tabindex="-1"></a>dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating the vector to store the outcome</span></span>
+<span id="cb10-8"><a href="exercise-evolution-of-allele-frequencies.html#cb10-8" tabindex="-1"></a>dw <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating a vector to keep track of the average fitness along the evolutionary dynamics</span></span>
+<span id="cb10-9"><a href="exercise-evolution-of-allele-frequencies.html#cb10-9" tabindex="-1"></a>dp[<span class="dv">1</span>]<span class="ot">&lt;-</span>p0 <span class="co">#Setting the initial frequency of p</span></span>
+<span id="cb10-10"><a href="exercise-evolution-of-allele-frequencies.html#cb10-10" tabindex="-1"></a>  </span>
+<span id="cb10-11"><a href="exercise-evolution-of-allele-frequencies.html#cb10-11" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){ <span class="co">#Setting up the for loop</span></span>
+<span id="cb10-12"><a href="exercise-evolution-of-allele-frequencies.html#cb10-12" tabindex="-1"></a>  </span>
+<span id="cb10-13"><a href="exercise-evolution-of-allele-frequencies.html#cb10-13" tabindex="-1"></a>  p <span class="ot">=</span> dp[t] <span class="co"># Setting current frequencies</span></span>
+<span id="cb10-14"><a href="exercise-evolution-of-allele-frequencies.html#cb10-14" tabindex="-1"></a>  w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co"># Computing average fitness</span></span>
+<span id="cb10-15"><a href="exercise-evolution-of-allele-frequencies.html#cb10-15" tabindex="-1"></a>  dw[t] <span class="ot">=</span> w_avg</span>
+<span id="cb10-16"><a href="exercise-evolution-of-allele-frequencies.html#cb10-16" tabindex="-1"></a>  dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span> p <span class="sc">+</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>(wA<span class="sc">-</span>wB)<span class="sc">/</span>w_avg) <span class="co">#Updating frequency values</span></span>
+<span id="cb10-17"><a href="exercise-evolution-of-allele-frequencies.html#cb10-17" tabindex="-1"></a>  </span>
+<span id="cb10-18"><a href="exercise-evolution-of-allele-frequencies.html#cb10-18" tabindex="-1"></a>}</span>
+<span id="cb10-19"><a href="exercise-evolution-of-allele-frequencies.html#cb10-19" tabindex="-1"></a>  dw[tmax] <span class="ot">=</span>  dp[tmax]<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>dp[tmax])<span class="sc">*</span>wB <span class="co">#Computing average fitness for the final time step</span></span>
+<span id="cb10-20"><a href="exercise-evolution-of-allele-frequencies.html#cb10-20" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dp=</span>dp, dw, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Building the data frame</span></span>
+<span id="cb10-21"><a href="exercise-evolution-of-allele-frequencies.html#cb10-21" tabindex="-1"></a>  </span>
+<span id="cb10-22"><a href="exercise-evolution-of-allele-frequencies.html#cb10-22" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(land, r)) <span class="co"># Returning a list with the data frame of the dynamics and the landscape, respectively</span></span>
+<span id="cb10-23"><a href="exercise-evolution-of-allele-frequencies.html#cb10-23" tabindex="-1"></a>  </span>
+<span id="cb10-24"><a href="exercise-evolution-of-allele-frequencies.html#cb10-24" tabindex="-1"></a>}</span>
+<span id="cb10-25"><a href="exercise-evolution-of-allele-frequencies.html#cb10-25" tabindex="-1"></a><span class="co"># Running the function to test it:</span></span>
+<span id="cb10-26"><a href="exercise-evolution-of-allele-frequencies.html#cb10-26" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="exercise-evolution-of-allele-frequencies.html#cb10-27" tabindex="-1"></a>r_list <span class="ot">=</span> <span class="fu">evo_landscape</span>(<span class="at">tmax=</span><span class="dv">20</span>, <span class="at">p0=</span><span class="fl">0.2</span>, <span class="at">wA=</span><span class="fl">1.5</span>, <span class="at">wB=</span><span class="dv">1</span>)</span>
+<span id="cb10-28"><a href="exercise-evolution-of-allele-frequencies.html#cb10-28" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="exercise-evolution-of-allele-frequencies.html#cb10-29" tabindex="-1"></a><span class="co"># Plotting the landscape and how the population moves over generations</span></span>
+<span id="cb10-30"><a href="exercise-evolution-of-allele-frequencies.html#cb10-30" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="exercise-evolution-of-allele-frequencies.html#cb10-31" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb10-32"><a href="exercise-evolution-of-allele-frequencies.html#cb10-32" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r_list[[<span class="dv">1</span>]], <span class="fu">aes</span>(<span class="at">x=</span>p_theo, <span class="at">y=</span>w_avg_theo))<span class="sc">+</span></span>
+<span id="cb10-33"><a href="exercise-evolution-of-allele-frequencies.html#cb10-33" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>r_list[[<span class="dv">2</span>]], <span class="fu">aes</span>(<span class="at">x=</span>dp, <span class="at">y=</span>dw, <span class="at">fill=</span>t), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb10-34"><a href="exercise-evolution-of-allele-frequencies.html#cb10-34" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>))<span class="sc">+</span></span>
+<span id="cb10-35"><a href="exercise-evolution-of-allele-frequencies.html#cb10-35" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-36"><a href="exercise-evolution-of-allele-frequencies.html#cb10-36" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Average fitness of the population&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-37"><a href="exercise-evolution-of-allele-frequencies.html#cb10-37" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="65%" height="65%" /></p>
+<p>From the figure above we can visualize the result that we obtained from Wright’s equation: when fitness is frequency independent, evolution by natural selection favors adaptations and increases the average fitness of a population. But what about when fitness is frequency-dependent? As we did before, we can adapt our code to incorporate different assumptions about fitness. For instance, we could build the fitness landscape for the same scenario that we already simulated, where fitness can decrease depending on the frequency of the alleles with a strength of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. The code below simulates this scenario and build the fitness landscape of the population.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exercise-evolution-of-allele-frequencies.html#cb11-1" tabindex="-1"></a>evo_landscape<span class="ot">&lt;-</span><span class="cf">function</span>(tmax, p0, alpha, beta){ <span class="co">#Defining the function and the input arguments</span></span>
+<span id="cb11-2"><a href="exercise-evolution-of-allele-frequencies.html#cb11-2" tabindex="-1"></a>  </span>
+<span id="cb11-3"><a href="exercise-evolution-of-allele-frequencies.html#cb11-3" tabindex="-1"></a>p_theo <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>) <span class="co"># Defining the theoretical values of p to build the fitness landscape</span></span>
+<span id="cb11-4"><a href="exercise-evolution-of-allele-frequencies.html#cb11-4" tabindex="-1"></a>wA_theo <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">*</span>p_theo) <span class="co"># Defining the fitness function of A</span></span>
+<span id="cb11-5"><a href="exercise-evolution-of-allele-frequencies.html#cb11-5" tabindex="-1"></a>wB_theo <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> (beta<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_theo)) <span class="co"># Defining the fitness function of A</span></span>
+<span id="cb11-6"><a href="exercise-evolution-of-allele-frequencies.html#cb11-6" tabindex="-1"></a>w_avg_theo <span class="ot">=</span> p_theo<span class="sc">*</span>wA_theo <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p_theo)<span class="sc">*</span>wB_theo <span class="co">#Computing the average fitness</span></span>
+<span id="cb11-7"><a href="exercise-evolution-of-allele-frequencies.html#cb11-7" tabindex="-1"></a>land <span class="ot">=</span> <span class="fu">data.frame</span>(p_theo, w_avg_theo) <span class="co">#Building a data frame with values of p and the corresponding average fitness</span></span>
+<span id="cb11-8"><a href="exercise-evolution-of-allele-frequencies.html#cb11-8" tabindex="-1"></a>  </span>
+<span id="cb11-9"><a href="exercise-evolution-of-allele-frequencies.html#cb11-9" tabindex="-1"></a>dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating the vector to store the outcome</span></span>
+<span id="cb11-10"><a href="exercise-evolution-of-allele-frequencies.html#cb11-10" tabindex="-1"></a>dw <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating a vector to keep track of the average fitness along the evolutionary dynamics</span></span>
+<span id="cb11-11"><a href="exercise-evolution-of-allele-frequencies.html#cb11-11" tabindex="-1"></a>dp[<span class="dv">1</span>]<span class="ot">&lt;-</span>p0 <span class="co">#Setting the initial frequency of p</span></span>
+<span id="cb11-12"><a href="exercise-evolution-of-allele-frequencies.html#cb11-12" tabindex="-1"></a>  </span>
+<span id="cb11-13"><a href="exercise-evolution-of-allele-frequencies.html#cb11-13" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){ <span class="co">#Setting up the for loop</span></span>
+<span id="cb11-14"><a href="exercise-evolution-of-allele-frequencies.html#cb11-14" tabindex="-1"></a>  </span>
+<span id="cb11-15"><a href="exercise-evolution-of-allele-frequencies.html#cb11-15" tabindex="-1"></a>  p <span class="ot">=</span> dp[t] <span class="co"># Setting current frequencies</span></span>
+<span id="cb11-16"><a href="exercise-evolution-of-allele-frequencies.html#cb11-16" tabindex="-1"></a>  wA <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">*</span>p) <span class="co">#Computing the fitness of A at the current generation</span></span>
+<span id="cb11-17"><a href="exercise-evolution-of-allele-frequencies.html#cb11-17" tabindex="-1"></a>  wB <span class="ot">=</span> <span class="dv">1</span><span class="sc">-</span>(beta<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="co">#Computing the fitness of B at the current generation</span></span>
+<span id="cb11-18"><a href="exercise-evolution-of-allele-frequencies.html#cb11-18" tabindex="-1"></a>  w_avg <span class="ot">=</span> p<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>wB <span class="co"># Computing average fitness</span></span>
+<span id="cb11-19"><a href="exercise-evolution-of-allele-frequencies.html#cb11-19" tabindex="-1"></a>  dw[t] <span class="ot">=</span> w_avg</span>
+<span id="cb11-20"><a href="exercise-evolution-of-allele-frequencies.html#cb11-20" tabindex="-1"></a>  dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span> p <span class="sc">+</span> (p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">*</span>(wA<span class="sc">-</span>wB)<span class="sc">/</span>w_avg) <span class="co">#Updating frequency values</span></span>
+<span id="cb11-21"><a href="exercise-evolution-of-allele-frequencies.html#cb11-21" tabindex="-1"></a>  </span>
+<span id="cb11-22"><a href="exercise-evolution-of-allele-frequencies.html#cb11-22" tabindex="-1"></a>}</span>
+<span id="cb11-23"><a href="exercise-evolution-of-allele-frequencies.html#cb11-23" tabindex="-1"></a>  dw[tmax] <span class="ot">=</span>  dp[tmax]<span class="sc">*</span>wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>dp[tmax])<span class="sc">*</span>wB <span class="co">#Computing average fitness for the final time step</span></span>
+<span id="cb11-24"><a href="exercise-evolution-of-allele-frequencies.html#cb11-24" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dp=</span>dp, dw, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Building the data frame</span></span>
+<span id="cb11-25"><a href="exercise-evolution-of-allele-frequencies.html#cb11-25" tabindex="-1"></a>  </span>
+<span id="cb11-26"><a href="exercise-evolution-of-allele-frequencies.html#cb11-26" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(land, r)) <span class="co"># Returning a list with the data frame of the dynamics and the landscape, respectively</span></span>
+<span id="cb11-27"><a href="exercise-evolution-of-allele-frequencies.html#cb11-27" tabindex="-1"></a>  </span>
+<span id="cb11-28"><a href="exercise-evolution-of-allele-frequencies.html#cb11-28" tabindex="-1"></a>}</span>
+<span id="cb11-29"><a href="exercise-evolution-of-allele-frequencies.html#cb11-29" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="exercise-evolution-of-allele-frequencies.html#cb11-30" tabindex="-1"></a><span class="co"># Running the function:</span></span>
+<span id="cb11-31"><a href="exercise-evolution-of-allele-frequencies.html#cb11-31" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="exercise-evolution-of-allele-frequencies.html#cb11-32" tabindex="-1"></a>r_list <span class="ot">=</span> <span class="fu">evo_landscape</span>(<span class="at">tmax=</span><span class="dv">50</span>, <span class="at">p0=</span><span class="fl">0.2</span>, <span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">beta=</span><span class="fl">0.2</span>)</span>
+<span id="cb11-33"><a href="exercise-evolution-of-allele-frequencies.html#cb11-33" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="exercise-evolution-of-allele-frequencies.html#cb11-34" tabindex="-1"></a><span class="co"># Plotting the landscape and how the population moves over generations</span></span>
+<span id="cb11-35"><a href="exercise-evolution-of-allele-frequencies.html#cb11-35" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="exercise-evolution-of-allele-frequencies.html#cb11-36" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb11-37"><a href="exercise-evolution-of-allele-frequencies.html#cb11-37" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r_list[[<span class="dv">1</span>]], <span class="fu">aes</span>(<span class="at">x=</span>p_theo, <span class="at">y=</span>w_avg_theo))<span class="sc">+</span></span>
+<span id="cb11-38"><a href="exercise-evolution-of-allele-frequencies.html#cb11-38" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>r_list[[<span class="dv">2</span>]], <span class="fu">aes</span>(<span class="at">x=</span>dp, <span class="at">y=</span>dw, <span class="at">fill=</span>t), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb11-39"><a href="exercise-evolution-of-allele-frequencies.html#cb11-39" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>))<span class="sc">+</span></span>
+<span id="cb11-40"><a href="exercise-evolution-of-allele-frequencies.html#cb11-40" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span></span>
+<span id="cb11-41"><a href="exercise-evolution-of-allele-frequencies.html#cb11-41" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Average fitness of the population&quot;</span>)<span class="sc">+</span></span>
+<span id="cb11-42"><a href="exercise-evolution-of-allele-frequencies.html#cb11-42" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="65%" height="65%" /></p>
+<p>Using this new function, explore how different values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> change the shape of the landscape. Try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>How the fitness landscape changes when fitness is a frequency-independent versus frequency-dependent?</li>
+<li>How the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> modify the shape of the fitness landscape?</li>
+<li>Challenge: similar to how we did it for frequency-independent fitness values, try to interpret the shape of the landscape in terms of the equation of <span class="math inline">\(\overline{W}\)</span> as a function of <span class="math inline">\(p\)</span>.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-the-course.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exercise-simulating-evolution-using-the-price-theorem.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-ex1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
