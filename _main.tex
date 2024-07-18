@@ -120,7 +120,7 @@
 
 \title{Introduction to evolutionary and coevolutionary theory}
 \author{Leandro G. Cosmo}
-\date{2024-07-15}
+\date{2024-07-18}
 
 \begin{document}
 \maketitle
@@ -931,10 +931,10 @@ From the plots above, try to answer the following questions:
 \hypertarget{simulating-evolutionary-changes-in-continuous-traits}{%
 \section{Simulating evolutionary changes in continuous traits}\label{simulating-evolutionary-changes-in-continuous-traits}}
 
-Our third lecture introduced the classical equation in quantitative genetics derived by \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1558-5646.1976.tb00911.x}{Russel Lande (1976)}. After studying and going through the steps to derive this equation, here we will use it to simulate evolutionary changes in continuously varying traits. Lande's equation relates how the mean value of a continuous trait in a population (\(\overline{z}\)) changes from one generation to the other in response to the available additive genetic variance of the trait in the population (\(\sigma^{2}_{G}\)), and direction and intensity of natural selection. The direction and intensity of selection on the trait is mathematically described by the selection gradient, \(\frac{\partial ln\overline{W}}{\partial \overline{z}}\). These two components underly Lande's equation and can be used to predict evolutionary changes in \(\overline{z}\) as follows:
+Our third lecture introduced the classical equation in quantitative genetics derived by \href{https://onlinelibrary.wiley.com/doi/10.1111/j.1558-5646.1976.tb00911.x}{Russel Lande (1976)}. After studying and going through the steps to derive this equation, here we will use it to simulate evolutionary changes in continuously varying traits. Lande's equation relates how the mean value of a continuous trait in a population (\(\overline{z}\)) changes from one generation to the other in response to the available variance of the trait in the population (\(\sigma^{2}_{z}\)), its heritability, \(h^2\), and direction and intensity of natural selection. The direction and intensity of selection on the trait is mathematically described by the selection gradient, \(\frac{\partial ln\overline{W}}{\partial \overline{z}}\). These two components underly Lande's equation and can be used to predict evolutionary changes in \(\overline{z}\) as follows:
 
 \[
-\Delta \overline{z}=\sigma^{2}_{G}\frac{\partial ln\overline{W}}{\partial \overline{z}}
+\Delta \overline{z}=h^2 \sigma^{2}_{z}\frac{\partial ln\overline{W}}{\partial \overline{z}}
 \]
 
 There are two main approaches that we can use to model evolutionary changes using Lande's equation. For the first one, our starting point is a function describing how the fitness of individuals vary with trait values. We next use this function to derive a new one, describing how the mean fitness of the population depends on the mean values of traits. Finally, we derive the selection gradient which can then, be plugged in into Lande's equation. The second approach is directly assuming a function for the selection gradient. Here, we will use the first approach, but we will also see how to use the second one in block 2 of the course.
@@ -984,10 +984,10 @@ As you can see, the derivative is equal to \(\frac{\beta}{1+\beta \overline{z}}\
 ## a * (2 * (theta - z))
 \end{verbatim}
 
-which evaluates to \(2\alpha (\theta-z)\). Now we have everything that we need to model how the mean value of the trait, \(\overline{z}\), changes over generations in the population. We will begin with how \(\overline{z}\) changes when we use the first fitness function. Plugging the selection gradient that we computed above for this fitness function in Lande's equation, the equation that we need to iterate over is the following one:
+which evaluates to \(2\alpha (\theta-\overline{z})\). Now we have everything that we need to model how the mean value of the trait, \(\overline{z}\), changes over generations in the population. We will begin with how \(\overline{z}\) changes when we use the first fitness function. Plugging the selection gradient that we computed above for this fitness function in Lande's equation, the equation that we need to iterate over is the following one:
 
 \[
-\overline{z}^{(t+1)}=\overline{z}^{(t)}+\sigma^{2}_{G}\frac{\beta}{1+\beta \overline{z}^{(t)}}
+\overline{z}^{(t+1)}=\overline{z}^{(t)}+ h^2 \sigma^{2}_{z}\frac{\beta}{1+\beta \overline{z}^{(t)}}
 \]
 
 Thus, as we did in the first exercise section, we need to define:
@@ -1000,7 +1000,7 @@ Thus, as we did in the first exercise section, we need to define:
 \item
   The initial trait value in the population.
 \item
-  The parameters of the model, such as the number of generations that we will simulate, \(t_{max}\), \(\beta\) and \(\sigma^{2}_{G}\).
+  The parameters of the model, such as the number of generations that we will simulate, \(t_{max}\), \(\beta\), \(\sigma^{2}_{z}\) and \(h^2\).
 \end{enumerate}
 
 Then, after defining all of the parameters we iterate over the equation using a for loop. The code to perform these steps are as follows:
@@ -1012,14 +1012,15 @@ Then, after defining all of the parameters we iterate over the equation using a 
 \NormalTok{dz[}\DecValTok{1}\NormalTok{] }\OtherTok{=}\NormalTok{ z0 }\CommentTok{\#Defining initial trait value in the population}
 
 \NormalTok{tmax}\OtherTok{=}\DecValTok{100} \CommentTok{\# Number of generations}
-\NormalTok{varG}\OtherTok{=}\FloatTok{0.1} \CommentTok{\# Additive genetic variance}
+\NormalTok{varz}\OtherTok{=}\FloatTok{0.1} \CommentTok{\# Phenotypic variance}
+\NormalTok{h }\OtherTok{=} \FloatTok{0.1} \CommentTok{\# Heritability}
 \NormalTok{beta}\OtherTok{=}\FloatTok{0.5} \CommentTok{\#Parameter beta}
 
 \ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(tmax}\DecValTok{{-}1}\NormalTok{))\{ }\CommentTok{\#Setting up the for loop}
   
 \NormalTok{  z }\OtherTok{=}\NormalTok{ dz[t] }\CommentTok{\# Setting current trait values}
 \NormalTok{  dlnw }\OtherTok{=}\NormalTok{ (beta}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{beta}\SpecialCharTok{*}\NormalTok{z))  }\CommentTok{\#Computing the selection gradient of fitness function 1}
-\NormalTok{  dz[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ varG}\SpecialCharTok{*}\NormalTok{dlnw }\CommentTok{\#Updating trait values using Lande\textquotesingle{}s equation}
+\NormalTok{  dz[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ h}\SpecialCharTok{*}\NormalTok{varz}\SpecialCharTok{*}\NormalTok{dlnw }\CommentTok{\#Updating trait values using Lande\textquotesingle{}s equation}
   
 \NormalTok{\}}
 \end{Highlighting}
@@ -1032,7 +1033,7 @@ Now, as we did before, we can put the above code inside a function to make it ea
 \FunctionTok{library}\NormalTok{(ggplot2)}
 \FunctionTok{library}\NormalTok{(ggpubr)}
 
-\NormalTok{evo\_simulation}\OtherTok{\textless{}{-}}\ControlFlowTok{function}\NormalTok{(tmax, z0, varG, beta)\{}
+\NormalTok{evo\_simulation}\OtherTok{\textless{}{-}}\ControlFlowTok{function}\NormalTok{(tmax, z0, varz, h, beta)\{}
 
 \NormalTok{dz }\OtherTok{=} \FunctionTok{c}\NormalTok{() }\CommentTok{\#Defining vector to store trait values over time}
 \NormalTok{dz[}\DecValTok{1}\NormalTok{] }\OtherTok{=}\NormalTok{ z0 }\CommentTok{\#Defining initial trait value in the population}
@@ -1041,7 +1042,7 @@ Now, as we did before, we can put the above code inside a function to make it ea
   
 \NormalTok{  z }\OtherTok{=}\NormalTok{ dz[t] }\CommentTok{\# Setting current trait values}
 \NormalTok{  dlnw }\OtherTok{=}\NormalTok{ (beta}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{beta}\SpecialCharTok{*}\NormalTok{z))  }\CommentTok{\#Computing the selection gradient of fitness function 1}
-\NormalTok{  dz[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ varG}\SpecialCharTok{*}\NormalTok{dlnw }\CommentTok{\#Updating trait values using Lande\textquotesingle{}s equation}
+\NormalTok{  dz[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ h}\SpecialCharTok{*}\NormalTok{varz}\SpecialCharTok{*}\NormalTok{dlnw }\CommentTok{\#Updating trait values using Lande\textquotesingle{}s equation}
   
 \NormalTok{\}}
 
@@ -1053,7 +1054,7 @@ Now, as we did before, we can put the above code inside a function to make it ea
 
 \CommentTok{\# Running the function to test it:}
 
-\NormalTok{r }\OtherTok{=} \FunctionTok{evo\_simulation}\NormalTok{(}\AttributeTok{tmax=}\DecValTok{100}\NormalTok{, }\AttributeTok{z0=}\DecValTok{1}\NormalTok{, }\AttributeTok{varG=}\FloatTok{0.1}\NormalTok{, }\AttributeTok{beta=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{r }\OtherTok{=} \FunctionTok{evo\_simulation}\NormalTok{(}\AttributeTok{tmax=}\DecValTok{100}\NormalTok{, }\AttributeTok{z0=}\DecValTok{1}\NormalTok{, }\AttributeTok{h=}\FloatTok{0.1}\NormalTok{, }\AttributeTok{varz=}\FloatTok{0.1}\NormalTok{, }\AttributeTok{beta=}\FloatTok{0.5}\NormalTok{)}
 
 \CommentTok{\# Plotting the result}
 
@@ -1076,9 +1077,9 @@ Before proceeding to the second fitness function, we can gain more intuition abo
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Build a vector containing many different values of \(z\).
+  Build a vector containing many different values of \(\overline{z}\).
 \item
-  Compute the average fitness of the population, \(\overline{W}\), for each of these values of \(z\) using the fitness function.
+  Compute the average fitness of the population, \(\overline{W}\), for each of these values of \(\overline{z}\) using the fitness function.
 \item
   Plot and visualize the fitness landscape.
 \end{enumerate}
@@ -1102,7 +1103,7 @@ Before proceeding to the second fitness function, we can gain more intuition abo
 
 \includegraphics[width=0.65\linewidth,height=0.65\textheight]{_main_files/figure-latex/unnamed-chunk-18-1}
 
-Now that we have the adaptive landscape, try to think about its shape and how evolution proceeds when we use the first fitness function. Your task for this section will be to adapt the code to simulate the evolutionary dynamics and the fitness landscape when we use the second fitness function, \(e^{-\alpha\left[\left(\theta-\overline{z}\right)^2 + \sigma^2\right]}\). Use both the function and the selection gradient, \(2\alpha (\theta-z)\), to simulate the adaptive landscape and the evolutionary dynamics of the trait. Try to answer the following questions:
+Now that we have the adaptive landscape, try to think about its shape and how evolution proceeds when we use the first fitness function. Your task for this section will be to adapt the code to simulate the evolutionary dynamics and the fitness landscape when we use the second fitness function, \(e^{-\alpha\left[\left(\theta-\overline{z}\right)^2 + \sigma^2\right]}\). Use both the function and the selection gradient, \(2\alpha (\theta-\overline{z})\), to simulate the adaptive landscape and the evolutionary dynamics of the trait. Try to answer the following questions:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

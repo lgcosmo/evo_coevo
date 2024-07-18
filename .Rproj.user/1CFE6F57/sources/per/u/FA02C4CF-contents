@@ -1,0 +1,80 @@
+dp = c()
+p0 = 0.1
+dp[1] = p0
+
+wA = 2
+wB = 1
+tmax = 100
+
+for(t in 1:(tmax-1)){
+  
+  p = dp[t]
+  w_avg = p*wA + (1-p)*wB
+  dp[t+1] = p + (p*(1-p)*(wA-wB)/w_avg)
+  
+}
+
+library(ggplot2)
+library(ggpubr)
+
+r = data.frame(dp=dp, t=1:tmax)
+
+ggplot()+
+  geom_line(data=r, aes(x=t, y=dp))+
+  xlab("Generation")+ylab("Frequency of allele A")+
+  theme_pubr()
+
+evo_simulation<-function(tmax, p0, wA, wB){ #Defining the function and the input arguments
+  
+  dp = c() #Creating the vector to store the outcome
+  dp[1]<-p0 #Setting the initial frequency of p
+  
+  for(t in 1:(tmax-1)){ #Setting up the for loop
+    
+    p = dp[t] # Step 1
+    w_avg = p*wA + (1-p)*wB #Step 2
+    dp[t+1]= p + (p*(1-p)*(wA-wB)/w_avg) #Step 3
+  }
+  
+  r = data.frame(dp=dp, t=1:tmax) # Building the data frame
+  
+  return(r)
+  
+}
+
+df=evo_simulation(tmax=100, p0=0.8, wA=4, wB=4)
+
+ggplot()+
+  geom_line(data=df, aes(x=t, y=dp))+
+  xlab("Generation")+ylab("Frequency of allele A")+
+  theme_pubr()
+
+evo_simulation<-function(tmax, p0, alpha, beta){ #Defining the function and the input arguments
+  
+  dp = c() #Creating the vector to store the outcome
+  dp[1]<-p0 #Setting the initial frequency of p
+  
+  for(t in 1:(tmax-1)){ #Setting up the for loop
+    
+    p = dp[t] # Setting current frequency
+    wA = 1-(alpha*p) #Computing the fitness of A at the current generation
+    wB = 1-(beta*(1-p)) #Computing the fitness of B at the current generation
+    w_avg = p*wA + (1-p)*wB #Computing the average fitness of the population
+    dp[t+1]= p + (p*(1-p)*(wA-wB)/w_avg) #Updating frequencies
+  }
+  
+  r = data.frame(dp=dp, t=1:tmax) # Building the data frame
+  
+  return(r)
+  
+}
+
+# Running the function to test it:
+
+r = evo_simulation(tmax=100, p0=0.2, alpha=0.1, beta=0.1)
+
+ggplot()+
+  geom_line(data=r, aes(x=t, y=dp))+
+  xlab("Generation")+ylab("Frequency of allele A")+
+  scale_y_continuous(limits=c(0,1))+ #Setting the limits on the y-axis to be the same as in the previous model
+  theme_pubr()

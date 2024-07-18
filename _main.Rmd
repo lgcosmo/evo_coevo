@@ -677,10 +677,10 @@ From the plots above, try to answer the following questions:
 
 ## Simulating evolutionary changes in continuous traits
 
-Our third lecture introduced the classical equation in quantitative genetics derived by [Russel Lande (1976)](https://onlinelibrary.wiley.com/doi/10.1111/j.1558-5646.1976.tb00911.x). After studying and going through the steps to derive this equation, here we will use it to simulate evolutionary changes in continuously varying traits. Lande's equation relates how the mean value of a continuous trait in a population ($\overline{z}$) changes from one generation to the other in response to the available additive genetic variance of the trait in the population ($\sigma^{2}_{G}$), and direction and intensity of natural selection. The direction and intensity of selection on the trait is mathematically described by the selection gradient, $\frac{\partial ln\overline{W}}{\partial \overline{z}}$. These two components underly Lande's equation and can be used to predict evolutionary changes in $\overline{z}$ as follows:
+Our third lecture introduced the classical equation in quantitative genetics derived by [Russel Lande (1976)](https://onlinelibrary.wiley.com/doi/10.1111/j.1558-5646.1976.tb00911.x). After studying and going through the steps to derive this equation, here we will use it to simulate evolutionary changes in continuously varying traits. Lande's equation relates how the mean value of a continuous trait in a population ($\overline{z}$) changes from one generation to the other in response to the available variance of the trait in the population ($\sigma^{2}_{z}$), its heritability, $h^2$, and direction and intensity of natural selection. The direction and intensity of selection on the trait is mathematically described by the selection gradient, $\frac{\partial ln\overline{W}}{\partial \overline{z}}$. These two components underly Lande's equation and can be used to predict evolutionary changes in $\overline{z}$ as follows:
 
 $$
-\Delta \overline{z}=\sigma^{2}_{G}\frac{\partial ln\overline{W}}{\partial \overline{z}}
+\Delta \overline{z}=h^2 \sigma^{2}_{z}\frac{\partial ln\overline{W}}{\partial \overline{z}}
 $$
 
 There are two main approaches that we can use to model evolutionary changes using Lande's equation. For the first one, our starting point is a function describing how the fitness of individuals vary with trait values. We next use this function to derive a new one, describing how the mean fitness of the population depends on the mean values of traits. Finally, we derive the selection gradient which can then, be plugged in into Lande's equation. The second approach is directly assuming a function for the selection gradient. Here, we will use the first approach, but we will also see how to use the second one in block 2 of the course.
@@ -722,17 +722,17 @@ print(dw2)
 
 ```
 
-which evaluates to $2\alpha (\theta-z)$. Now we have everything that we need to model how the mean value of the trait, $\overline{z}$, changes over generations in the population. We will begin with how $\overline{z}$ changes when we use the first fitness function. Plugging the selection gradient that we computed above for this fitness function in Lande's equation, the equation that we need to iterate over is the following one:
+which evaluates to $2\alpha (\theta-\overline{z})$. Now we have everything that we need to model how the mean value of the trait, $\overline{z}$, changes over generations in the population. We will begin with how $\overline{z}$ changes when we use the first fitness function. Plugging the selection gradient that we computed above for this fitness function in Lande's equation, the equation that we need to iterate over is the following one:
 
 $$
-\overline{z}^{(t+1)}=\overline{z}^{(t)}+\sigma^{2}_{G}\frac{\beta}{1+\beta \overline{z}^{(t)}}
+\overline{z}^{(t+1)}=\overline{z}^{(t)}+ h^2 \sigma^{2}_{z}\frac{\beta}{1+\beta \overline{z}^{(t)}}
 $$
 
 Thus, as we did in the first exercise section, we need to define:
 
 1.  A vector that will store trait values over time.
 2.  The initial trait value in the population.
-3.  The parameters of the model, such as the number of generations that we will simulate, $t_{max}$, $\beta$ and $\sigma^{2}_{G}$.
+3.  The parameters of the model, such as the number of generations that we will simulate, $t_{max}$, $\beta$, $\sigma^{2}_{z}$ and $h^2$.
 
 Then, after defining all of the parameters we iterate over the equation using a for loop. The code to perform these steps are as follows:
 
@@ -742,14 +742,15 @@ z0 = 1 #Defining initial trait value in the population
 dz[1] = z0 #Defining initial trait value in the population
 
 tmax=100 # Number of generations
-varG=0.1 # Additive genetic variance
+varz=0.1 # Phenotypic variance
+h = 0.1 # Heritability
 beta=0.5 #Parameter beta
 
 for(t in 1:(tmax-1)){ #Setting up the for loop
   
   z = dz[t] # Setting current trait values
   dlnw = (beta/(1+beta*z))  #Computing the selection gradient of fitness function 1
-  dz[t+1]= z + varG*dlnw #Updating trait values using Lande's equation
+  dz[t+1]= z + h*varz*dlnw #Updating trait values using Lande's equation
   
 }
 
@@ -762,7 +763,7 @@ Now, as we did before, we can put the above code inside a function to make it ea
 library(ggplot2)
 library(ggpubr)
 
-evo_simulation<-function(tmax, z0, varG, beta){
+evo_simulation<-function(tmax, z0, varz, h, beta){
 
 dz = c() #Defining vector to store trait values over time
 dz[1] = z0 #Defining initial trait value in the population
@@ -771,7 +772,7 @@ for(t in 1:(tmax-1)){ #Setting up the for loop
   
   z = dz[t] # Setting current trait values
   dlnw = (beta/(1+beta*z))  #Computing the selection gradient of fitness function 1
-  dz[t+1]= z + varG*dlnw #Updating trait values using Lande's equation
+  dz[t+1]= z + h*varz*dlnw #Updating trait values using Lande's equation
   
 }
 
@@ -783,7 +784,7 @@ return(r)
 
 # Running the function to test it:
 
-r = evo_simulation(tmax=100, z0=1, varG=0.1, beta=0.5)
+r = evo_simulation(tmax=100, z0=1, h=0.1, varz=0.1, beta=0.5)
 
 # Plotting the result
 
@@ -799,9 +800,9 @@ Using the function above, explore how different parameter values change the outc
 
 Before proceeding to the second fitness function, we can gain more intuition about the outcome of the evolutionary dynamics when we visualize the fitness landscape of the trait. To do so, we will repeat a similar procedure to what we have already done in the first exercise section. We will go through the following steps:
 
-1.  Build a vector containing many different values of $z$.
+1.  Build a vector containing many different values of $\overline{z}$.
 
-2.  Compute the average fitness of the population, $\overline{W}$, for each of these values of $z$ using the fitness function.
+2.  Compute the average fitness of the population, $\overline{W}$, for each of these values of $\overline{z}$ using the fitness function.
 
 3.  Plot and visualize the fitness landscape.
 
@@ -821,7 +822,7 @@ ggplot()+
   theme_pubr()
 ```
 
-Now that we have the adaptive landscape, try to think about its shape and how evolution proceeds when we use the first fitness function. Your task for this section will be to adapt the code to simulate the evolutionary dynamics and the fitness landscape when we use the second fitness function, $e^{-\alpha\left[\left(\theta-\overline{z}\right)^2 + \sigma^2\right]}$. Use both the function and the selection gradient, $2\alpha (\theta-z)$, to simulate the adaptive landscape and the evolutionary dynamics of the trait. Try to answer the following questions:
+Now that we have the adaptive landscape, try to think about its shape and how evolution proceeds when we use the first fitness function. Your task for this section will be to adapt the code to simulate the evolutionary dynamics and the fitness landscape when we use the second fitness function, $e^{-\alpha\left[\left(\theta-\overline{z}\right)^2 + \sigma^2\right]}$. Use both the function and the selection gradient, $2\alpha (\theta-\overline{z})$, to simulate the adaptive landscape and the evolutionary dynamics of the trait. Try to answer the following questions:
 
 1.  For both fitness functions, is there and end point to the evolutionary dynamics? If it does so, what would be this end point?
 
