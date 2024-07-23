@@ -1,0 +1,11 @@
+"0",""
+"0","D(expression(log(1-sx*exp(-a*((zx-zy)^2 + var_xy)))), ""zx"")"
+"1","sx * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 - 
+"
+"1","    sx * exp(-a * ((zx - zy)^2 + var_xy)))
+"
+"0","D(expression(log(1+sy*exp(-a*((zx-zy)^2 + var_xy)))), ""zy"")"
+"1","sy * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 + 
+"
+"1","    sy * exp(-a * ((zx - zy)^2 + var_xy)))
+"

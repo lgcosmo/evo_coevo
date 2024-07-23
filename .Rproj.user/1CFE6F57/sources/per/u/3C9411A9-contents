@@ -1,0 +1,14 @@
+a=0.5
+v=0.05
+theta=10
+z = seq(0, 20, 0.001) # Step 1
+w_avg = exp(-a*((theta-z)^2+v)) #Step 2
+
+land = data.frame(z, w_avg) #Building a data frame with values of p and the corresponding average fitness
+
+# Plotting the landscape.
+
+ggplot()+
+  geom_line(data=land, aes(x=z, y=w_avg))+
+  xlab("Average trait value in the population")+ylab("Average fitness of the population")+
+  theme_pubr()

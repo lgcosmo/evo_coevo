@@ -1,0 +1,141 @@
+# Exercise: Simulating coevolution mediated by a trait matching mechanism
+
+## Simulating coevolution of species under victim-exploiter interactions
+
+In our theoretical lecture we studied how we can use Lande's equation to model the coevolution of two species whose interaction depends on the matching of the traits of the species. Here, we will perform numerical simulations of this coevolutionary model to gain intuition about how coevolution can shape patterns of continuous traits in populations interacting species. In the lecture, we started with an example of  victim-exploiter interaction, where the fitness of individuals of one of the species increase with interactions, but the fitness of individuals of the second species decrease. We will begin with this type of interaction. For interactions between a victim and an exploiter, we first assumed that the fitness of individuals of the victim species decreases when their traits, $z_x$, match the traits of individuals of the exploiter species, $z_y$. Similarly, we assumed that the fitness of individuals of the exploiter species increases the higher their trait matching with individuals of the victim one. Then, we approximated the mean fitness of the populations of the victim and exploiter species, as follows:
+
+$$\begin{aligned}
+\overline{W_x}(\overline{z_{x}}) &\approx 1-s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]} \\
+\overline{W_y}(\overline{z_{y}}) &\approx 1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}
+\end{aligned}$$
+
+where $\sigma^2_{xy}=\sigma^2_{x}+\sigma^2_{y}$ corresponds to the sum of the variance of the traits of the victim and exploiter species, respectively. Using these two functions for the mean fitness of the victim and exploiter species, we derived the two selection gradients, $\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x}$ and $\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y}$ underlying the two functions, as follows:
+
+$$\begin{aligned}
+\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x} &= \frac{2\alpha s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1-s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_x-\overline{z}_y) \\
+\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y} &= \frac{2\alpha s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_x-\overline{z}_y)
+\end{aligned}$$
+
+As we did in the exercise section of Lande's equation, we can check or compute the derivatives corresponding to the selection gradient symbolically using R:
+
+```{r, out.width="65%", out.height="65%"}
+
+D(expression(log(1-sx*exp(-a*((zx-zy)^2 + var_xy)))), "zx")
+D(expression(log(1+sy*exp(-a*((zx-zy)^2 + var_xy)))), "zy")
+
+```
+which we can see that match the selection gradients that we computed for the victim and exploiter species.
+
+With the selection gradients in hand, we just need to set up our numerical simulations. To perform the numerical simulations we will follow the same steps as in the exercise section where we simulated Lande's equation. The only difference being that now we have two coupled equations. Once more, we will set up a *for loop* to iterate over the equations and will go through the following steps:
+
+1.  Define a function that takes as input parameters of the model. In our case these will be $s_{x}$, $s_{y}$, $\alpha$, $\sigma^2_{x}$, $\sigma^2_{y}$, $h^2$, the maximum number of time steps of the model ($t_{max}$), and initial values of $\overline{z}_{x}$ and $\overline{z}_{y}$.
+
+2.  In a for loop, set the value of $\overline{z}_{x}$ and $\overline{z}_{y}$ to the one at the current time step, $t$
+
+3.  Within this for loop, compute the selection gradient of the populations using the equations that we found.
+
+4.  Still within the loop, update the values of $\overline{z}_{x}$ and $\overline{z}_{y}$ using Lande's equation and the selection gradients that we computed.
+
+5.  Return a data frame with the results.
+
+These steps are highlighted in the block of code below:
+
+```{r, out.width="65%", out.height="65%"}
+
+# Step (1)
+
+#Defining a function that takes as input the following parameters:
+
+#sx=Overall strength of ecological interactions on fitness of the victim species
+#sy=Overall strength of ecological interactions on fitness of the exploiter species
+#a=Parameter alpha of the model
+#h=Heritability of the traits of both the victim and exploiter species (assumed to be equal)
+#v_zx=Variance in the trait of the victim species
+#z_vy=Variance in the trait of the exploiter species
+#tmax=Maximum number of time steps (generations) of the simulation
+#z0_x=Initial mean trait value of the population of the victim species
+#z0_y=Initial mean trait value of the population of the exploiter species
+
+coevo<-function(sx, sy, a, h, v_zx, v_zy, tmax, z0_x, z0_y){ #Step (1)
+  
+  dzx = c() #Creating vector to store values of the mean trait value of the population of the victim species 
+  dzy = c() #Creating vector to store values of the mean trait value of the population of the exploiter species
+  
+  dzx[1] = z0_x #Setting initial mean trait value in the population of the victim species
+  dzy[1] = z0_y #Setting initial mean trait value in the population of the exploiter species
+  
+  #For loop to iterate over the equation - here we will use Lande's equation
+  for(t in 1:(tmax-1)){
+    
+    # Step (2)
+    
+    zx = dzx[t] #Setting the mean trait value at the current generation of the of the population of the victim species
+    zy = dzy[t] #Setting the mean trait value at the current generation of the of the population of the exploiter species
+    
+    # Step (3)
+    
+    mx=sx*2*a*(exp(-a*((zx-zy)^2+v_zx+v_zy)))/(1-sx*exp(-a*((zx-zy)^2+v_zx+v_zy)))
+    my=sy*2*a*(exp(-a*((zx-zy)^2+v_zx+v_zy)))/(1+sy*exp(-a*((zx-zy)^2+v_zx+v_zy)))
+    
+    dlnw1 = mx*(zx-zy)
+    dlnw2 = my*(zx-zy)
+    
+    # Step (4)
+    
+    dzx[t+1]=zx + h*v_zx*dlnw1 #Using Lande's equation to compute mean trait value at the next generation of the population of the victim species
+    dzy[t+1]=zy + h*v_zy*dlnw2 #Using Lande's equation to compute mean trait value at the next generation of the population of the exploiter species
+    
+  }
+  
+  r=data.frame(dzx, dzy, t=1:tmax) # Step (5), creating a data frame with mean trait values over time of the two species
+  
+  return(r)
+  
+}
+
+```
+
+Now we have a function that simulate the coevolution of a victim and an exploiter species under any type of matrix of effects between alleles. Let's start simulating coevolution under a gene-for-gene mechanism. For the example of gene-for-gene coevolution that we studied in the lecture, the matrix takes the following form:
+
+Using the function that simulates coevolution, try to explore how the coevolutionary dynamics changes under different parameter values. Try to answer the following questions:
+
+1. How different values of $s_{x}$, $s_{y}$ and initial frequency of alleles modify the outcome of coevolution?
+2. Under what situations coevolution erodes polymorphism from the victim's population?
+
+## Simulating the coevolution of mutualistic species
+
+Until now we are assuming that a gene-for-gene mechanism underlies the coevolution of victims and exploiters. However, in some cases the interaction may also depend on the matching of alleles, as in the interaction between the small crustacean *Daphnia magna* and the bacteria *Pasteuria ramosa* (Luijckx *et al.* 2013). In this case, the matrix of effects takes the following form:
+
+$$
+\begin{array}{cc} &
+\begin{array}{cc} A_{y} & B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&
+\left(
+\begin{array}{cc}
+1 && 0 \\
+0 && 1 \end{array}
+\right)\end{array}
+$$
+Following our previous implementation, build this matrix in R and use it as an argument to simulate coevolution of a victim and an exploiter species under a matching allele mechanism. Plot the results and try to answer the following questions:
+
+1. What differences can you observe between the coevolutionary dynamics under a gene-for-gene or a matching allele mechanism?
+
+2. What would be a possible explanation for these differences?
+
+
+## Simulating coevolution of species under mutualistic interactions
+
+In the previous section, we simulated coevolution of one victim and exploiter species under two different mechanisms determining the outcome of the interaction, gene-for-gene or matching allele. Here, we will slightly modify this coevolutionary model to encompass mutualistic interactions. To do so, we need to modify our assumption about how interactions affect the fitness of species, and what is the interaction mechanism mediating this effect. Mutualisms are interactions that increase the fitness of individuals. In that case, the equations for the fitness of individuals carrying the alleles A or B of two mutualists, are as follows:
+
+For this section, your task will be to adapt the function that simulate coevolution to incorporate the fitness equations and the matrix of effects for mutualisms. Then, simulate the coevolutionary dynamics and try to answer the following question:
+
+1. When mutualistic species coevolve, what is the only possible outcome?
+
+2. What would be a possible biological mechanism that could change this outcome? As we did in the previous exercise section, think about a mechanism that we could include as an additional assumption in the fitness of individuals of the mutualistic species.
+
+## Incorporating other sources of selective pressure in the environment
+

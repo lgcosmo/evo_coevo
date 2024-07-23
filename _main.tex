@@ -120,7 +120,7 @@
 
 \title{Introduction to evolutionary and coevolutionary theory}
 \author{Leandro G. Cosmo}
-\date{2024-07-18}
+\date{2024-07-22}
 
 \begin{document}
 \maketitle
@@ -1113,6 +1113,251 @@ Now that we have the adaptive landscape, try to think about its shape and how ev
   From the shape of the adaptive landscapes, could you predict how evolution would proceed in the population?
 \item
   What sources of selective pressures and biological mechanisms could lead to these two adaptive landscapes and their underlying evolutionary dynamics?
+\end{enumerate}
+
+\hypertarget{exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms}{%
+\chapter{Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms}\label{exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms}}
+
+\hypertarget{simulating-coevolution-of-victim-exploiter-interactions}{%
+\section{Simulating coevolution of victim-exploiter interactions}\label{simulating-coevolution-of-victim-exploiter-interactions}}
+
+In first lecture of the second block we studied how we can use Wright's equation to model the gene-for-gene or matching allele coevolution of two interacting species. Particularly, we studied the example in which one of the species is an exploiter and benefit from the interaction, while the other is a victim that is negatively affected by the interaction. Here, we will perform numerical simulations of this coevolutionary model to gain intuition about how different assumptions about the mechanism of coevolution and types of interaction can change the outcome of the coevolutionary dynamics. We will begin with the gene-for-gene model with one exploiter and one victim species. In this model, we assumed that the interaction between a victim and exploiter depends on two components. First, it depends on a matrix describing how individuals carrying alleles \(A_{x}\) or \(B_{x}\) of the victim species are affected by the individuals carrying alleles \(A_{y}\) or \(B_{y}\) of the exploiter species:
+
+\[
+\begin{array}{cc} &
+\begin{array}{cc} A_{y} && B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&
+\left(
+\begin{array}{cc}
+\alpha_{AxAy} & \alpha_{AxBy} \\
+\alpha_{BxAy} & \alpha_{BxBy} \end{array}
+\right)\end{array}
+\]
+
+Second, it depends on the frequency of individuals carrying alleles \(A\) and \(B\) in the populations of the victim - \(p_{x}\) and \((1-p_{x})\) - and exploiter species - \(p_{y}\) and \((1-p_{y})\). Using these two components, the fitness consequences of ecological interactions for the individuals of the victim and exploiter species carrying either the \(A\) or \(B\) alleles are given by the following set of equations:
+
+\[\begin{aligned}
+W_{A,x}&=1-s_{x}\left[\alpha_{AxAy}p_{y}+\alpha_{AxBy}(1-p_{y})\right] \\
+W_{B,x}&=1-s_{x}\left[\alpha_{BxAy}p_{y}+\alpha_{BxBy}(1-p_{y})\right] \\
+W_{A,y}&=1+s_{y}\left[\alpha_{AyAx}p_{x}+\alpha_{AyBx}(1-p_{x})\right] \\
+W_{B,y}&=1+s_{y}\left[\alpha_{ByAx}p_{x}+\alpha_{ByBx}(1-p_{x})\right] \\
+\end{aligned}\]
+
+where \(s_{x}\) and \(s_{y}\) are parameters that scale how strongly interactions affect fitness. Then, we can plug in these fitness functions into Wright's equation to obtain the recursive ones describing how the frequency of alleles change in both the victim and exploiter populations, as follows:
+
+\[\begin{aligned}
+p_{x}^{(t+1)}&=p_{x}^{(t)}+p_{x}^{(t)}(1-p_{x}^{(t)})\frac{\left(W_{A,x}^{(t)}-W_{B,x}^{(t)}\right)}{\overline{W}_{x}^{(t)}} \\
+p_{y}^{(t+1)}&=p_{y}^{(t)}+p_{y}^{(t)}(1-p_{y}^{(t)})\frac{\left(W_{A,y}^{(t)}-W_{B,y}^{(t)}\right)}{\overline{W}_{y}^{(t)}}\end{aligned}\]
+
+In the lecture, we substituted the values of fitness in the equation above using the assumptions that coevolution is mediated by a gene-for-gene mechanism. Here there is no need to do this, since it will be more convenient to directly implement the equations above in the simulation. To perform the numerical simulations we will follow the same steps as in the first exercise section, the only difference being that now we have two coupled equations. Once more, we will set up a \emph{for loop} to iterate over the equations and will go through the following steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Define a function that takes as input parameters of the model, such as the matrix of effects, the maximum number of time steps of the model, and initial values of \(p_{x}\) and \(p_{y}\).
+\item
+  In a for loop, set the value of \(p_{x}\) and \(p_{y}\) to the one at the current time step, \(t\)
+\item
+  In a for loop, compute the average fitness of the populations as \(p_{x}W_{A,x}+(1-p_{x})W_{B,x}\) and \(p_{y}W_{A,y}+(1-p_{y})W_{B,y}\).
+\item
+  In a for loop, update the values of \(p_{x}\) and \(p_{y}\) using Wright's equation and our assumptions about the fitness consequences of interactions.
+\item
+  Return a data frame with the results.
+\end{enumerate}
+
+These steps are highlighted in the block of code below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Step (1)}
+
+\CommentTok{\#Defining a function that takes as input the following parameters:}
+
+\CommentTok{\#A=Matrix of effects between alleles}
+\CommentTok{\#sx=Overall strength of ecological interactions on fitness of the victim species}
+\CommentTok{\#sy=Overall strength of ecological interactions on fitness of the exploiter species}
+\CommentTok{\#p0\_x=Initial frequency of allele A of the victim species}
+\CommentTok{\#p0\_y=Initial frequency of allele A of the exploiter}
+
+\NormalTok{coevo}\OtherTok{\textless{}{-}}\ControlFlowTok{function}\NormalTok{(A, sx, sy, tmax, p0\_y, p0\_x)\{ }\CommentTok{\#Step (1)}
+  
+\NormalTok{x\_dp }\OtherTok{=} \FunctionTok{c}\NormalTok{() }\CommentTok{\#Creating vector to store values of the frequency of allele A for the victim species}
+\NormalTok{y\_dp }\OtherTok{=} \FunctionTok{c}\NormalTok{() }\CommentTok{\#Creating vector to store values of the frequency of allele A for the exploiter species}
+
+\NormalTok{x\_dp[}\DecValTok{1}\NormalTok{] }\OtherTok{=}\NormalTok{ p0\_x }\CommentTok{\#Setting initial frequency of allele A for the victim species}
+\NormalTok{y\_dp[}\DecValTok{1}\NormalTok{] }\OtherTok{=}\NormalTok{ p0\_y }\CommentTok{\#Setting initial frequency of allele A for the exploiter species}
+
+\CommentTok{\#For loop to iterate over the equation}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(tmax}\DecValTok{{-}1}\NormalTok{))\{}
+  
+  \CommentTok{\# Step (2)}
+  
+\NormalTok{  xp }\OtherTok{=}\NormalTok{ x\_dp[t] }\CommentTok{\#Setting current frequency of allele A for the victim species}
+\NormalTok{  yp }\OtherTok{=}\NormalTok{ y\_dp[t] }\CommentTok{\#Setting current frequency of allele A for the exploiter species}
+  
+  \CommentTok{\# Step (3)}
+
+\NormalTok{  x\_wA }\OtherTok{=} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ sx}\SpecialCharTok{*}\NormalTok{(A[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{yp }\SpecialCharTok{+}\NormalTok{ A[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yp)) }\CommentTok{\#Computing the fitness of allele A for the victim species}
+\NormalTok{  x\_wB }\OtherTok{=} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ sx}\SpecialCharTok{*}\NormalTok{(A[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{yp }\SpecialCharTok{+}\NormalTok{ A[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yp)) }\CommentTok{\#Computing the fitness of allele B for the victim species}
+\NormalTok{  x\_avg\_w }\OtherTok{=}\NormalTok{ xp}\SpecialCharTok{*}\NormalTok{x\_wA }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{xp)}\SpecialCharTok{*}\NormalTok{x\_wB }\CommentTok{\#Computing the average fitness of the population of the victim species}
+
+\NormalTok{  y\_wA }\OtherTok{=} \DecValTok{1} \SpecialCharTok{+}\NormalTok{ sy}\SpecialCharTok{*}\NormalTok{(A[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{xp }\SpecialCharTok{+}\NormalTok{ A[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{xp)) }\CommentTok{\#Computing the fitness of allele A for the exploiter species}
+\NormalTok{  y\_wB }\OtherTok{=} \DecValTok{1} \SpecialCharTok{+}\NormalTok{ sy}\SpecialCharTok{*}\NormalTok{(A[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{xp }\SpecialCharTok{+}\NormalTok{ A[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{xp)) }\CommentTok{\#Computing the fitness of allele B for the exploiter species}
+\NormalTok{  y\_avg\_w }\OtherTok{=}\NormalTok{ yp}\SpecialCharTok{*}\NormalTok{y\_wA }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yp)}\SpecialCharTok{*}\NormalTok{y\_wB }\CommentTok{\#Computing the average fitness of the population of the exploiter species}
+  
+  \CommentTok{\# Step (4)}
+  
+\NormalTok{  x\_dp[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{xp }\SpecialCharTok{+}\NormalTok{ ((xp}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{xp)}\SpecialCharTok{*}\NormalTok{(x\_wA}\SpecialCharTok{{-}}\NormalTok{x\_wB))}\SpecialCharTok{/}\NormalTok{x\_avg\_w) }\CommentTok{\#Using Wright\textquotesingle{}s equaiton to compute frequency of A in the next generation for the victim species}
+\NormalTok{  y\_dp[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\OtherTok{=}\NormalTok{yp }\SpecialCharTok{+}\NormalTok{ ((yp}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{yp)}\SpecialCharTok{*}\NormalTok{(y\_wA}\SpecialCharTok{{-}}\NormalTok{y\_wB))}\SpecialCharTok{/}\NormalTok{y\_avg\_w) }\CommentTok{\#Using Wright\textquotesingle{}s equaiton to compute frequency of A in the next generation for the exploiter species}
+  
+\NormalTok{\}}
+
+\NormalTok{r}\OtherTok{=}\FunctionTok{data.frame}\NormalTok{(x\_dp, y\_dp, }\AttributeTok{t=}\DecValTok{1}\SpecialCharTok{:}\NormalTok{tmax) }\CommentTok{\# Step (5), creating a data frame with frequencies over time}
+
+\FunctionTok{return}\NormalTok{(r)}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we have a function that simulate the coevolution of a victim and an exploiter species under any type of matrix of effects between alleles. Let's start simulating coevolution under a gene-for-gene mechanism. For the example of gene-for-gene coevolution that we studied in the lecture, the matrix takes the following form:
+
+\[
+\begin{array}{cc} &
+\begin{array}{cc} A_{y} & B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&
+\left(
+\begin{array}{cc}
+1 && 0 \\
+1 && 1 \end{array}
+\right)\end{array}
+\]
+Thus, we need to set up this matrix first, to pass it as an argument (the matrix \(A\) in the code) to our function. The code to do so is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Creating a 2x2 matrix with entries corresponding to the gene{-}for{-}gene one studied in the lecture}
+
+\NormalTok{A}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{data=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{2}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(A)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"Ax"}\NormalTok{, }\StringTok{"Bx"}\NormalTok{) }\CommentTok{\#Changing row names to facilitate visualization}
+\FunctionTok{colnames}\NormalTok{(A)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"Ay"}\NormalTok{, }\StringTok{"By"}\NormalTok{) }\CommentTok{\#Changing column names to facilitate visualization}
+
+\NormalTok{A}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Ay By
+## Ax  1  0
+## Bx  1  1
+\end{verbatim}
+
+Now that we have the matrix of effects set up, we can pass it as an argument to the function that we developed earlier, along with other parameter values of the model. Then, we can run the function, and plot the results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Running the coevolutionary model}
+\NormalTok{r}\OtherTok{=}\FunctionTok{coevo}\NormalTok{(}\AttributeTok{A=}\NormalTok{A, }\AttributeTok{sx=}\FloatTok{0.1}\NormalTok{, }\AttributeTok{sy=}\FloatTok{0.1}\NormalTok{, }\AttributeTok{tmax=}\DecValTok{100}\NormalTok{, }\AttributeTok{p0\_y=}\FloatTok{0.2}\NormalTok{, }\AttributeTok{p0\_x=}\FloatTok{0.2}\NormalTok{)}
+
+\CommentTok{\#Plotting the results}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+
+\FunctionTok{ggplot}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{r, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{t, }\AttributeTok{y=}\NormalTok{x\_dp), }\AttributeTok{color=}\StringTok{"royalblue3"}\NormalTok{)}\SpecialCharTok{+} \CommentTok{\# Frequency of allele A for victims, in blue}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{r, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{t, }\AttributeTok{y=}\NormalTok{y\_dp), }\AttributeTok{color=}\StringTok{"firebrick3"}\NormalTok{)}\SpecialCharTok{+} \CommentTok{\#Frequency of allele A for exploiters, in red}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Generations"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{ylab}\NormalTok{(}\StringTok{"Frequency of allele A"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_pubr}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.65\linewidth,height=0.65\textheight]{_main_files/figure-latex/unnamed-chunk-21-1}
+
+Using the function that simulates coevolution, try to explore how the coevolutionary dynamics changes under different parameter values. Try to answer the following questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How different values of \(s_{x}\), \(s_{y}\) and initial frequency of alleles modify the outcome of coevolution?
+\item
+  Under what situations coevolution erodes polymorphism from the victim's population?
+\end{enumerate}
+
+\hypertarget{simulating-coevolution-of-antagonistic-interactions-under-different-assumptions}{%
+\section{Simulating coevolution of antagonistic interactions under different assumptions}\label{simulating-coevolution-of-antagonistic-interactions-under-different-assumptions}}
+
+Until now we are assuming that a gene-for-gene mechanism underlies the coevolution of victims and exploiters. However, in some cases the interaction may also depend on the matching of alleles, as in the interaction between the small crustacean \emph{Daphnia magna} and the bacteria \emph{Pasteuria ramosa} (Luijckx \emph{et al.} 2013). In this case, the matrix of effects takes the following form:
+
+\[
+\begin{array}{cc} &
+\begin{array}{cc} A_{y} & B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&
+\left(
+\begin{array}{cc}
+1 && 0 \\
+0 && 1 \end{array}
+\right)\end{array}
+\]
+Following our previous implementation, build this matrix in R and use it as an argument to simulate coevolution of a victim and an exploiter species under a matching allele mechanism. Plot the results and try to answer the following questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  What differences can you observe between the coevolutionary dynamics under a gene-for-gene or a matching allele mechanism?
+\item
+  What would be a possible explanation for these differences?
+\end{enumerate}
+
+\hypertarget{simulating-coevolution-of-mutualistic-interactions}{%
+\section{Simulating coevolution of mutualistic interactions}\label{simulating-coevolution-of-mutualistic-interactions}}
+
+In the previous section, we simulated coevolution of one victim and exploiter species under two different mechanisms determining the outcome of the interaction, gene-for-gene or matching allele. Here, we will slightly modify this coevolutionary model to encompass mutualistic interactions. To do so, we need to modify our assumption about how interactions affect the fitness of species, and what is the interaction mechanism mediating this effect. Mutualisms are interactions that increase the fitness of individuals. In that case, the equations for the fitness of individuals carrying the alleles A or B of two mutualists, are as follows:
+
+\[\begin{aligned}
+W_{A,x}&=1+s_{x}\left[\alpha_{AxAy}p_{y}+\alpha_{AxBy}(1-p_{y})\right] \\
+W_{B,x}&=1+s_{x}\left[\alpha_{BxAy}p_{y}+\alpha_{BxBy}(1-p_{y})\right] \\
+W_{A,y}&=1+s_{y}\left[\alpha_{AyAx}p_{x}+\alpha_{AyBx}(1-p_{x})\right] \\
+W_{B,y}&=1+s_{y}\left[\alpha_{ByAx}p_{x}+\alpha_{ByBx}(1-p_{x})\right] \\
+\end{aligned}\]
+
+Since, many mutualistic interactions are mediated by a trait matching mechanism, we model this mechanism using the matrix of effects of the matching allele model:
+
+\[
+\begin{array}{cc} &
+\begin{array}{cc} A_{y} & B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&
+\left(
+\begin{array}{cc}
+1 && 0 \\
+0 && 1 \end{array}
+\right)\end{array}
+\]
+For this section, your task will be to adapt the function that simulate coevolution to incorporate the fitness equations and the matrix of effects for mutualisms. Then, simulate the coevolutionary dynamics and try to answer the following question:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  When mutualistic species coevolve, is it possible to maintain both alleles (i.e.~polymorphism) in the populations?
+\item
+  What would be a possible biological mechanism that could change this outcome? Think about a mechanism that we could include as an additional assumption in the fitness of individuals of the mutualistic species.
 \end{enumerate}
 
   \bibliography{book.bib,packages.bib}

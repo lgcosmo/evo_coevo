@@ -20,4 +20,8 @@ h2:the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection The regres
 h1:exercise-simulating-evolution-using-landes-equation Exercise: Simulating evolution using Lande’s equation
 h2:simulating-evolutionary-changes-in-continuous-traits Simulating evolutionary changes in continuous traits
 h2:simulating-the-adaptive-landscape-of-a-continuous-trait Simulating the adaptive landscape of a continuous trait
+h1:exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms
+h2:simulating-coevolution-of-victim-exploiter-interactions Simulating coevolution of victim-exploiter interactions
+h2:simulating-coevolution-of-antagonistic-interactions-under-different-assumptions Simulating coevolution of antagonistic interactions under different assumptions
+h2:simulating-coevolution-of-mutualistic-interactions Simulating coevolution of mutualistic interactions
 

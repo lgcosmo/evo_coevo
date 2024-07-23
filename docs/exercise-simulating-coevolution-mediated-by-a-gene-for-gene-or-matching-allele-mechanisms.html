@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms | Introduction to evolutionary and coevolutionary theory</title>
+  <meta name="description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms | Introduction to evolutionary and coevolutionary theory" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="github-repo" content="lgcosmo/evo_coevo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms | Introduction to evolutionary and coevolutionary theory" />
+  
+  <meta name="twitter:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  
+
+<meta name="author" content="Leandro G. Cosmo" />
+
+
+<meta name="date" content="2024-07-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exercise-simulating-evolution-using-landes-equation.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Course notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.1</b> Registration</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i><b>1.2</b> Course schedule</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#bibliography"><i class="fa fa-check"></i><b>1.3</b> Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html"><i class="fa fa-check"></i><b>2</b> Introduction to the course</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#the-fundamental-concepts-of-evolution-by-natural-selection"><i class="fa fa-check"></i><b>2.1</b> The fundamental concepts of evolution by natural selection</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#natural-selection-and-the-evolution-of-allele-frequencies-within-populations"><i class="fa fa-check"></i><b>2.2</b> Natural selection and the evolution of allele frequencies within populations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#building-our-first-equation"><i class="fa fa-check"></i><b>2.2.1</b> Building our first equation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#wrights-equation-for-the-adaptive-landscape-of-alleles"><i class="fa fa-check"></i><b>2.2.2</b> Wright’s equation for the adaptive landscape of alleles</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#references"><i class="fa fa-check"></i><b>2.2.3</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html"><i class="fa fa-check"></i><b>3</b> Exercise: Evolution of allele frequencies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies"><i class="fa fa-check"></i><b>3.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="3.2" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b"><i class="fa fa-check"></i><b>3.2</b> Using different assumptions for the fitness of alleles A and B</a></li>
+<li class="chapter" data-level="3.3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape"><i class="fa fa-check"></i><b>3.3</b> Simulating Wright’s adaptive landscape</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html"><i class="fa fa-check"></i><b>4</b> Exercise: Simulating evolution using the Price theorem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1"><i class="fa fa-check"></i><b>4.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="4.2" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection"><i class="fa fa-check"></i><b>4.2</b> The regression of fitness on phenotypes and the modes of selection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html"><i class="fa fa-check"></i><b>5</b> Exercise: Simulating evolution using Lande’s equation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-evolutionary-changes-in-continuous-traits"><i class="fa fa-check"></i><b>5.1</b> Simulating evolutionary changes in continuous traits</a></li>
+<li class="chapter" data-level="5.2" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-the-adaptive-landscape-of-a-continuous-trait"><i class="fa fa-check"></i><b>5.2</b> Simulating the adaptive landscape of a continuous trait</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><i class="fa fa-check"></i><b>6</b> Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-victim-exploiter-interactions"><i class="fa fa-check"></i><b>6.1</b> Simulating coevolution of victim-exploiter interactions</a></li>
+<li class="chapter" data-level="6.2" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-antagonistic-interactions-under-different-assumptions"><i class="fa fa-check"></i><b>6.2</b> Simulating coevolution of antagonistic interactions under different assumptions</a></li>
+<li class="chapter" data-level="6.3" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-mutualistic-interactions"><i class="fa fa-check"></i><b>6.3</b> Simulating coevolution of mutualistic interactions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to evolutionary and coevolutionary theory</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms<a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simulating-coevolution-of-victim-exploiter-interactions" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Simulating coevolution of victim-exploiter interactions<a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-victim-exploiter-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In first lecture of the second block we studied how we can use Wright’s equation to model the gene-for-gene or matching allele coevolution of two interacting species. Particularly, we studied the example in which one of the species is an exploiter and benefit from the interaction, while the other is a victim that is negatively affected by the interaction. Here, we will perform numerical simulations of this coevolutionary model to gain intuition about how different assumptions about the mechanism of coevolution and types of interaction can change the outcome of the coevolutionary dynamics. We will begin with the gene-for-gene model with one exploiter and one victim species. In this model, we assumed that the interaction between a victim and exploiter depends on two components. First, it depends on a matrix describing how individuals carrying alleles <span class="math inline">\(A_{x}\)</span> or <span class="math inline">\(B_{x}\)</span> of the victim species are affected by the individuals carrying alleles <span class="math inline">\(A_{y}\)</span> or <span class="math inline">\(B_{y}\)</span> of the exploiter species:</p>
+<div class="math">
+<p><span class="math display">\[
+\begin{array}{cc} &amp;
+\begin{array}{cc} A_{y} &amp;&amp; B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&amp;
+\left(
+\begin{array}{cc}
+\alpha_{AxAy} &amp; \alpha_{AxBy} \\
+\alpha_{BxAy} &amp; \alpha_{BxBy} \end{array}
+\right)\end{array}
+\]</span></p>
+</div>
+<p>Second, it depends on the frequency of individuals carrying alleles <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> in the populations of the victim - <span class="math inline">\(p_{x}\)</span> and <span class="math inline">\((1-p_{x})\)</span> - and exploiter species - <span class="math inline">\(p_{y}\)</span> and <span class="math inline">\((1-p_{y})\)</span>. Using these two components, the fitness consequences of ecological interactions for the individuals of the victim and exploiter species carrying either the <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> alleles are given by the following set of equations:</p>
+<p><span class="math display">\[\begin{aligned}
+W_{A,x}&amp;=1-s_{x}\left[\alpha_{AxAy}p_{y}+\alpha_{AxBy}(1-p_{y})\right] \\
+W_{B,x}&amp;=1-s_{x}\left[\alpha_{BxAy}p_{y}+\alpha_{BxBy}(1-p_{y})\right] \\
+W_{A,y}&amp;=1+s_{y}\left[\alpha_{AyAx}p_{x}+\alpha_{AyBx}(1-p_{x})\right] \\
+W_{B,y}&amp;=1+s_{y}\left[\alpha_{ByAx}p_{x}+\alpha_{ByBx}(1-p_{x})\right] \\
+\end{aligned}\]</span></p>
+<p>where <span class="math inline">\(s_{x}\)</span> and <span class="math inline">\(s_{y}\)</span> are parameters that scale how strongly interactions affect fitness. Then, we can plug in these fitness functions into Wright’s equation to obtain the recursive ones describing how the frequency of alleles change in both the victim and exploiter populations, as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+p_{x}^{(t+1)}&amp;=p_{x}^{(t)}+p_{x}^{(t)}(1-p_{x}^{(t)})\frac{\left(W_{A,x}^{(t)}-W_{B,x}^{(t)}\right)}{\overline{W}_{x}^{(t)}} \\
+p_{y}^{(t+1)}&amp;=p_{y}^{(t)}+p_{y}^{(t)}(1-p_{y}^{(t)})\frac{\left(W_{A,y}^{(t)}-W_{B,y}^{(t)}\right)}{\overline{W}_{y}^{(t)}}\end{aligned}\]</span></p>
+<p>In the lecture, we substituted the values of fitness in the equation above using the assumptions that coevolution is mediated by a gene-for-gene mechanism. Here there is no need to do this, since it will be more convenient to directly implement the equations above in the simulation. To perform the numerical simulations we will follow the same steps as in the first exercise section, the only difference being that now we have two coupled equations. Once more, we will set up a <em>for loop</em> to iterate over the equations and will go through the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Define a function that takes as input parameters of the model, such as the matrix of effects, the maximum number of time steps of the model, and initial values of <span class="math inline">\(p_{x}\)</span> and <span class="math inline">\(p_{y}\)</span>.</p></li>
+<li><p>In a for loop, set the value of <span class="math inline">\(p_{x}\)</span> and <span class="math inline">\(p_{y}\)</span> to the one at the current time step, <span class="math inline">\(t\)</span></p></li>
+<li><p>In a for loop, compute the average fitness of the populations as <span class="math inline">\(p_{x}W_{A,x}+(1-p_{x})W_{B,x}\)</span> and <span class="math inline">\(p_{y}W_{A,y}+(1-p_{y})W_{B,y}\)</span>.</p></li>
+<li><p>In a for loop, update the values of <span class="math inline">\(p_{x}\)</span> and <span class="math inline">\(p_{y}\)</span> using Wright’s equation and our assumptions about the fitness consequences of interactions.</p></li>
+<li><p>Return a data frame with the results.</p></li>
+</ol>
+<p>These steps are highlighted in the block of code below:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-1" tabindex="-1"></a><span class="co"># Step (1)</span></span>
+<span id="cb24-2"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-3" tabindex="-1"></a><span class="co">#Defining a function that takes as input the following parameters:</span></span>
+<span id="cb24-4"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-4" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-5" tabindex="-1"></a><span class="co">#A=Matrix of effects between alleles</span></span>
+<span id="cb24-6"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-6" tabindex="-1"></a><span class="co">#sx=Overall strength of ecological interactions on fitness of the victim species</span></span>
+<span id="cb24-7"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-7" tabindex="-1"></a><span class="co">#sy=Overall strength of ecological interactions on fitness of the exploiter species</span></span>
+<span id="cb24-8"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-8" tabindex="-1"></a><span class="co">#p0_x=Initial frequency of allele A of the victim species</span></span>
+<span id="cb24-9"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-9" tabindex="-1"></a><span class="co">#p0_y=Initial frequency of allele A of the exploiter</span></span>
+<span id="cb24-10"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-10" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-11" tabindex="-1"></a>coevo<span class="ot">&lt;-</span><span class="cf">function</span>(A, sx, sy, tmax, p0_y, p0_x){ <span class="co">#Step (1)</span></span>
+<span id="cb24-12"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-12" tabindex="-1"></a>  </span>
+<span id="cb24-13"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-13" tabindex="-1"></a>x_dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating vector to store values of the frequency of allele A for the victim species</span></span>
+<span id="cb24-14"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-14" tabindex="-1"></a>y_dp <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating vector to store values of the frequency of allele A for the exploiter species</span></span>
+<span id="cb24-15"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-15" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-16" tabindex="-1"></a>x_dp[<span class="dv">1</span>] <span class="ot">=</span> p0_x <span class="co">#Setting initial frequency of allele A for the victim species</span></span>
+<span id="cb24-17"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-17" tabindex="-1"></a>y_dp[<span class="dv">1</span>] <span class="ot">=</span> p0_y <span class="co">#Setting initial frequency of allele A for the exploiter species</span></span>
+<span id="cb24-18"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-18" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-19" tabindex="-1"></a><span class="co">#For loop to iterate over the equation</span></span>
+<span id="cb24-20"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-20" tabindex="-1"></a><span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){</span>
+<span id="cb24-21"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-21" tabindex="-1"></a>  </span>
+<span id="cb24-22"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-22" tabindex="-1"></a>  <span class="co"># Step (2)</span></span>
+<span id="cb24-23"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-23" tabindex="-1"></a>  </span>
+<span id="cb24-24"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-24" tabindex="-1"></a>  xp <span class="ot">=</span> x_dp[t] <span class="co">#Setting current frequency of allele A for the victim species</span></span>
+<span id="cb24-25"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-25" tabindex="-1"></a>  yp <span class="ot">=</span> y_dp[t] <span class="co">#Setting current frequency of allele A for the exploiter species</span></span>
+<span id="cb24-26"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-26" tabindex="-1"></a>  </span>
+<span id="cb24-27"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-27" tabindex="-1"></a>  <span class="co"># Step (3)</span></span>
+<span id="cb24-28"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-28" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-29" tabindex="-1"></a>  x_wA <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> sx<span class="sc">*</span>(A[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">*</span>yp <span class="sc">+</span> A[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>yp)) <span class="co">#Computing the fitness of allele A for the victim species</span></span>
+<span id="cb24-30"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-30" tabindex="-1"></a>  x_wB <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> sx<span class="sc">*</span>(A[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">*</span>yp <span class="sc">+</span> A[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>yp)) <span class="co">#Computing the fitness of allele B for the victim species</span></span>
+<span id="cb24-31"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-31" tabindex="-1"></a>  x_avg_w <span class="ot">=</span> xp<span class="sc">*</span>x_wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>xp)<span class="sc">*</span>x_wB <span class="co">#Computing the average fitness of the population of the victim species</span></span>
+<span id="cb24-32"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-32" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-33" tabindex="-1"></a>  y_wA <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> sy<span class="sc">*</span>(A[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">*</span>xp <span class="sc">+</span> A[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>xp)) <span class="co">#Computing the fitness of allele A for the exploiter species</span></span>
+<span id="cb24-34"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-34" tabindex="-1"></a>  y_wB <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> sy<span class="sc">*</span>(A[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">*</span>xp <span class="sc">+</span> A[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>xp)) <span class="co">#Computing the fitness of allele B for the exploiter species</span></span>
+<span id="cb24-35"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-35" tabindex="-1"></a>  y_avg_w <span class="ot">=</span> yp<span class="sc">*</span>y_wA <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>yp)<span class="sc">*</span>y_wB <span class="co">#Computing the average fitness of the population of the exploiter species</span></span>
+<span id="cb24-36"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-36" tabindex="-1"></a>  </span>
+<span id="cb24-37"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-37" tabindex="-1"></a>  <span class="co"># Step (4)</span></span>
+<span id="cb24-38"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-38" tabindex="-1"></a>  </span>
+<span id="cb24-39"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-39" tabindex="-1"></a>  x_dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span>xp <span class="sc">+</span> ((xp<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>xp)<span class="sc">*</span>(x_wA<span class="sc">-</span>x_wB))<span class="sc">/</span>x_avg_w) <span class="co">#Using Wright&#39;s equaiton to compute frequency of A in the next generation for the victim species</span></span>
+<span id="cb24-40"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-40" tabindex="-1"></a>  y_dp[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span>yp <span class="sc">+</span> ((yp<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>yp)<span class="sc">*</span>(y_wA<span class="sc">-</span>y_wB))<span class="sc">/</span>y_avg_w) <span class="co">#Using Wright&#39;s equaiton to compute frequency of A in the next generation for the exploiter species</span></span>
+<span id="cb24-41"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-41" tabindex="-1"></a>  </span>
+<span id="cb24-42"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-42" tabindex="-1"></a>}</span>
+<span id="cb24-43"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-43" tabindex="-1"></a></span>
+<span id="cb24-44"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-44" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">data.frame</span>(x_dp, y_dp, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Step (5), creating a data frame with frequencies over time</span></span>
+<span id="cb24-45"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-45" tabindex="-1"></a></span>
+<span id="cb24-46"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-46" tabindex="-1"></a><span class="fu">return</span>(r)</span>
+<span id="cb24-47"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-47" tabindex="-1"></a>  </span>
+<span id="cb24-48"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb24-48" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we have a function that simulate the coevolution of a victim and an exploiter species under any type of matrix of effects between alleles. Let’s start simulating coevolution under a gene-for-gene mechanism. For the example of gene-for-gene coevolution that we studied in the lecture, the matrix takes the following form:</p>
+<p><span class="math display">\[
+\begin{array}{cc} &amp;
+\begin{array}{cc} A_{y} &amp; B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&amp;
+\left(
+\begin{array}{cc}
+1 &amp;&amp; 0 \\
+1 &amp;&amp; 1 \end{array}
+\right)\end{array}
+\]</span>
+Thus, we need to set up this matrix first, to pass it as an argument (the matrix <span class="math inline">\(A\)</span> in the code) to our function. The code to do so is as follows:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-1" tabindex="-1"></a><span class="co">#Creating a 2x2 matrix with entries corresponding to the gene-for-gene one studied in the lecture</span></span>
+<span id="cb25-2"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-3" tabindex="-1"></a>A<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb25-4"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-4" tabindex="-1"></a><span class="fu">rownames</span>(A)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Ax&quot;</span>, <span class="st">&quot;Bx&quot;</span>) <span class="co">#Changing row names to facilitate visualization</span></span>
+<span id="cb25-5"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-5" tabindex="-1"></a><span class="fu">colnames</span>(A)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Ay&quot;</span>, <span class="st">&quot;By&quot;</span>) <span class="co">#Changing column names to facilitate visualization</span></span>
+<span id="cb25-6"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-6" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb25-7" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>##    Ay By
+## Ax  1  0
+## Bx  1  1</code></pre>
+<p>Now that we have the matrix of effects set up, we can pass it as an argument to the function that we developed earlier, along with other parameter values of the model. Then, we can run the function, and plot the results.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-1" tabindex="-1"></a><span class="co">#Running the coevolutionary model</span></span>
+<span id="cb27-2"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-2" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">coevo</span>(<span class="at">A=</span>A, <span class="at">sx=</span><span class="fl">0.1</span>, <span class="at">sy=</span><span class="fl">0.1</span>, <span class="at">tmax=</span><span class="dv">100</span>, <span class="at">p0_y=</span><span class="fl">0.2</span>, <span class="at">p0_x=</span><span class="fl">0.2</span>)</span>
+<span id="cb27-3"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-4" tabindex="-1"></a><span class="co">#Plotting the results</span></span>
+<span id="cb27-5"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-5" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-6" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-7"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-7" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb27-8"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-8" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-9" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb27-10"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>x_dp), <span class="at">color=</span><span class="st">&quot;royalblue3&quot;</span>)<span class="sc">+</span> <span class="co"># Frequency of allele A for victims, in blue</span></span>
+<span id="cb27-11"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>y_dp), <span class="at">color=</span><span class="st">&quot;firebrick3&quot;</span>)<span class="sc">+</span> <span class="co">#Frequency of allele A for exploiters, in red</span></span>
+<span id="cb27-12"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generations&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Frequency of allele A&quot;</span>)<span class="sc">+</span></span>
+<span id="cb27-13"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#cb27-13" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="65%" height="65%" /></p>
+<p>Using the function that simulates coevolution, try to explore how the coevolutionary dynamics changes under different parameter values. Try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>How different values of <span class="math inline">\(s_{x}\)</span>, <span class="math inline">\(s_{y}\)</span> and initial frequency of alleles modify the outcome of coevolution?</li>
+<li>Under what situations coevolution erodes polymorphism from the victim’s population?</li>
+</ol>
+</div>
+<div id="simulating-coevolution-of-antagonistic-interactions-under-different-assumptions" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Simulating coevolution of antagonistic interactions under different assumptions<a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-antagonistic-interactions-under-different-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Until now we are assuming that a gene-for-gene mechanism underlies the coevolution of victims and exploiters. However, in some cases the interaction may also depend on the matching of alleles, as in the interaction between the small crustacean <em>Daphnia magna</em> and the bacteria <em>Pasteuria ramosa</em> (Luijckx <em>et al.</em> 2013). In this case, the matrix of effects takes the following form:</p>
+<p><span class="math display">\[
+\begin{array}{cc} &amp;
+\begin{array}{cc} A_{y} &amp; B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&amp;
+\left(
+\begin{array}{cc}
+1 &amp;&amp; 0 \\
+0 &amp;&amp; 1 \end{array}
+\right)\end{array}
+\]</span>
+Following our previous implementation, build this matrix in R and use it as an argument to simulate coevolution of a victim and an exploiter species under a matching allele mechanism. Plot the results and try to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>What differences can you observe between the coevolutionary dynamics under a gene-for-gene or a matching allele mechanism?</p></li>
+<li><p>What would be a possible explanation for these differences?</p></li>
+</ol>
+</div>
+<div id="simulating-coevolution-of-mutualistic-interactions" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Simulating coevolution of mutualistic interactions<a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-mutualistic-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the previous section, we simulated coevolution of one victim and exploiter species under two different mechanisms determining the outcome of the interaction, gene-for-gene or matching allele. Here, we will slightly modify this coevolutionary model to encompass mutualistic interactions. To do so, we need to modify our assumption about how interactions affect the fitness of species, and what is the interaction mechanism mediating this effect. Mutualisms are interactions that increase the fitness of individuals. In that case, the equations for the fitness of individuals carrying the alleles A or B of two mutualists, are as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+W_{A,x}&amp;=1+s_{x}\left[\alpha_{AxAy}p_{y}+\alpha_{AxBy}(1-p_{y})\right] \\
+W_{B,x}&amp;=1+s_{x}\left[\alpha_{BxAy}p_{y}+\alpha_{BxBy}(1-p_{y})\right] \\
+W_{A,y}&amp;=1+s_{y}\left[\alpha_{AyAx}p_{x}+\alpha_{AyBx}(1-p_{x})\right] \\
+W_{B,y}&amp;=1+s_{y}\left[\alpha_{ByAx}p_{x}+\alpha_{ByBx}(1-p_{x})\right] \\
+\end{aligned}\]</span></p>
+<p>Since, many mutualistic interactions are mediated by a trait matching mechanism, we model this mechanism using the matrix of effects of the matching allele model:</p>
+<p><span class="math display">\[
+\begin{array}{cc} &amp;
+\begin{array}{cc} A_{y} &amp; B_{y} \end{array}
+\\
+\begin{array}{cc}
+A_{x} \\
+B_{x} \end{array}
+&amp;
+\left(
+\begin{array}{cc}
+1 &amp;&amp; 0 \\
+0 &amp;&amp; 1 \end{array}
+\right)\end{array}
+\]</span>
+For this section, your task will be to adapt the function that simulate coevolution to incorporate the fitness equations and the matrix of effects for mutualisms. Then, simulate the coevolutionary dynamics and try to answer the following question:</p>
+<ol style="list-style-type: decimal">
+<li><p>When mutualistic species coevolve, is it possible to maintain both alleles (i.e. polymorphism) in the populations?</p></li>
+<li><p>What would be a possible biological mechanism that could change this outcome? Think about a mechanism that we could include as an additional assumption in the fitness of individuals of the mutualistic species.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-simulating-evolution-using-landes-equation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-ex4.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
