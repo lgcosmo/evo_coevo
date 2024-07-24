@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Exercise: Simulating coevolution mediated by a trait matching mechanism | Introduction to evolutionary and coevolutionary theory</title>
+  <meta name="description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Exercise: Simulating coevolution mediated by a trait matching mechanism | Introduction to evolutionary and coevolutionary theory" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="github-repo" content="lgcosmo/evo_coevo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Exercise: Simulating coevolution mediated by a trait matching mechanism | Introduction to evolutionary and coevolutionary theory" />
+  
+  <meta name="twitter:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  
+
+<meta name="author" content="Leandro G. Cosmo" />
+
+
+<meta name="date" content="2024-07-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Course notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.1</b> Registration</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i><b>1.2</b> Course schedule</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#bibliography"><i class="fa fa-check"></i><b>1.3</b> Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html"><i class="fa fa-check"></i><b>2</b> Introduction to the course</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#the-fundamental-concepts-of-evolution-by-natural-selection"><i class="fa fa-check"></i><b>2.1</b> The fundamental concepts of evolution by natural selection</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#natural-selection-and-the-evolution-of-allele-frequencies-within-populations"><i class="fa fa-check"></i><b>2.2</b> Natural selection and the evolution of allele frequencies within populations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#building-our-first-equation"><i class="fa fa-check"></i><b>2.2.1</b> Building our first equation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#wrights-equation-for-the-adaptive-landscape-of-alleles"><i class="fa fa-check"></i><b>2.2.2</b> Wright’s equation for the adaptive landscape of alleles</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#references"><i class="fa fa-check"></i><b>2.2.3</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html"><i class="fa fa-check"></i><b>3</b> Exercise: Evolution of allele frequencies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies"><i class="fa fa-check"></i><b>3.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="3.2" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b"><i class="fa fa-check"></i><b>3.2</b> Using different assumptions for the fitness of alleles A and B</a></li>
+<li class="chapter" data-level="3.3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape"><i class="fa fa-check"></i><b>3.3</b> Simulating Wright’s adaptive landscape</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html"><i class="fa fa-check"></i><b>4</b> Exercise: Simulating evolution using the Price theorem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1"><i class="fa fa-check"></i><b>4.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="4.2" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection"><i class="fa fa-check"></i><b>4.2</b> The regression of fitness on phenotypes and the modes of selection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html"><i class="fa fa-check"></i><b>5</b> Exercise: Simulating evolution using Lande’s equation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-evolutionary-changes-in-continuous-traits"><i class="fa fa-check"></i><b>5.1</b> Simulating evolutionary changes in continuous traits</a></li>
+<li class="chapter" data-level="5.2" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-the-adaptive-landscape-of-a-continuous-trait"><i class="fa fa-check"></i><b>5.2</b> Simulating the adaptive landscape of a continuous trait</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><i class="fa fa-check"></i><b>6</b> Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-victim-exploiter-interactions"><i class="fa fa-check"></i><b>6.1</b> Simulating coevolution of victim-exploiter interactions</a></li>
+<li class="chapter" data-level="6.2" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-antagonistic-interactions-under-different-assumptions"><i class="fa fa-check"></i><b>6.2</b> Simulating coevolution of antagonistic interactions under different assumptions</a></li>
+<li class="chapter" data-level="6.3" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-mutualistic-interactions"><i class="fa fa-check"></i><b>6.3</b> Simulating coevolution of mutualistic interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><i class="fa fa-check"></i><b>7</b> Exercise: Simulating coevolution mediated by a trait matching mechanism</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-coevolution-of-species-under-victim-exploiter-interactions"><i class="fa fa-check"></i><b>7.1</b> Simulating coevolution of species under victim-exploiter interactions</a></li>
+<li class="chapter" data-level="7.2" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-the-coevolution-of-mutualistic-species"><i class="fa fa-check"></i><b>7.2</b> Simulating the coevolution of mutualistic species</a></li>
+<li class="chapter" data-level="7.3" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#incorporating-other-sources-of-selective-pressure-in-the-environment"><i class="fa fa-check"></i><b>7.3</b> Incorporating other sources of selective pressure in the environment</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to evolutionary and coevolutionary theory</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Exercise: Simulating coevolution mediated by a trait matching mechanism<a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simulating-coevolution-of-species-under-victim-exploiter-interactions" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Simulating coevolution of species under victim-exploiter interactions<a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-coevolution-of-species-under-victim-exploiter-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In our theoretical lecture we studied how we can use Lande’s equation to model the coevolution of two species whose interaction depends on the matching of the traits of the species. Here, we will perform numerical simulations of this coevolutionary model to gain intuition about how coevolution can shape patterns of continuous traits in populations interacting species. In the lecture, we started with an example of victim-exploiter interaction, where the fitness of individuals of one of the species increase with interactions, but the fitness of individuals of the second species decrease. We will begin with this type of interaction. For interactions between a victim and an exploiter, we first assumed that the fitness of individuals of the victim species decreases when their traits, <span class="math inline">\(z_x\)</span>, match the traits of individuals of the exploiter species, <span class="math inline">\(z_y\)</span>. Similarly, we assumed that the fitness of individuals of the exploiter species increases the higher their trait matching with individuals of the victim one. Then, we approximated the mean fitness of the populations of the victim and exploiter species, as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+\overline{W_x}(\overline{z_{x}}) &amp;\approx 1-s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]} \\
+\overline{W_y}(\overline{z_{y}}) &amp;\approx 1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}
+\end{aligned}\]</span></p>
+<p>where <span class="math inline">\(\sigma^2_{xy}=\sigma^2_{x}+\sigma^2_{y}\)</span> corresponds to the sum of the variance of the traits of the victim and exploiter species, respectively. Using these two functions for the mean fitness of the victim and exploiter species, we derived the two selection gradients, <span class="math inline">\(\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x}\)</span> and <span class="math inline">\(\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y}\)</span> underlying the two functions, as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x} &amp;= \frac{2\alpha s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1-s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_x-\overline{z}_y) \\
+\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y} &amp;= \frac{2\alpha s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_x-\overline{z}_y)
+\end{aligned}\]</span></p>
+<p>As we did in the exercise section of Lande’s equation, we can check or compute the derivatives corresponding to the selection gradient symbolically using R:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb28-1" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>sx<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> var_xy)))), <span class="st">&quot;zx&quot;</span>)</span></code></pre></div>
+<pre><code>## sx * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 - 
+##     sx * exp(-a * ((zx - zy)^2 + var_xy)))</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb30-1" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span>sy<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> var_xy)))), <span class="st">&quot;zy&quot;</span>)</span></code></pre></div>
+<pre><code>## sy * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 + 
+##     sy * exp(-a * ((zx - zy)^2 + var_xy)))</code></pre>
+<p>which we can see match the selection gradients that we computed for the victim and exploiter species.</p>
+<p>With the selection gradients in hand, we just need to set up our numerical simulations. To perform the numerical simulations we will follow the same steps as in the exercise section where we simulated Lande’s equation. The only difference being that now we have two coupled equations. Once more, we will set up a <em>for loop</em> to iterate over the equations and will go through the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Define a function that takes as input parameters of the model. In our case these will be <span class="math inline">\(s_{x}\)</span>, <span class="math inline">\(s_{y}\)</span>, <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\sigma^2_{x}\)</span>, <span class="math inline">\(\sigma^2_{y}\)</span>, <span class="math inline">\(h^2\)</span>, the maximum number of time steps of the model (<span class="math inline">\(t_{max}\)</span>), and initial values of <span class="math inline">\(\overline{z}_{x}\)</span> and <span class="math inline">\(\overline{z}_{y}\)</span>.</p></li>
+<li><p>In a for loop, set the value of <span class="math inline">\(\overline{z}_{x}\)</span> and <span class="math inline">\(\overline{z}_{y}\)</span> to the one at the current time step, <span class="math inline">\(t\)</span></p></li>
+<li><p>Within this for loop, compute the selection gradient of the populations using the equations that we found.</p></li>
+<li><p>Still within the loop, update the values of <span class="math inline">\(\overline{z}_{x}\)</span> and <span class="math inline">\(\overline{z}_{y}\)</span> using Lande’s equation and the selection gradients that we computed.</p></li>
+<li><p>Return a data frame with the results.</p></li>
+</ol>
+<p>These steps are highlighted in the block of code below:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-1" tabindex="-1"></a><span class="co"># Step (1)</span></span>
+<span id="cb32-2"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-2" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-3" tabindex="-1"></a><span class="co">#Defining a function that takes as input the following parameters:</span></span>
+<span id="cb32-4"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-5" tabindex="-1"></a><span class="co">#sx=Overall strength of ecological interactions on fitness of the victim species</span></span>
+<span id="cb32-6"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-6" tabindex="-1"></a><span class="co">#sy=Overall strength of ecological interactions on fitness of the exploiter species</span></span>
+<span id="cb32-7"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-7" tabindex="-1"></a><span class="co">#a=Parameter alpha of the model</span></span>
+<span id="cb32-8"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-8" tabindex="-1"></a><span class="co">#h=Heritability of the traits of both the victim and exploiter species (assumed to be equal)</span></span>
+<span id="cb32-9"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-9" tabindex="-1"></a><span class="co">#v_zx=Variance in the trait of the victim species</span></span>
+<span id="cb32-10"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-10" tabindex="-1"></a><span class="co">#z_vy=Variance in the trait of the exploiter species</span></span>
+<span id="cb32-11"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-11" tabindex="-1"></a><span class="co">#tmax=Maximum number of time steps (generations) of the simulation</span></span>
+<span id="cb32-12"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-12" tabindex="-1"></a><span class="co">#z0_x=Initial mean trait value of the population of the victim species</span></span>
+<span id="cb32-13"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-13" tabindex="-1"></a><span class="co">#z0_y=Initial mean trait value of the population of the exploiter species</span></span>
+<span id="cb32-14"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-14" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-15" tabindex="-1"></a>coevo<span class="ot">&lt;-</span><span class="cf">function</span>(sx, sy, a, h, v_zx, v_zy, tmax, z0_x, z0_y){ <span class="co">#Step (1)</span></span>
+<span id="cb32-16"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-16" tabindex="-1"></a>  </span>
+<span id="cb32-17"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-17" tabindex="-1"></a>  dzx <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating vector to store values of the mean trait value of the population of the victim species </span></span>
+<span id="cb32-18"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-18" tabindex="-1"></a>  dzy <span class="ot">=</span> <span class="fu">c</span>() <span class="co">#Creating vector to store values of the mean trait value of the population of the exploiter species</span></span>
+<span id="cb32-19"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-19" tabindex="-1"></a>  </span>
+<span id="cb32-20"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-20" tabindex="-1"></a>  dzx[<span class="dv">1</span>] <span class="ot">=</span> z0_x <span class="co">#Setting initial mean trait value in the population of the victim species</span></span>
+<span id="cb32-21"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-21" tabindex="-1"></a>  dzy[<span class="dv">1</span>] <span class="ot">=</span> z0_y <span class="co">#Setting initial mean trait value in the population of the exploiter species</span></span>
+<span id="cb32-22"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-22" tabindex="-1"></a>  </span>
+<span id="cb32-23"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-23" tabindex="-1"></a>  <span class="co">#For loop to iterate over the equation - here we will use Lande&#39;s equation</span></span>
+<span id="cb32-24"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-24" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){</span>
+<span id="cb32-25"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-25" tabindex="-1"></a>    </span>
+<span id="cb32-26"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-26" tabindex="-1"></a>    <span class="co"># Step (2)</span></span>
+<span id="cb32-27"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-27" tabindex="-1"></a>    </span>
+<span id="cb32-28"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-28" tabindex="-1"></a>    zx <span class="ot">=</span> dzx[t] <span class="co">#Setting the mean trait value at the current generation of the of the population of the victim species</span></span>
+<span id="cb32-29"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-29" tabindex="-1"></a>    zy <span class="ot">=</span> dzy[t] <span class="co">#Setting the mean trait value at the current generation of the of the population of the exploiter species</span></span>
+<span id="cb32-30"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-30" tabindex="-1"></a>    </span>
+<span id="cb32-31"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-31" tabindex="-1"></a>    <span class="co"># Step (3)</span></span>
+<span id="cb32-32"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-32" tabindex="-1"></a>    </span>
+<span id="cb32-33"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-33" tabindex="-1"></a>    mx<span class="ot">=</span>sx<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>a<span class="sc">*</span>(<span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>v_zx<span class="sc">+</span>v_zy)))<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>sx<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>v_zx<span class="sc">+</span>v_zy)))</span>
+<span id="cb32-34"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-34" tabindex="-1"></a>    my<span class="ot">=</span>sy<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>a<span class="sc">*</span>(<span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>v_zx<span class="sc">+</span>v_zy)))<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>sy<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>v_zx<span class="sc">+</span>v_zy)))</span>
+<span id="cb32-35"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-35" tabindex="-1"></a>    </span>
+<span id="cb32-36"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-36" tabindex="-1"></a>    dlnw1 <span class="ot">=</span> mx<span class="sc">*</span>(zx<span class="sc">-</span>zy)</span>
+<span id="cb32-37"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-37" tabindex="-1"></a>    dlnw2 <span class="ot">=</span> my<span class="sc">*</span>(zx<span class="sc">-</span>zy)</span>
+<span id="cb32-38"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-38" tabindex="-1"></a>    </span>
+<span id="cb32-39"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-39" tabindex="-1"></a>    <span class="co"># Step (4)</span></span>
+<span id="cb32-40"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-40" tabindex="-1"></a>    </span>
+<span id="cb32-41"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-41" tabindex="-1"></a>    dzx[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span>zx <span class="sc">+</span> h<span class="sc">*</span>v_zx<span class="sc">*</span>dlnw1 <span class="co">#Using Lande&#39;s equation to compute mean trait value at the next generation of the population of the victim species</span></span>
+<span id="cb32-42"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-42" tabindex="-1"></a>    dzy[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span>zy <span class="sc">+</span> h<span class="sc">*</span>v_zy<span class="sc">*</span>dlnw2 <span class="co">#Using Lande&#39;s equation to compute mean trait value at the next generation of the population of the exploiter species</span></span>
+<span id="cb32-43"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-43" tabindex="-1"></a>    </span>
+<span id="cb32-44"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-44" tabindex="-1"></a>  }</span>
+<span id="cb32-45"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-45" tabindex="-1"></a>  </span>
+<span id="cb32-46"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-46" tabindex="-1"></a>  r<span class="ot">=</span><span class="fu">data.frame</span>(dzx, dzy, <span class="at">t=</span><span class="dv">1</span><span class="sc">:</span>tmax) <span class="co"># Step (5), creating a data frame with mean trait values over time of the two species</span></span>
+<span id="cb32-47"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-47" tabindex="-1"></a>  </span>
+<span id="cb32-48"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-48" tabindex="-1"></a>  <span class="fu">return</span>(r)</span>
+<span id="cb32-49"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-49" tabindex="-1"></a>  </span>
+<span id="cb32-50"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb32-50" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now we have a function that simulate the coevolution of a victim and an exploiter species when interactions are mediated by a trait matching mechanism. So, we can use this function and then visualize the results:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-1" tabindex="-1"></a><span class="co">#Running the coevolutionary model</span></span>
+<span id="cb33-2"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-2" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">coevo</span>(<span class="at">sx=</span><span class="fl">0.1</span>, <span class="at">sy=</span><span class="fl">0.1</span>, <span class="at">a=</span><span class="fl">0.1</span>, <span class="at">tmax=</span><span class="dv">5000</span>, <span class="at">z0_x=</span><span class="dv">5</span>, <span class="at">z0_y=</span><span class="dv">1</span>, <span class="at">h=</span><span class="fl">0.5</span>, <span class="at">v_zx=</span><span class="fl">0.5</span>, <span class="at">v_zy=</span><span class="fl">0.5</span>)</span>
+<span id="cb33-3"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-4" tabindex="-1"></a><span class="co">#Plotting the results</span></span>
+<span id="cb33-5"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-5" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-6" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb33-7"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-7" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb33-8"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-8" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-9" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb33-10"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-10" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>dzx), <span class="at">color=</span><span class="st">&quot;royalblue3&quot;</span>)<span class="sc">+</span> <span class="co"># Mean trait value for victims, in blue</span></span>
+<span id="cb33-11"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-11" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>t, <span class="at">y=</span>dzy), <span class="at">color=</span><span class="st">&quot;firebrick3&quot;</span>)<span class="sc">+</span> <span class="co">#Mean trait value for exploiters, in red</span></span>
+<span id="cb33-12"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generations&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Mean trait value&quot;</span>)<span class="sc">+</span></span>
+<span id="cb33-13"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb33-13" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="65%" height="65%" /></p>
+<p>Using the function that simulates coevolution, try to explore how the coevolutionary dynamics changes under different parameter values. Try to answer the following question:</p>
+<ol style="list-style-type: decimal">
+<li><p>How different values of <span class="math inline">\(s_{x}\)</span> and <span class="math inline">\(s_{y}\)</span> modify the outcome of coevolution?</p></li>
+<li><p>What would be a mechanism that could modify this outcome so that it is more similar to the dynamics for matching alleles that we simulated in the previous exercise section?</p></li>
+</ol>
+</div>
+<div id="simulating-the-coevolution-of-mutualistic-species" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Simulating the coevolution of mutualistic species<a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-the-coevolution-of-mutualistic-species" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As we did with our coevolutionary model of morph/allele frequencies, we can modify the fitness functions to model mutualistic interactions. Here, the only modification that we need to perform is to change the negative sign to a positive sign for the effects of ecological interactions on the fitness of one of the species, as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+\overline{W_x}(\overline{z_{x}}) &amp;\approx 1+s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]} \\
+\overline{W_y}(\overline{z_{y}}) &amp;\approx 1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}
+\end{aligned}\]</span></p>
+<p>These two expressions for the mean fitness of the species leads to the following selection gradients:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x} &amp;= \frac{2\alpha s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_y-\overline{z}_x) \\
+\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y} &amp;= \frac{2\alpha s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}(\overline{z}_x-\overline{z}_y)
+\end{aligned}\]</span></p>
+<p>that we can, once more, verify using R:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb34-1" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span>sx<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> var_xy)))), <span class="st">&quot;zx&quot;</span>)</span></code></pre></div>
+<pre><code>## -(sx * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 + 
+##     sx * exp(-a * ((zx - zy)^2 + var_xy))))</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#cb36-1" tabindex="-1"></a><span class="fu">D</span>(<span class="fu">expression</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span>sy<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>a<span class="sc">*</span>((zx<span class="sc">-</span>zy)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> var_xy)))), <span class="st">&quot;zy&quot;</span>)</span></code></pre></div>
+<pre><code>## sy * (exp(-a * ((zx - zy)^2 + var_xy)) * (a * (2 * (zx - zy))))/(1 + 
+##     sy * exp(-a * ((zx - zy)^2 + var_xy)))</code></pre>
+<p>where in the equation that we derived for <span class="math inline">\(\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x}\)</span> we distributed the “-” in front of the expression for the equivalence <span class="math inline">\(-(\overline{z}_x-\overline{z}_y)=(\overline{z}_y-\overline{z}_x)\)</span>.</p>
+<p>For this section, your task will be to adapt the function that simulate coevolution to incorporate the selection gradients for mutualisms. Then, simulate the coevolutionary dynamics and try to answer the following question:</p>
+<ol style="list-style-type: decimal">
+<li><p>When mutualistic species coevolve, what is the only possible outcome?</p></li>
+<li><p>What would be a possible biological mechanism that could change this outcome? As we did in the previous exercise section, think about a mechanism that we could include as an additional assumption in the fitness of individuals of the mutualistic species.</p></li>
+</ol>
+</div>
+<div id="incorporating-other-sources-of-selective-pressure-in-the-environment" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Incorporating other sources of selective pressure in the environment<a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#incorporating-other-sources-of-selective-pressure-in-the-environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For this section we will incorporate other sources of selective pressures in our model of coevolution of two mutualistic species. To do so, we will use a different approach than starting with the fitness function and deriving the selection gradient. Rather, we will directly incorporate another source of selective pressure in the selection gradient.</p>
+<p>First, we will simplify the selection gradient that we derived when we have purely mutualistic interactions. In the selection gradients, the terms <span class="math inline">\(\frac{2\alpha s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{x}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}\)</span> and <span class="math inline">\(s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}{1+s_{y}e^{-\alpha[(\overline{z}_x-\overline{z}_y)^2+\sigma^2_{xy}]}}\)</span> control the strength of mutualistic selection. For simplicity, we will assume that this term is a constant for both species, <span class="math inline">\(m_{x}\)</span> and <span class="math inline">\(m_{y}\)</span>, that controls the contribution of mutualisms as a source of selection for species <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. Next, we will assume that the remaining sources contribute with <span class="math inline">\((1-m_{x})\)</span> and <span class="math inline">\((1-m_{y})\)</span> as selective pressures. For these other sources, we will assume that they favor an optimal trait value, <span class="math inline">\(\theta_{x}\)</span> and <span class="math inline">\(\theta_{y}\)</span>, that can be different for each species. Under these assumptions the modified selection gradients for species <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are as follows:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{\partial ln\overline{W_x}}{\partial \overline{z}_x} &amp;= m_{x}(\overline{z}_y-\overline{z}_x) + (1-m_{x})(\theta_{x}-\overline{z}_x) \\
+\frac{\partial ln\overline{W_y}}{\partial \overline{z}_y} &amp;= m_{y}(\overline{z}_x-\overline{z}_y) + (1-m_{y})(\theta_{y}-\overline{z}_y)
+\end{aligned}\]</span></p>
+<p>The parameters <span class="math inline">\(\theta_{x}\)</span> and <span class="math inline">\(\theta_{y}\)</span> can be interpreted biologically as an “environmental optima”, for instance, the mean trait values that the conditions of precipitation and temperature in the environment favor for species <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.</p>
+<p>Here, your task will be to adapt the function that simulate coevolution to incorporate the modified selection gradients for mutualisms. To do so, we will need to change the parameters that the function that simulate coevolution takes as input, to incorporate <span class="math inline">\(m_{x}\)</span>, <span class="math inline">\(m_{y}\)</span>, <span class="math inline">\(\theta_{x}\)</span> and <span class="math inline">\(\theta_{y}\)</span>. Then, simulate the coevolutionary dynamics and try to answer the following question:</p>
+<ol style="list-style-type: decimal">
+<li><p>How a second source of selective pressure in the environment changes the coevolutionary dynamics for mutualisms?</p></li>
+<li><p>How changing the contribution of mutualisms as selective pressure (<span class="math inline">\(m_{x}\)</span> and <span class="math inline">\(m_{y}\)</span>) and the environmental optima of species (<span class="math inline">\(\theta_{x}\)</span> and <span class="math inline">\(\theta_{y}\)</span>) modify this outcome?</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-ex5.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
