@@ -1,0 +1,68 @@
+# Step (1)
+
+#Defining a function that takes as input the following parameters:
+
+#sx=Overall strength of ecological interactions on fitness of the victim species
+#sy=Overall strength of ecological interactions on fitness of the exploiter species
+#a=Parameter alpha of the model
+#h=Heritability of the traits of both the victim and exploiter species (assumed to be equal)
+#v_zx=Variance in the trait of the victim species
+#z_vy=Variance in the trait of the exploiter species
+#tmax=Maximum number of time steps (generations) of the simulation
+#z0_x=Initial mean trait value of the population of the victim species
+#z0_y=Initial mean trait value of the population of the exploiter species
+
+coevo<-function(mx, my, theta_x, theta_y, h, v_zx, v_zy, tmax, z0_x, z0_y){ #Step (1)
+  
+  dzx = c() #Creating vector to store values of the mean trait value of the population of the victim species 
+  dzy = c() #Creating vector to store values of the mean trait value of the population of the exploiter species
+  
+  dzx[1] = z0_x #Setting initial mean trait value in the population of the victim species
+  dzy[1] = z0_y #Setting initial mean trait value in the population of the exploiter species
+  
+  #For loop to iterate over the equation - here we will use Lande's equation
+  for(t in 1:(tmax-1)){
+    
+    # Step (2)
+    
+    zx = dzx[t] #Setting the mean trait value at the current generation of the of the population of the victim species
+    zy = dzy[t] #Setting the mean trait value at the current generation of the of the population of the exploiter species
+    
+    # Step (3)
+    
+    #mx=sx*2*a*(exp(-a*((zx-zy)^2+v_zx+v_zy)))/(1+sx*exp(-a*((zx-zy)^2+v_zx+v_zy)))
+    #my=sy*2*a*(exp(-a*((zx-zy)^2+v_zx+v_zy)))/(1+sy*exp(-a*((zx-zy)^2+v_zx+v_zy)))
+    
+    dlnw1 = mx*(zy-zx) + (1-mx)*(theta_x-zx)
+    dlnw2 = my*(zx-zy) + (1-my)*(theta_y-zy)
+    
+    # Step (4)
+    
+    dzx[t+1]=zx + h*v_zx*dlnw1 #Using Lande's equation to compute mean trait value at the next generation of the population of the victim species
+    dzy[t+1]=zy + h*v_zy*dlnw2 #Using Lande's equation to compute mean trait value at the next generation of the population of the exploiter species
+    
+  }
+  
+  r=data.frame(dzx, dzy, t=1:tmax) # Step (5), creating a data frame with mean trait values over time of the two species
+  
+  return(r)
+  
+}
+
+#Running the coevolutionary model
+r=coevo(mx=0.1, my=0.9, theta_x=7, theta_y=4, tmax=5000, z0_x=5, z0_y=1, h=0.1, v_zx=0.1, v_zy=0.1)
+
+#Plotting the results
+
+library(ggplot2)
+library(ggpubr)
+
+ggplot()+
+  geom_line(data=r, aes(x=t, y=dzx), color="royalblue3")+ # Mean trait value for victims, in blue
+  geom_line(data=r, aes(x=t, y=dzy), color="firebrick3")+
+  geom_hline(yintercept=7, linetype="dashed", color="royalblue3")+
+  geom_hline(yintercept=4, linetype="dashed", color="firebrick3")+ # # #Mean trait value for exploiters, in red
+  xlab("Generations")+ylab("Mean trait value")+
+  theme_pubr()
+
+geom_hlin

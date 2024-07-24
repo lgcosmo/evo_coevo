@@ -1,0 +1,3 @@
+URL <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv"
+
+femaleMiceWeights <- read.csv(URL)
