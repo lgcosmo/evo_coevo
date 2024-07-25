@@ -1,0 +1,76 @@
+adjacency_matrix<-function(incidence_matrix, binary=TRUE){
+  
+  n_p <- nrow(incidence_matrix)
+  n_a <- ncol(incidence_matrix)
+  n_sp <- n_p + n_a
+  
+  A <- rbind(cbind(matrix(0, n_p, n_p), incidence_matrix),
+             cbind(t(incidence_matrix), matrix(0, n_a, n_a)))
+  
+  if(binary==TRUE){A[A>0]<-1}
+  
+  return(A)
+  
+}
+
+eff_matrix<-function(incidence_matrix, mut_coef, comp_coef){
+  
+  n_p <- nrow(incidence_matrix)
+  n_a <- ncol(incidence_matrix)
+  n_sp <- n_p + n_a
+  
+  incidence_matrix<-incidence_matrix*mut_coef
+  
+  A <- rbind(cbind(matrix(comp_coef, n_p, n_p), incidence_matrix),
+             cbind(t(incidence_matrix), matrix(comp_coef, n_a, n_a)))
+  
+  diag(A)<-0
+  
+  return(A)
+  
+}
+
+nestedness <- function(B){
+  
+  # Get number of rows and columns
+  nrows <- nrow(B)
+  ncols <- ncol(B)
+  
+  # Compute nestedness of rows
+  nestedness_rows <- 0
+  for(i in 1:(nrows-1)){
+    for(j in (i+1): nrows){
+      
+      c_ij <- sum(B[i,] * B[j,])      # Number of interactions shared by i and j
+      k_i <- sum(B[i,])               # Degree of node i
+      k_j <- sum(B[j,])               # Degree of node j
+      
+      if (k_i == 0 || k_j==0) {next}  # Handle case if a node is disconnected
+      
+      o_ij <- ifelse(k_i <= k_j, 0, c_ij / min(k_i, k_j))    # Overlap and decreasing fill between i and j
+      
+      nestedness_rows <- nestedness_rows + o_ij
+    }
+  }
+  
+  # Compute nestedness of columns
+  nestedness_cols <- 0
+  for(i in 1: (ncols-1)){
+    for(j in (i+1): ncols){
+      
+      c_ij <- sum(B[,i] * B[,j])      # Number of interactions shared by i and j
+      k_i <- sum(B[,i])               # Degree of node i
+      k_j <- sum(B[,j])               # Degree of node j
+      if (k_i == 0 || k_j==0) {next}  # Handle case if a node is disconnected.
+      
+      o_ij <- ifelse(k_i <= k_j, 0, c_ij / min(k_i, k_j))    # Overlap and decreasing fill between i and j
+      
+      nestedness_cols <- nestedness_cols + o_ij         
+    }
+  }
+  
+  # Compute nestedness of the network
+  nestedness <- (nestedness_rows + nestedness_cols) / ((nrows * (nrows - 1) / 2) + (ncols * (ncols - 1) / 2))
+  
+  return(nestedness)
+}

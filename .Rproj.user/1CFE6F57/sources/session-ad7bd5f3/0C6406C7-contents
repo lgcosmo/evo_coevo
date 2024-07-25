@@ -1,0 +1,68 @@
+T_matrix<-function(A, m){
+  
+  Q<-A/apply(A, 1, sum)
+  Q<-Q*m
+  Psi<-diag((1-m), nrow(Q))
+  I<-diag(1, nrow(Q))
+  T_mat<-(solve(I-Q))
+  #T_mat<-(solve(I-Q)) %*% Psi
+  
+  return(T_mat)
+  
+}
+
+prop_ind<-function(Tmat, A){
+  
+  T2<-Tmat
+  diag(T2)<-0
+  
+  return(sum(T2[A==0])/sum(T2))
+
+  
+}
+
+Tmat_slope<-function(B, mut_coef, comp_coef){
+  
+  n_p<-nrow(B)
+  n_a<-ncol(B)
+  n_sp<-n_p+n_a
+  A<-eff_matrix(incidence_matrix=B, mut_coef=mut_coef, comp_coef=comp_coef)
+  A_bin<-A
+  A_bin[A_bin>0]<-1
+  A_bin[A_bin<0]<-0
+  
+  I<-diag(1, nrow(A))
+  Tmat<-(solve(I-A))
+  #Tmat<-Tmat %*% diag(rowSums(I-A), nrow(Tmat))
+  
+  Tsum<-rowSums(Tmat)
+  Tii<-diag(Tmat)
+  Tin<-Tsum-Tii
+  T_slope<-Tin/Tii
+  Fmat<-diag(1/Tii, nrow(Tmat)) %*% Tmat
+  diag(Fmat)<-0
+  Tout<-colMeans(Fmat)
+  Fmat<-Fmat-A
+  Tout_ind<-colMeans(Fmat)
+  #D_indirect<-((rowSums(A_bin*Tmat))/Tii) - D_eff
+  #F_indirect<-rowSums(Fmat)/Tii
+  
+  CP_indirect<-(rowSums((Fmat)[1:n_p, 1:n_p]))
+  CA_indirect<-((rowSums((Fmat)[(n_p+1):n_sp, (n_p+1):n_sp])))
+  MP_indirect<-((rowSums((Fmat)[1:n_p, (n_p+1):n_sp])))
+  MA_indirect<-((rowSums((Fmat)[(n_p+1):n_sp, 1:n_p])))
+  
+  CP_direct<-(rowSums((A)[1:n_p, 1:n_p]))
+  CA_direct<-((rowSums((A)[(n_p+1):n_sp, (n_p+1):n_sp])))
+  MP_direct<-((rowSums((A)[1:n_p, (n_p+1):n_sp])))
+  MA_direct<-((rowSums((A)[(n_p+1):n_sp, 1:n_p])))
+  
+  intrag_d<-c(CP_direct, CA_direct)
+  interg_d<-c(MP_direct, MA_direct)
+  
+  intrag_ind<-c(CP_indirect, CA_indirect)
+  interg_ind<-c(MP_indirect, MA_indirect)
+  
+  return(data.frame(sp=rownames(A), type=c(rep("plant", n_p), rep("animal", n_a)), T_slope, Tout, Tout_ind, intrag_ind, interg_ind, intrag_d, interg_d))
+  
+}

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Exercise: Coevolution in mutualistic networks | Introduction to evolutionary and coevolutionary theory</title>
+  <meta name="description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Exercise: Coevolution in mutualistic networks | Introduction to evolutionary and coevolutionary theory" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  <meta name="github-repo" content="lgcosmo/evo_coevo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Exercise: Coevolution in mutualistic networks | Introduction to evolutionary and coevolutionary theory" />
+  
+  <meta name="twitter:description" content="This is the webpage for the course “Introduction to evolutionary and coevolutionary theory”. Here you will find the course schedule, as well as all of the lecture notes." />
+  
+
+<meta name="author" content="Leandro G. Cosmo" />
+
+
+<meta name="date" content="2024-07-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Course notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#registration"><i class="fa fa-check"></i><b>1.1</b> Registration</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#course-schedule"><i class="fa fa-check"></i><b>1.2</b> Course schedule</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#bibliography"><i class="fa fa-check"></i><b>1.3</b> Bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html"><i class="fa fa-check"></i><b>2</b> Introduction to the course</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#the-fundamental-concepts-of-evolution-by-natural-selection"><i class="fa fa-check"></i><b>2.1</b> The fundamental concepts of evolution by natural selection</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#natural-selection-and-the-evolution-of-allele-frequencies-within-populations"><i class="fa fa-check"></i><b>2.2</b> Natural selection and the evolution of allele frequencies within populations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#building-our-first-equation"><i class="fa fa-check"></i><b>2.2.1</b> Building our first equation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#wrights-equation-for-the-adaptive-landscape-of-alleles"><i class="fa fa-check"></i><b>2.2.2</b> Wright’s equation for the adaptive landscape of alleles</a></li>
+<li class="chapter" data-level="2.2.3" data-path="introduction-to-the-course.html"><a href="introduction-to-the-course.html#references"><i class="fa fa-check"></i><b>2.2.3</b> References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html"><i class="fa fa-check"></i><b>3</b> Exercise: Evolution of allele frequencies</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-evolutionary-changes-in-allele-frequencies"><i class="fa fa-check"></i><b>3.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="3.2" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#using-different-assumptions-for-the-fitness-of-alleles-a-and-b"><i class="fa fa-check"></i><b>3.2</b> Using different assumptions for the fitness of alleles A and B</a></li>
+<li class="chapter" data-level="3.3" data-path="exercise-evolution-of-allele-frequencies.html"><a href="exercise-evolution-of-allele-frequencies.html#simulating-wrights-adaptive-landscape"><i class="fa fa-check"></i><b>3.3</b> Simulating Wright’s adaptive landscape</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html"><i class="fa fa-check"></i><b>4</b> Exercise: Simulating evolution using the Price theorem</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#simulating-evolutionary-changes-in-allele-frequencies-1"><i class="fa fa-check"></i><b>4.1</b> Simulating evolutionary changes in allele frequencies</a></li>
+<li class="chapter" data-level="4.2" data-path="exercise-simulating-evolution-using-the-price-theorem.html"><a href="exercise-simulating-evolution-using-the-price-theorem.html#the-regression-of-fitness-on-phenotypes-and-the-modes-of-selection"><i class="fa fa-check"></i><b>4.2</b> The regression of fitness on phenotypes and the modes of selection</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html"><i class="fa fa-check"></i><b>5</b> Exercise: Simulating evolution using Lande’s equation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-evolutionary-changes-in-continuous-traits"><i class="fa fa-check"></i><b>5.1</b> Simulating evolutionary changes in continuous traits</a></li>
+<li class="chapter" data-level="5.2" data-path="exercise-simulating-evolution-using-landes-equation.html"><a href="exercise-simulating-evolution-using-landes-equation.html#simulating-the-adaptive-landscape-of-a-continuous-trait"><i class="fa fa-check"></i><b>5.2</b> Simulating the adaptive landscape of a continuous trait</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><i class="fa fa-check"></i><b>6</b> Exercise: Simulating coevolution mediated by a gene-for-gene or matching allele mechanisms</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-victim-exploiter-interactions"><i class="fa fa-check"></i><b>6.1</b> Simulating coevolution of victim-exploiter interactions</a></li>
+<li class="chapter" data-level="6.2" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-antagonistic-interactions-under-different-assumptions"><i class="fa fa-check"></i><b>6.2</b> Simulating coevolution of antagonistic interactions under different assumptions</a></li>
+<li class="chapter" data-level="6.3" data-path="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html"><a href="exercise-simulating-coevolution-mediated-by-a-gene-for-gene-or-matching-allele-mechanisms.html#simulating-coevolution-of-mutualistic-interactions"><i class="fa fa-check"></i><b>6.3</b> Simulating coevolution of mutualistic interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><i class="fa fa-check"></i><b>7</b> Exercise: Simulating coevolution mediated by a trait matching mechanism</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-coevolution-of-species-under-victim-exploiter-interactions"><i class="fa fa-check"></i><b>7.1</b> Simulating coevolution of species under victim-exploiter interactions</a></li>
+<li class="chapter" data-level="7.2" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#simulating-the-coevolution-of-mutualistic-species"><i class="fa fa-check"></i><b>7.2</b> Simulating the coevolution of mutualistic species</a></li>
+<li class="chapter" data-level="7.3" data-path="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html"><a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html#incorporating-other-sources-of-selective-pressure-in-the-environment"><i class="fa fa-check"></i><b>7.3</b> Incorporating other sources of selective pressure in the environment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="exercise-coevolution-in-mutualistic-networks.html"><a href="exercise-coevolution-in-mutualistic-networks.html"><i class="fa fa-check"></i><b>8</b> Exercise: Coevolution in mutualistic networks</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="exercise-coevolution-in-mutualistic-networks.html"><a href="exercise-coevolution-in-mutualistic-networks.html#simulating-coevolution-in-mutualistic-networks"><i class="fa fa-check"></i><b>8.1</b> Simulating coevolution in mutualistic networks</a></li>
+<li class="chapter" data-level="8.2" data-path="exercise-coevolution-in-mutualistic-networks.html"><a href="exercise-coevolution-in-mutualistic-networks.html#quantifying-indirect-evolutionary-effects"><i class="fa fa-check"></i><b>8.2</b> Quantifying indirect evolutionary effects</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to evolutionary and coevolutionary theory</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-coevolution-in-mutualistic-networks" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Exercise: Coevolution in mutualistic networks<a href="exercise-coevolution-in-mutualistic-networks.html#exercise-coevolution-in-mutualistic-networks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="simulating-coevolution-in-mutualistic-networks" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Simulating coevolution in mutualistic networks<a href="exercise-coevolution-in-mutualistic-networks.html#simulating-coevolution-in-mutualistic-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the lecture, we built a coevolutionary model that describes how the mean value of a continuous trait <span class="math inline">\(\overline{z}_{i}\)</span>, for a species <span class="math inline">\(i\)</span>, evolves in response to the selective pressures of mutualistic interactions and other sources in the environment that favor an optimal trait value, <span class="math inline">\(\theta_{i}\)</span>. This model is a simplified version of the one present in <a href="https://www.nature.com/articles/nature24273">Guimarães et al. (2017)</a>.</p>
+<p>The starting point of our model was the classic equation from quantitative genetics by Russel Lande (1976). Using this equation as a starting point, we incorporated the selective pressures of mutualistic interactions and other sources in the environment directly assuming how the selection gradient, <span class="math inline">\(\frac{\partial ln\overline{W_i}}{\partial \overline{z}_i}\)</span>, depends on these two sources. We first assumed that for each species <span class="math inline">\(i\)</span>, mutualistic interactions contribute with a fraction <span class="math inline">\(m_{i}\)</span> and the environment contributes with the remaining <span class="math inline">\((1-m_{i})\)</span>. Next, we assumed that the selective pressures from mutualistic partners, <span class="math inline">\(m_{i}\)</span>, are distributed among all the <span class="math inline">\(j\)</span> partners of species <span class="math inline">\(i\)</span> such that each partner contributes with a fraction <span class="math inline">\(q_{ij}\)</span> to <span class="math inline">\(m_{i}\)</span> and favor trait complementarity, <span class="math inline">\((\overline{z}_j-\overline{z}_i)\)</span>. For simplicity, we set <span class="math inline">\(q_{ij}=\frac{a_{ij}}{\sum_{i=1, i\neq j}^{N}a_{ij}}\)</span>, where <span class="math inline">\(a_{ij}=1\)</span> if species <span class="math inline">\(i\)</span> interacts with species <span class="math inline">\(j\)</span> and <span class="math inline">\(a_{ij}=0\)</span> otherwise. Finally, we assumed that the remaining <span class="math inline">\((1-m_{i})\)</span> sources of selection in the environment favor complementarity with an optimal trait value, <span class="math inline">\((\theta_{i}-\overline{z}_i)\)</span>. Under these assumptions, we arrived at the following equation:</p>
+<p><span class="math display">\[
+\overline{z}_i^{(t+1)}=\overline{z}_i^{(t)}+h_{i}^2\sigma^2_{i}\left[m_{i}\sum_{i=1, i\neq j}^{N}q_{ij}(\overline{z}_j^{(t)}-\overline{z}_i^{(t)})+(1-m_{i})(\theta_{i}-\overline{z}_i^{(t)}) \right]
+\]</span> where <span class="math inline">\(h^2_{i}\)</span> is the narrow-sense heritability of trait <span class="math inline">\(\overline{z}_i\)</span> and <span class="math inline">\(\sigma^2_{i}\)</span> is the phenotypic variance of trait <span class="math inline">\(\overline{z}_i\)</span>, which is assumed to be normally distributed.</p>
+<p>To simulate the coevolutionary dynamics using this equation, we will use a slightly different approach than what we have been using so far. Our first step will be to set up a matrix of interactions among species. This matrix will determine the network of interactions among species, and will also determine the number of species, <span class="math inline">\(N\)</span>, that will be part of our simulation. For this section we will use the matrices of interactions underlying the networks that we can obtain from the <a href="www.web-of-life.es"><em>Web-of-Life</em></a> database. To maker it easier I have downloaded all of the mutualistic networks in this database and stored them in a GitHub repository. Using this GitHub repository we can directly import a network to R, as follows:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-1" tabindex="-1"></a>URL1<span class="ot">=</span><span class="st">&quot;https://github.com/lgcosmo/evo_coevo/raw/main/networks/M_PA_002.csv&quot;</span> <span class="co">#Setting the URL to one plant-ant network</span></span>
+<span id="cb38-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-3" tabindex="-1"></a>URL2<span class="ot">=</span><span class="st">&quot;https://github.com/lgcosmo/evo_coevo/raw/main/networks/M_PL_011.csv&quot;</span> <span class="co">#Setting the URL to one plant-pollinator network</span></span>
+<span id="cb38-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-4" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-5" tabindex="-1"></a><span class="co">#Importing the matrices of interactions from the URLs</span></span>
+<span id="cb38-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-6" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-7" tabindex="-1"></a>net1<span class="ot">=</span><span class="fu">as.matrix</span>(<span class="fu">read.csv</span>(URL1)) </span>
+<span id="cb38-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb38-8" tabindex="-1"></a>net2<span class="ot">=</span><span class="fu">as.matrix</span>(<span class="fu">read.csv</span>(URL2))</span></code></pre></div>
+<p>In the <em>Web-of-Life database</em>, all matrices of interactions are in the format of what is called an incidence matrix or a biadjacency matrix. This is a matrix used to represent interactions when we have two distinct sets of species that interact only with species of a different set. For instance, in pollination networks, plants constitute one of the sets, and these plant species interact only with species from the second set, the pollinator species. This type of network of interactions is called a bipartite network. The incidence/biadjacency matrix of this type of network is a matrix whose rows depict species from one of the sets (usually plants in ecology), and columns depict species from the other set (usually animals). Thus the incidence/biadjacency matrix has <span class="math inline">\(N_{plants}\)</span> rows and <span class="math inline">\(N_{animals}\)</span> columns. However, to simulate the coevolutionary model it is easier to work with a matrix containing all species in both rows and columns, such that it has <span class="math inline">\(N\)</span> rows and <span class="math inline">\(N\)</span> columns (<span class="math inline">\(N\)</span> is the total number of species). For this reason, we need to transform the incidence/biadjacency matrix into an adjacency matrix, which can be done as follows:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-1" tabindex="-1"></a><span class="co">#Getting number of species and total number of species</span></span>
+<span id="cb39-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-3" tabindex="-1"></a>n_p <span class="ot">=</span> <span class="fu">nrow</span>(net1) <span class="co">#Number of plant species</span></span>
+<span id="cb39-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-4" tabindex="-1"></a>n_a <span class="ot">=</span> <span class="fu">ncol</span>(net1) <span class="co">#Number of animal species</span></span>
+<span id="cb39-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-5" tabindex="-1"></a>n_sp <span class="ot">=</span> n_p<span class="sc">+</span>n_a <span class="co">#Total number of species</span></span>
+<span id="cb39-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-7" tabindex="-1"></a><span class="co"># Creating adjacency matrix</span></span>
+<span id="cb39-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-8" tabindex="-1"></a>A1 <span class="ot">=</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="fu">matrix</span>(<span class="dv">0</span>, n_p, n_p), net1), <span class="fu">cbind</span>(<span class="fu">t</span>(net1), <span class="fu">matrix</span>(<span class="dv">0</span>, n_a, n_a)))</span>
+<span id="cb39-9"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-10" tabindex="-1"></a><span class="co">#Changing labels</span></span>
+<span id="cb39-11"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-11" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-12" tabindex="-1"></a><span class="fu">rownames</span>(A1) <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;P&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_p), <span class="fu">paste0</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_a))</span>
+<span id="cb39-13"><a href="exercise-coevolution-in-mutualistic-networks.html#cb39-13" tabindex="-1"></a><span class="fu">colnames</span>(A1) <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;P&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_p), <span class="fu">paste0</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_a))</span></code></pre></div>
+<p>To make our life easier, we can build a function that takes as input an incidence/biadjacency matrix and returns an adjacency matrix:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-1" tabindex="-1"></a>adjacency_matrix<span class="ot">&lt;-</span><span class="cf">function</span>(incidence_matrix, <span class="at">binary=</span><span class="cn">TRUE</span>){</span>
+<span id="cb40-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-2" tabindex="-1"></a>  </span>
+<span id="cb40-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-3" tabindex="-1"></a>  n_p <span class="ot">&lt;-</span> <span class="fu">nrow</span>(incidence_matrix)</span>
+<span id="cb40-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-4" tabindex="-1"></a>  n_a <span class="ot">&lt;-</span> <span class="fu">ncol</span>(incidence_matrix)</span>
+<span id="cb40-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-5" tabindex="-1"></a>  n_sp <span class="ot">&lt;-</span> n_p <span class="sc">+</span> n_a</span>
+<span id="cb40-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-6" tabindex="-1"></a>  </span>
+<span id="cb40-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-7" tabindex="-1"></a>  A <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">cbind</span>(<span class="fu">matrix</span>(<span class="dv">0</span>, n_p, n_p), incidence_matrix),</span>
+<span id="cb40-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-8" tabindex="-1"></a>             <span class="fu">cbind</span>(<span class="fu">t</span>(incidence_matrix), <span class="fu">matrix</span>(<span class="dv">0</span>, n_a, n_a)))</span>
+<span id="cb40-9"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-9" tabindex="-1"></a>  </span>
+<span id="cb40-10"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-10" tabindex="-1"></a>  <span class="fu">rownames</span>(A) <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;P&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_p), <span class="fu">paste0</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_a))</span>
+<span id="cb40-11"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-11" tabindex="-1"></a>  <span class="fu">colnames</span>(A) <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">&quot;P&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_p), <span class="fu">paste0</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_a))</span>
+<span id="cb40-12"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-12" tabindex="-1"></a>  </span>
+<span id="cb40-13"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-13" tabindex="-1"></a>  <span class="cf">if</span>(binary<span class="sc">==</span><span class="cn">TRUE</span>){A[A<span class="sc">&gt;</span><span class="dv">0</span>]<span class="ot">&lt;-</span><span class="dv">1</span>}</span>
+<span id="cb40-14"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-14" tabindex="-1"></a>  </span>
+<span id="cb40-15"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-15" tabindex="-1"></a>  <span class="fu">return</span>(A)</span>
+<span id="cb40-16"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-16" tabindex="-1"></a>  </span>
+<span id="cb40-17"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-17" tabindex="-1"></a>}</span>
+<span id="cb40-18"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-18" tabindex="-1"></a></span>
+<span id="cb40-19"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-19" tabindex="-1"></a><span class="co"># Using the function for the two networks</span></span>
+<span id="cb40-20"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-20" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-21" tabindex="-1"></a>A1<span class="ot">=</span><span class="fu">adjacency_matrix</span>(<span class="at">incidence_matrix=</span>net1, <span class="at">binary=</span><span class="cn">TRUE</span>)</span>
+<span id="cb40-22"><a href="exercise-coevolution-in-mutualistic-networks.html#cb40-22" tabindex="-1"></a>A2<span class="ot">=</span><span class="fu">adjacency_matrix</span>(<span class="at">incidence_matrix=</span>net2, <span class="at">binary=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We can also quickly visualize how these two networks looks like using the <em>igraph</em> package:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb41-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb45-1" tabindex="-1"></a><span class="co">#Constructing an igraph object from the adjacency matrix</span></span>
+<span id="cb45-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb45-2" tabindex="-1"></a>G1<span class="ot">=</span><span class="fu">graph_from_adjacency_matrix</span>(A1, <span class="at">mode=</span><span class="fu">c</span>(<span class="st">&quot;undirected&quot;</span>))</span>
+<span id="cb45-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb45-3" tabindex="-1"></a>G2<span class="ot">=</span><span class="fu">graph_from_adjacency_matrix</span>(A2, <span class="at">mode=</span><span class="fu">c</span>(<span class="st">&quot;undirected&quot;</span>))</span>
+<span id="cb45-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb45-4" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb45-5" tabindex="-1"></a><span class="fu">plot</span>(G1, <span class="at">vertex.label=</span><span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="65%" height="65%" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb46-1" tabindex="-1"></a><span class="fu">plot</span>(G2, <span class="at">vertex.label=</span><span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-2.png" width="65%" height="65%" /></p>
+<p>With our matrix of interactions in hand, our next step will be to define a data structure that will store the mean trait values of each species over time. In this case, since we will be dealing with multiple species, it is better to work with a matrix instead of a vector. This matrix will store in each column the values of <span class="math inline">\(\overline{z}_i\)</span> for each species <span class="math inline">\(i\)</span>, and each row will store the values for a given generation <span class="math inline">\(t\)</span>, as follows:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-1" tabindex="-1"></a>tmax<span class="ot">=</span><span class="dv">100</span> <span class="co">#Setting the maximum number of time steps in the simulation</span></span>
+<span id="cb47-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-3" tabindex="-1"></a>n_sp<span class="ot">=</span><span class="fu">nrow</span>(A1) <span class="co">#Setting a number of species. It is equal to the number of rows in the matrix of interactions.</span></span>
+<span id="cb47-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-4" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-5" tabindex="-1"></a>dz<span class="ot">=</span><span class="fu">matrix</span>(<span class="at">data=</span><span class="cn">NA</span>, <span class="at">nrow=</span>tmax, <span class="at">ncol=</span>n_sp)</span>
+<span id="cb47-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-6" tabindex="-1"></a><span class="fu">colnames</span>(dz)<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;SP&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_sp)</span>
+<span id="cb47-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-7" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb47-8" tabindex="-1"></a><span class="fu">print</span>(dz[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]) <span class="co">#Visualizing the first 5 rows</span></span></code></pre></div>
+<pre><code>##      SP1 SP2 SP3 SP4 SP5 SP6 SP7 SP8 SP9
+## [1,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [2,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [3,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [4,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [5,]  NA  NA  NA  NA  NA  NA  NA  NA  NA</code></pre>
+<p>The dimensions of this matrix will depend on the number of species and maximum number of time steps of our simulation. For simplicity, from now on we will work with the matrix “A1”, but feel free to use a different network.</p>
+<p>Next, as we did before, we need to define some of the parameters of the model, such as <span class="math inline">\(h^2_{i}\)</span>, <span class="math inline">\(\sigma^2_{i}\)</span>, <span class="math inline">\(m_{i}\)</span>, <span class="math inline">\(\theta_{i}\)</span> and initial mean trait values for each species, <span class="math inline">\(\overline{z}_{0,i}\)</span>. When we have <span class="math inline">\(N\)</span> species, we also need to choose <span class="math inline">\(N\)</span> values for each of these parameters. The number of values can get out of control quickly and to avoid this we will use the same values of <span class="math inline">\(h^2_{i}\)</span>, <span class="math inline">\(\sigma^2_{i}\)</span> and <span class="math inline">\(m_{i}\)</span> for all species. For <span class="math inline">\(\theta_{i}\)</span> and <span class="math inline">\(\overline{z}_{0,i}\)</span>, we will sample these parameters from a uniform distribution from an interval between 0 and 10. The code to do so is reproduced below:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-1" tabindex="-1"></a>var_z<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) <span class="co">#Setting the trait variance to a certain value for all species</span></span>
+<span id="cb49-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-2" tabindex="-1"></a>h<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) <span class="co">#Setting the heritability to a certain value for all species</span></span>
+<span id="cb49-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-3" tabindex="-1"></a>m<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) <span class="co">#Setting the contribution of mutualisms as a source of selection to a certain value for all species</span></span>
+<span id="cb49-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-5" tabindex="-1"></a>z0<span class="ot">=</span><span class="fu">runif</span>(n_sp, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>) <span class="co">#Sampling initial mean trait values of each species from a uniform distribution</span></span>
+<span id="cb49-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb49-6" tabindex="-1"></a>theta<span class="ot">=</span><span class="fu">runif</span>(n_sp, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>) <span class="co">#Sampling the environmental optima of each species from a uniform distribution</span></span></code></pre></div>
+<p>These values will be passed as arguments to a function that we will use to simulate the coevolutionary model. In this function, we will first set initial mean trait values for all species and then perform the following set of operations inside a <em>for loop</em>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Set mean trait values of all species at generation <span class="math inline">\(t\)</span>.</p></li>
+<li><p>Compute the matrix of evolutionary effects, <span class="math inline">\(Q\)</span>. Each entry of this matrix will be equal to <span class="math inline">\(q_{ij}=\frac{a_{ij}}{\sum_{i=1, i\neq j}^{N}a_{ij}}\)</span>. This is equivalent as getting each entry of the adjacency matrix, <span class="math inline">\(A\)</span>, and dividing them by the sum of their corresponding row. Then, we multiply each row of this matrix by <span class="math inline">\(m_{i}\)</span>. Remember that each row in the matrix <span class="math inline">\(Q\)</span> corresponds to a species <span class="math inline">\(i\)</span>, and each column represents the contribution of each species <span class="math inline">\(j\)</span> to the evolution of <span class="math inline">\(i\)</span>.</p></li>
+<li><p>Compute all pairwise differences in the mean trait values of species, <span class="math inline">\((\overline{z}_j-\overline{z}_i)\)</span>. The result will be another matrix with entries corresponding to the differences in the trait of species <span class="math inline">\(j\)</span> and species <span class="math inline">\(i\)</span>.</p></li>
+<li><p>Multiply the matrix of pairwise evolutionary effects <span class="math inline">\(Q\)</span>, with the matrix of pairwise differences in traits.</p></li>
+<li><p>Compute the selection gradient as described in the equation of the coevolutionary model.</p></li>
+<li><p>Compute mean trait values at the next generation using Lande`s equation.</p></li>
+</ol>
+<p>These steps are highlighted in the code below:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-1" tabindex="-1"></a>coevo_network<span class="ot">&lt;-</span><span class="cf">function</span>(incidence_matrix, m, z0, theta, h, var_z, tmax){</span>
+<span id="cb50-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-2" tabindex="-1"></a>  </span>
+<span id="cb50-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-3" tabindex="-1"></a>  <span class="co"># Setting up adjacency matrix and the data structure to store mean trait values over time for the simulation</span></span>
+<span id="cb50-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-4" tabindex="-1"></a>  A<span class="ot">=</span><span class="fu">adjacency_matrix</span>(<span class="at">incidence_matrix=</span>incidence_matrix, <span class="at">binary=</span><span class="cn">TRUE</span>)</span>
+<span id="cb50-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-5" tabindex="-1"></a>  n_sp<span class="ot">=</span><span class="fu">nrow</span>(A)</span>
+<span id="cb50-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-6" tabindex="-1"></a>  dz<span class="ot">=</span><span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> tmax, <span class="at">ncol =</span> n_sp)</span>
+<span id="cb50-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-7" tabindex="-1"></a>  </span>
+<span id="cb50-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-8" tabindex="-1"></a>  dz[<span class="dv">1</span>,]<span class="ot">&lt;-</span>z0 <span class="co"># Setting initial trait values</span></span>
+<span id="cb50-9"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-9" tabindex="-1"></a>  </span>
+<span id="cb50-10"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-10" tabindex="-1"></a>  <span class="cf">for</span>(t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(tmax<span class="dv">-1</span>)){</span>
+<span id="cb50-11"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-11" tabindex="-1"></a>    </span>
+<span id="cb50-12"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-12" tabindex="-1"></a>    z <span class="ot">=</span> dz[t, ] <span class="co"># Step (1)</span></span>
+<span id="cb50-13"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-13" tabindex="-1"></a>    </span>
+<span id="cb50-14"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-14" tabindex="-1"></a>    Q <span class="ot">=</span> A <span class="sc">/</span> <span class="fu">rowSums</span>(A) <span class="co"># Step (2)</span></span>
+<span id="cb50-15"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-15" tabindex="-1"></a>    Q <span class="ot">=</span> Q <span class="sc">*</span> m <span class="co"># Step (2)</span></span>
+<span id="cb50-16"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-16" tabindex="-1"></a>    </span>
+<span id="cb50-17"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-17" tabindex="-1"></a>    z_dif <span class="ot">=</span> <span class="fu">t</span>(A<span class="sc">*</span>z) <span class="sc">-</span> A<span class="sc">*</span>z <span class="co"># Step (3)</span></span>
+<span id="cb50-18"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-18" tabindex="-1"></a>    </span>
+<span id="cb50-19"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-19" tabindex="-1"></a>    Q_dif <span class="ot">=</span> Q <span class="sc">*</span> z_dif <span class="co"># Step (4)</span></span>
+<span id="cb50-20"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-20" tabindex="-1"></a>    </span>
+<span id="cb50-21"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-21" tabindex="-1"></a>    mut_sel <span class="ot">=</span> <span class="fu">rowSums</span>(Q_dif) <span class="co"># Step (5)</span></span>
+<span id="cb50-22"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-22" tabindex="-1"></a>    env_sel <span class="ot">=</span> (<span class="dv">1</span> <span class="sc">-</span> m)<span class="sc">*</span>(theta <span class="sc">-</span> z) <span class="co"># Step (5)</span></span>
+<span id="cb50-23"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-23" tabindex="-1"></a>    dlnw <span class="ot">=</span> mut_sel<span class="sc">+</span>env_sel <span class="co"># Step (5)</span></span>
+<span id="cb50-24"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-24" tabindex="-1"></a>    </span>
+<span id="cb50-25"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-25" tabindex="-1"></a>    dz[t<span class="sc">+</span><span class="dv">1</span>, ] <span class="ot">=</span> z <span class="sc">+</span> h<span class="sc">*</span>var_z<span class="sc">*</span>dlnw <span class="co"># Step (6)</span></span>
+<span id="cb50-26"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-26" tabindex="-1"></a>    </span>
+<span id="cb50-27"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-27" tabindex="-1"></a>  }</span>
+<span id="cb50-28"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-28" tabindex="-1"></a>  </span>
+<span id="cb50-29"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-29" tabindex="-1"></a>  <span class="co"># Setting up a data farme with results</span></span>
+<span id="cb50-30"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-30" tabindex="-1"></a>  dz_df<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(dz)</span>
+<span id="cb50-31"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-31" tabindex="-1"></a>  dz_df<span class="sc">$</span>time<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span>tmax</span>
+<span id="cb50-32"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-32" tabindex="-1"></a>  <span class="fu">names</span>(dz_df)[<span class="dv">1</span><span class="sc">:</span>n_sp]<span class="ot">&lt;-</span><span class="fu">paste0</span>(<span class="st">&quot;SP&quot;</span>, <span class="dv">1</span><span class="sc">:</span>n_sp)</span>
+<span id="cb50-33"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-33" tabindex="-1"></a>  dz_df<span class="ot">&lt;-</span><span class="fu">melt</span>(dz_df, <span class="at">id.vars=</span><span class="st">&quot;time&quot;</span>)</span>
+<span id="cb50-34"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-34" tabindex="-1"></a>  </span>
+<span id="cb50-35"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-35" tabindex="-1"></a>  <span class="fu">return</span>(dz_df)</span>
+<span id="cb50-36"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-36" tabindex="-1"></a>  </span>
+<span id="cb50-37"><a href="exercise-coevolution-in-mutualistic-networks.html#cb50-37" tabindex="-1"></a>}</span></code></pre></div>
+<p>With the function in hand we can now run it and plot the results:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-1" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb51-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb51-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-3" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb51-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-4" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-5" tabindex="-1"></a>var_z<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) </span>
+<span id="cb51-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-6" tabindex="-1"></a>h<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) </span>
+<span id="cb51-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-7" tabindex="-1"></a>m<span class="ot">=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, n_sp) </span>
+<span id="cb51-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-8" tabindex="-1"></a>z0<span class="ot">=</span><span class="fu">runif</span>(n_sp, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>)</span>
+<span id="cb51-9"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-9" tabindex="-1"></a>theta<span class="ot">=</span><span class="fu">runif</span>(n_sp, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">10</span>) </span>
+<span id="cb51-10"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-10" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-11" tabindex="-1"></a>r<span class="ot">=</span><span class="fu">coevo_network</span>(<span class="at">incidence_matrix=</span>net1, <span class="at">m=</span>m, <span class="at">z0=</span>z0, <span class="at">theta=</span>theta, <span class="at">h=</span>h, <span class="at">var_z=</span>var_z, <span class="at">tmax=</span><span class="dv">200</span>)</span>
+<span id="cb51-12"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-12" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-13" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb51-14"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-14" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>r, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>value, <span class="at">color=</span>variable))<span class="sc">+</span></span>
+<span id="cb51-15"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-15" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Generation&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Mean trait values&quot;</span>)<span class="sc">+</span></span>
+<span id="cb51-16"><a href="exercise-coevolution-in-mutualistic-networks.html#cb51-16" tabindex="-1"></a>  <span class="fu">theme_pubr</span>()<span class="sc">+</span><span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="65%" height="65%" /></p>
+<p>In the plot above, lines of different colors represent the coevolutionary trajectory of the mean trait values of different species. With this function, try to explore how different values of <span class="math inline">\(m_{i}\)</span> change the coevolutionary dynamics. Think about what differences can you observe from the scenario where only two mutualistic species coevolve.</p>
+</div>
+<div id="quantifying-indirect-evolutionary-effects" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Quantifying indirect evolutionary effects<a href="exercise-coevolution-in-mutualistic-networks.html#quantifying-indirect-evolutionary-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the lecture we studied that our model for coevolution in mutualistic networks has a stable equilibrium point. This equilibrium point is depicted by the following matrix-vector equation:</p>
+<p><span class="math display">\[
+\vec{\overline{z}^*}=(I-Q)^{-1}\Psi\vec{\theta}
+\]</span></p>
+<p>In the equation above, the matrix <span class="math inline">\(\left(I-Q\right)^{-1}\)</span> is a matrix containing the direct and indirect evolutionary effects that each species exert on each other. This interpretation can be recovered by the matrix power series:</p>
+<p><span class="math display">\[
+\left(I-Q\right)^{-1}=\sum_{k=0}^{\infty}Q^{k}
+\]</span> The entries of each matrix <span class="math inline">\(Q^{k}\)</span>, in turn, contain the effects that species <span class="math inline">\(j\)</span> exert on species <span class="math inline">\(i\)</span> through a pathway of length <span class="math inline">\(k\)</span>. Thus, each matrix in the series depicted in the equation above corresponds to a matrix containing the effects from pathways of length <span class="math inline">\(k\)</span> among all species. Therefore, the equilibrium solution of the coevolutionary model represents a scenario in which direct and indirect evolutionary effects connect the selective pressures coming from the environment (<span class="math inline">\(\theta_{i}\)</span>) across all species in the network.</p>
+<p>Since the matrix of direct interactions is known, we can use the matrix <span class="math inline">\(T=(I-Q)^{-1}\Psi\)</span> to quantify what is the contribution of indirect evolutionary effects to the evolution of species in the network. To do so, we need to perform the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Obtain the matrix of direct evolutionary effects, <span class="math inline">\(Q\)</span> and the matrix <span class="math inline">\(\Psi\)</span>, which is a diagonal matrix with diagonal <span class="math inline">\(\Psi_{i}=(1-m_{i})\)</span>.</p></li>
+<li><p>Compute the matrix <span class="math inline">\(T=(I-Q)^{-1}\Psi\)</span> and set its diagonal to 0.</p></li>
+<li><p>Create a new matrix, <span class="math inline">\(T_{indirect}\)</span> and set all its entries of the matrix <span class="math inline">\(T\)</span> containing direct interactions to 0.</p></li>
+<li><p>Compute the contribution of indirect effects as the ratio of the sum of all of the entries of the matrix <span class="math inline">\(T_{indirect}\)</span> to the sum of the entries of the complete matrix <span class="math inline">\(T\)</span>.</p></li>
+</ol>
+<p>The code to do so is reproduced inside a function below:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-1" tabindex="-1"></a>indirect_effects<span class="ot">=</span><span class="cf">function</span>(incidence_matrix, m){</span>
+<span id="cb52-2"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-2" tabindex="-1"></a>  </span>
+<span id="cb52-3"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-3" tabindex="-1"></a>  <span class="co"># Getting adjacency matrix</span></span>
+<span id="cb52-4"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-4" tabindex="-1"></a>  A<span class="ot">=</span><span class="fu">adjacency_matrix</span>(<span class="at">incidence_matrix=</span>incidence_matrix, <span class="at">binary=</span><span class="cn">TRUE</span>)</span>
+<span id="cb52-5"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-5" tabindex="-1"></a>  </span>
+<span id="cb52-6"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-6" tabindex="-1"></a>  n_sp<span class="ot">=</span><span class="fu">nrow</span>(A)</span>
+<span id="cb52-7"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-7" tabindex="-1"></a>  </span>
+<span id="cb52-8"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-8" tabindex="-1"></a>  Q <span class="ot">=</span> A <span class="sc">/</span> <span class="fu">apply</span>(A,<span class="dv">1</span>,sum) <span class="co"># Step (1)</span></span>
+<span id="cb52-9"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-9" tabindex="-1"></a>  Q <span class="ot">=</span> Q <span class="sc">*</span> m <span class="co"># Step (1)</span></span>
+<span id="cb52-10"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-10" tabindex="-1"></a>  </span>
+<span id="cb52-11"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-11" tabindex="-1"></a>  Psi <span class="ot">=</span> <span class="fu">diag</span>((<span class="dv">1</span><span class="sc">-</span>m), n_sp) <span class="co"># Step (1)</span></span>
+<span id="cb52-12"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-12" tabindex="-1"></a>  I <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span>, n_sp) <span class="co"># Creating identity matrix</span></span>
+<span id="cb52-13"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-13" tabindex="-1"></a>  </span>
+<span id="cb52-14"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-14" tabindex="-1"></a>  Tmat<span class="ot">=</span>(<span class="fu">solve</span>(I<span class="sc">-</span>Q)) <span class="sc">%*%</span> Psi <span class="co"># Step (2)</span></span>
+<span id="cb52-15"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-15" tabindex="-1"></a>  <span class="fu">diag</span>(Tmat)<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb52-16"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-16" tabindex="-1"></a>  </span>
+<span id="cb52-17"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-17" tabindex="-1"></a>  Tmat_indirect<span class="ot">=</span>Tmat <span class="co">#Step (3)</span></span>
+<span id="cb52-18"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-18" tabindex="-1"></a>  Tmat_indirect<span class="ot">=</span>Tmat_indirect<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>A) <span class="co">#Step (3)</span></span>
+<span id="cb52-19"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-19" tabindex="-1"></a>  </span>
+<span id="cb52-20"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-20" tabindex="-1"></a>  ind_contrib<span class="ot">=</span><span class="fu">sum</span>(Tmat_indirect)<span class="sc">/</span><span class="fu">sum</span>(Tmat) <span class="co">#Step (4)</span></span>
+<span id="cb52-21"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-21" tabindex="-1"></a>  </span>
+<span id="cb52-22"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-22" tabindex="-1"></a>  <span class="fu">return</span>(ind_contrib)</span>
+<span id="cb52-23"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-23" tabindex="-1"></a>  </span>
+<span id="cb52-24"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-24" tabindex="-1"></a>}</span>
+<span id="cb52-25"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-25" tabindex="-1"></a></span>
+<span id="cb52-26"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-26" tabindex="-1"></a><span class="co"># Using the function</span></span>
+<span id="cb52-27"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-27" tabindex="-1"></a></span>
+<span id="cb52-28"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-28" tabindex="-1"></a>ind_net1 <span class="ot">=</span> <span class="fu">indirect_effects</span>(<span class="at">incidence_matrix=</span>net1, <span class="at">m=</span><span class="fl">0.5</span>)</span>
+<span id="cb52-29"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-29" tabindex="-1"></a>ind_net2 <span class="ot">=</span> <span class="fu">indirect_effects</span>(<span class="at">incidence_matrix=</span>net2, <span class="at">m=</span><span class="fl">0.5</span>)</span>
+<span id="cb52-30"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-30" tabindex="-1"></a></span>
+<span id="cb52-31"><a href="exercise-coevolution-in-mutualistic-networks.html#cb52-31" tabindex="-1"></a><span class="fu">print</span>(ind_net1)</span></code></pre></div>
+<pre><code>## [1] 0.2824513</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="exercise-coevolution-in-mutualistic-networks.html#cb54-1" tabindex="-1"></a><span class="fu">print</span>(ind_net2)</span></code></pre></div>
+<pre><code>## [1] 0.3639537</code></pre>
+<p>Looking at these two networks, try to explain why there is a difference in the contribution of indirect effects. Furthermore, using the function, try to explore how changing the value of <span class="math inline">\(m_{i}\)</span> modifies the contribution of indirect evolutionary effects.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exercise-simulating-coevolution-mediated-by-a-trait-matching-mechanism.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-ex6.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

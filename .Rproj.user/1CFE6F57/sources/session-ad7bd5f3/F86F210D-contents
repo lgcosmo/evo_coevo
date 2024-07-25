@@ -1,0 +1,53 @@
+library(Rfast)
+library(igraph)
+
+species_metrics<-function(rede){
+
+net<-rede
+
+net<-net[,which(colSums(net) > 0)] #Removing all 0 columns
+
+net<-net[which(rowSums(net) > 0),] #Removing all 0 rows
+
+# Setting up matrix for simulations
+n_p <- nrow(net)
+n_a <- ncol(net)
+n_sp <- n_p + n_a
+# Changing labels
+rownames(net) <- paste("P", 1:n_p, sep = "")
+colnames(net) <- paste("A", 1:n_a, sep = "")
+# changing values to 1 or 0
+net[net > 0] <- 1
+# Creating adjacency matrix
+A <- rbind(cbind(matrix(0, n_p, n_p), net),
+           cbind(t(net), matrix(0, n_a, n_a)))
+
+A_eigen<-eigen(A)
+A_eigenvalues<-A_eigen$values
+leading_eigen<-max(A_eigenvalues)
+
+degrees<-rowSums(A) #Calculating adjacency matrix degrees
+
+decay<-1/(leading_eigen+0.1)
+
+A<-A*decay
+
+I<-diag(1, nrow(A), ncol(A))
+
+katz<-solve(I-A)
+
+sp_id=paste0("SP", 1:n_sp)
+
+sptype<-c(rep("plant", n_p), rep("animal", n_a))
+
+p_deg<-degrees[sptype=="plant"]
+a_deg<-degrees[sptype=="animal"]
+
+p_class<-ifelse(p_deg>mean(p_deg), "core", "periphery")
+a_class<-ifelse(a_deg>mean(a_deg), "core", "periphery")
+
+class<-c(p_class, a_class)
+
+return(data.frame(sp_id=sp_id, bip_set=sptype, degree=degrees, position=class))
+
+}

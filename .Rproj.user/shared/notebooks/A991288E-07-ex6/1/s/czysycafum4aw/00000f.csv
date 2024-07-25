@@ -1,0 +1,8 @@
+"0",""
+"0","var_z=rep(0.5, n_sp)"
+"0","h=rep(0.5, n_sp)"
+"0","m=rep(0.5, n_sp)"
+"0",""
+"0","z0=runif(n_sp, min=0, max=10)"
+"0","theta=runif(n_sp, min=0, max=10)"
+"0",""

@@ -120,7 +120,7 @@
 
 \title{Introduction to evolutionary and coevolutionary theory}
 \author{Leandro G. Cosmo}
-\date{2024-07-24}
+\date{2024-07-25}
 
 \begin{document}
 \maketitle
@@ -1587,6 +1587,340 @@ Here, your task will be to adapt the function that simulate coevolution to incor
 \item
   How changing the contribution of mutualisms as selective pressure (\(m_{x}\) and \(m_{y}\)) and the environmental optima of species (\(\theta_{x}\) and \(\theta_{y}\)) modify this outcome?
 \end{enumerate}
+
+\hypertarget{exercise-coevolution-in-mutualistic-networks}{%
+\chapter{Exercise: Coevolution in mutualistic networks}\label{exercise-coevolution-in-mutualistic-networks}}
+
+\hypertarget{simulating-coevolution-in-mutualistic-networks}{%
+\section{Simulating coevolution in mutualistic networks}\label{simulating-coevolution-in-mutualistic-networks}}
+
+In the lecture, we built a coevolutionary model that describes how the mean value of a continuous trait \(\overline{z}_{i}\), for a species \(i\), evolves in response to the selective pressures of mutualistic interactions and other sources in the environment that favor an optimal trait value, \(\theta_{i}\). This model is a simplified version of the one present in \href{https://www.nature.com/articles/nature24273}{Guimarães et al.~(2017)}.
+
+The starting point of our model was the classic equation from quantitative genetics by Russel Lande (1976). Using this equation as a starting point, we incorporated the selective pressures of mutualistic interactions and other sources in the environment directly assuming how the selection gradient, \(\frac{\partial ln\overline{W_i}}{\partial \overline{z}_i}\), depends on these two sources. We first assumed that for each species \(i\), mutualistic interactions contribute with a fraction \(m_{i}\) and the environment contributes with the remaining \((1-m_{i})\). Next, we assumed that the selective pressures from mutualistic partners, \(m_{i}\), are distributed among all the \(j\) partners of species \(i\) such that each partner contributes with a fraction \(q_{ij}\) to \(m_{i}\) and favor trait complementarity, \((\overline{z}_j-\overline{z}_i)\). For simplicity, we set \(q_{ij}=\frac{a_{ij}}{\sum_{i=1, i\neq j}^{N}a_{ij}}\), where \(a_{ij}=1\) if species \(i\) interacts with species \(j\) and \(a_{ij}=0\) otherwise. Finally, we assumed that the remaining \((1-m_{i})\) sources of selection in the environment favor complementarity with an optimal trait value, \((\theta_{i}-\overline{z}_i)\). Under these assumptions, we arrived at the following equation:
+
+\[
+\overline{z}_i^{(t+1)}=\overline{z}_i^{(t)}+h_{i}^2\sigma^2_{i}\left[m_{i}\sum_{i=1, i\neq j}^{N}q_{ij}(\overline{z}_j^{(t)}-\overline{z}_i^{(t)})+(1-m_{i})(\theta_{i}-\overline{z}_i^{(t)}) \right]
+\] where \(h^2_{i}\) is the narrow-sense heritability of trait \(\overline{z}_i\) and \(\sigma^2_{i}\) is the phenotypic variance of trait \(\overline{z}_i\), which is assumed to be normally distributed.
+
+To simulate the coevolutionary dynamics using this equation, we will use a slightly different approach than what we have been using so far. Our first step will be to set up a matrix of interactions among species. This matrix will determine the network of interactions among species, and will also determine the number of species, \(N\), that will be part of our simulation. For this section we will use the matrices of interactions underlying the networks that we can obtain from the \href{www.web-of-life.es}{\emph{Web-of-Life}} database. To maker it easier I have downloaded all of the mutualistic networks in this database and stored them in a GitHub repository. Using this GitHub repository we can directly import a network to R, as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{URL1}\OtherTok{=}\StringTok{"https://github.com/lgcosmo/evo\_coevo/raw/main/networks/M\_PA\_002.csv"} \CommentTok{\#Setting the URL to one plant{-}ant network}
+
+\NormalTok{URL2}\OtherTok{=}\StringTok{"https://github.com/lgcosmo/evo\_coevo/raw/main/networks/M\_PL\_011.csv"} \CommentTok{\#Setting the URL to one plant{-}pollinator network}
+
+\CommentTok{\#Importing the matrices of interactions from the URLs}
+
+\NormalTok{net1}\OtherTok{=}\FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(URL1)) }
+\NormalTok{net2}\OtherTok{=}\FunctionTok{as.matrix}\NormalTok{(}\FunctionTok{read.csv}\NormalTok{(URL2))}
+\end{Highlighting}
+\end{Shaded}
+
+In the \emph{Web-of-Life database}, all matrices of interactions are in the format of what is called an incidence matrix or a biadjacency matrix. This is a matrix used to represent interactions when we have two distinct sets of species that interact only with species of a different set. For instance, in pollination networks, plants constitute one of the sets, and these plant species interact only with species from the second set, the pollinator species. This type of network of interactions is called a bipartite network. The incidence/biadjacency matrix of this type of network is a matrix whose rows depict species from one of the sets (usually plants in ecology), and columns depict species from the other set (usually animals). Thus the incidence/biadjacency matrix has \(N_{plants}\) rows and \(N_{animals}\) columns. However, to simulate the coevolutionary model it is easier to work with a matrix containing all species in both rows and columns, such that it has \(N\) rows and \(N\) columns (\(N\) is the total number of species). For this reason, we need to transform the incidence/biadjacency matrix into an adjacency matrix, which can be done as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Getting number of species and total number of species}
+
+\NormalTok{n\_p }\OtherTok{=} \FunctionTok{nrow}\NormalTok{(net1) }\CommentTok{\#Number of plant species}
+\NormalTok{n\_a }\OtherTok{=} \FunctionTok{ncol}\NormalTok{(net1) }\CommentTok{\#Number of animal species}
+\NormalTok{n\_sp }\OtherTok{=}\NormalTok{ n\_p}\SpecialCharTok{+}\NormalTok{n\_a }\CommentTok{\#Total number of species}
+
+\CommentTok{\# Creating adjacency matrix}
+\NormalTok{A1 }\OtherTok{=} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_p, n\_p), net1), }\FunctionTok{cbind}\NormalTok{(}\FunctionTok{t}\NormalTok{(net1), }\FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_a, n\_a)))}
+
+\CommentTok{\#Changing labels}
+
+\FunctionTok{rownames}\NormalTok{(A1) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"P"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_a))}
+\FunctionTok{colnames}\NormalTok{(A1) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"P"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_a))}
+\end{Highlighting}
+\end{Shaded}
+
+To make our life easier, we can build a function that takes as input an incidence/biadjacency matrix and returns an adjacency matrix:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adjacency\_matrix}\OtherTok{\textless{}{-}}\ControlFlowTok{function}\NormalTok{(incidence\_matrix, }\AttributeTok{binary=}\ConstantTok{TRUE}\NormalTok{)\{}
+  
+\NormalTok{  n\_p }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(incidence\_matrix)}
+\NormalTok{  n\_a }\OtherTok{\textless{}{-}} \FunctionTok{ncol}\NormalTok{(incidence\_matrix)}
+\NormalTok{  n\_sp }\OtherTok{\textless{}{-}}\NormalTok{ n\_p }\SpecialCharTok{+}\NormalTok{ n\_a}
+  
+\NormalTok{  A }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_p, n\_p), incidence\_matrix),}
+             \FunctionTok{cbind}\NormalTok{(}\FunctionTok{t}\NormalTok{(incidence\_matrix), }\FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_a, n\_a)))}
+  
+  \FunctionTok{rownames}\NormalTok{(A) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"P"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_a))}
+  \FunctionTok{colnames}\NormalTok{(A) }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"P"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_a))}
+  
+  \ControlFlowTok{if}\NormalTok{(binary}\SpecialCharTok{==}\ConstantTok{TRUE}\NormalTok{)\{A[A}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{]}\OtherTok{\textless{}{-}}\DecValTok{1}\NormalTok{\}}
+  
+  \FunctionTok{return}\NormalTok{(A)}
+  
+\NormalTok{\}}
+
+\CommentTok{\# Using the function for the two networks}
+
+\NormalTok{A1}\OtherTok{=}\FunctionTok{adjacency\_matrix}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{net1, }\AttributeTok{binary=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{A2}\OtherTok{=}\FunctionTok{adjacency\_matrix}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{net2, }\AttributeTok{binary=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can also quickly visualize how these two networks looks like using the \emph{igraph} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(igraph)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'igraph'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     decompose, spectrum
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Constructing an igraph object from the adjacency matrix}
+\NormalTok{G1}\OtherTok{=}\FunctionTok{graph\_from\_adjacency\_matrix}\NormalTok{(A1, }\AttributeTok{mode=}\FunctionTok{c}\NormalTok{(}\StringTok{"undirected"}\NormalTok{))}
+\NormalTok{G2}\OtherTok{=}\FunctionTok{graph\_from\_adjacency\_matrix}\NormalTok{(A2, }\AttributeTok{mode=}\FunctionTok{c}\NormalTok{(}\StringTok{"undirected"}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{(G1, }\AttributeTok{vertex.label=}\ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.65\linewidth,height=0.65\textheight]{_main_files/figure-latex/unnamed-chunk-29-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(G2, }\AttributeTok{vertex.label=}\ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.65\linewidth,height=0.65\textheight]{_main_files/figure-latex/unnamed-chunk-29-2}
+
+With our matrix of interactions in hand, our next step will be to define a data structure that will store the mean trait values of each species over time. In this case, since we will be dealing with multiple species, it is better to work with a matrix instead of a vector. This matrix will store in each column the values of \(\overline{z}_i\) for each species \(i\), and each row will store the values for a given generation \(t\), as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tmax}\OtherTok{=}\DecValTok{100} \CommentTok{\#Setting the maximum number of time steps in the simulation}
+
+\NormalTok{n\_sp}\OtherTok{=}\FunctionTok{nrow}\NormalTok{(A1) }\CommentTok{\#Setting a number of species. It is equal to the number of rows in the matrix of interactions.}
+
+\NormalTok{dz}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{data=}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{tmax, }\AttributeTok{ncol=}\NormalTok{n\_sp)}
+\FunctionTok{colnames}\NormalTok{(dz)}\OtherTok{=}\FunctionTok{paste0}\NormalTok{(}\StringTok{"SP"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_sp)}
+
+\FunctionTok{print}\NormalTok{(dz[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,]) }\CommentTok{\#Visualizing the first 5 rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      SP1 SP2 SP3 SP4 SP5 SP6 SP7 SP8 SP9
+## [1,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [2,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [3,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [4,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+## [5,]  NA  NA  NA  NA  NA  NA  NA  NA  NA
+\end{verbatim}
+
+The dimensions of this matrix will depend on the number of species and maximum number of time steps of our simulation. For simplicity, from now on we will work with the matrix ``A1'', but feel free to use a different network.
+
+Next, as we did before, we need to define some of the parameters of the model, such as \(h^2_{i}\), \(\sigma^2_{i}\), \(m_{i}\), \(\theta_{i}\) and initial mean trait values for each species, \(\overline{z}_{0,i}\). When we have \(N\) species, we also need to choose \(N\) values for each of these parameters. The number of values can get out of control quickly and to avoid this we will use the same values of \(h^2_{i}\), \(\sigma^2_{i}\) and \(m_{i}\) for all species. For \(\theta_{i}\) and \(\overline{z}_{0,i}\), we will sample these parameters from a uniform distribution from an interval between 0 and 10. The code to do so is reproduced below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var\_z}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }\CommentTok{\#Setting the trait variance to a certain value for all species}
+\NormalTok{h}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }\CommentTok{\#Setting the heritability to a certain value for all species}
+\NormalTok{m}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }\CommentTok{\#Setting the contribution of mutualisms as a source of selection to a certain value for all species}
+
+\NormalTok{z0}\OtherTok{=}\FunctionTok{runif}\NormalTok{(n\_sp, }\AttributeTok{min=}\DecValTok{0}\NormalTok{, }\AttributeTok{max=}\DecValTok{10}\NormalTok{) }\CommentTok{\#Sampling initial mean trait values of each species from a uniform distribution}
+\NormalTok{theta}\OtherTok{=}\FunctionTok{runif}\NormalTok{(n\_sp, }\AttributeTok{min=}\DecValTok{0}\NormalTok{, }\AttributeTok{max=}\DecValTok{10}\NormalTok{) }\CommentTok{\#Sampling the environmental optima of each species from a uniform distribution}
+\end{Highlighting}
+\end{Shaded}
+
+These values will be passed as arguments to a function that we will use to simulate the coevolutionary model. In this function, we will first set initial mean trait values for all species and then perform the following set of operations inside a \emph{for loop}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Set mean trait values of all species at generation \(t\).
+\item
+  Compute the matrix of evolutionary effects, \(Q\). Each entry of this matrix will be equal to \(q_{ij}=\frac{a_{ij}}{\sum_{i=1, i\neq j}^{N}a_{ij}}\). This is equivalent as getting each entry of the adjacency matrix, \(A\), and dividing them by the sum of their corresponding row. Then, we multiply each row of this matrix by \(m_{i}\). Remember that each row in the matrix \(Q\) corresponds to a species \(i\), and each column represents the contribution of each species \(j\) to the evolution of \(i\).
+\item
+  Compute all pairwise differences in the mean trait values of species, \((\overline{z}_j-\overline{z}_i)\). The result will be another matrix with entries corresponding to the differences in the trait of species \(j\) and species \(i\).
+\item
+  Multiply the matrix of pairwise evolutionary effects \(Q\), with the matrix of pairwise differences in traits.
+\item
+  Compute the selection gradient as described in the equation of the coevolutionary model.
+\item
+  Compute mean trait values at the next generation using Lande`s equation.
+\end{enumerate}
+
+These steps are highlighted in the code below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{coevo\_network}\OtherTok{\textless{}{-}}\ControlFlowTok{function}\NormalTok{(incidence\_matrix, m, z0, theta, h, var\_z, tmax)\{}
+  
+  \CommentTok{\# Setting up adjacency matrix and the data structure to store mean trait values over time for the simulation}
+\NormalTok{  A}\OtherTok{=}\FunctionTok{adjacency\_matrix}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{incidence\_matrix, }\AttributeTok{binary=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  n\_sp}\OtherTok{=}\FunctionTok{nrow}\NormalTok{(A)}
+\NormalTok{  dz}\OtherTok{=}\FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =}\NormalTok{ tmax, }\AttributeTok{ncol =}\NormalTok{ n\_sp)}
+  
+\NormalTok{  dz[}\DecValTok{1}\NormalTok{,]}\OtherTok{\textless{}{-}}\NormalTok{z0 }\CommentTok{\# Setting initial trait values}
+  
+  \ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(tmax}\DecValTok{{-}1}\NormalTok{))\{}
+    
+\NormalTok{    z }\OtherTok{=}\NormalTok{ dz[t, ] }\CommentTok{\# Step (1)}
+    
+\NormalTok{    Q }\OtherTok{=}\NormalTok{ A }\SpecialCharTok{/} \FunctionTok{rowSums}\NormalTok{(A) }\CommentTok{\# Step (2)}
+\NormalTok{    Q }\OtherTok{=}\NormalTok{ Q }\SpecialCharTok{*}\NormalTok{ m }\CommentTok{\# Step (2)}
+    
+\NormalTok{    z\_dif }\OtherTok{=} \FunctionTok{t}\NormalTok{(A}\SpecialCharTok{*}\NormalTok{z) }\SpecialCharTok{{-}}\NormalTok{ A}\SpecialCharTok{*}\NormalTok{z }\CommentTok{\# Step (3)}
+    
+\NormalTok{    Q\_dif }\OtherTok{=}\NormalTok{ Q }\SpecialCharTok{*}\NormalTok{ z\_dif }\CommentTok{\# Step (4)}
+    
+\NormalTok{    mut\_sel }\OtherTok{=} \FunctionTok{rowSums}\NormalTok{(Q\_dif) }\CommentTok{\# Step (5)}
+\NormalTok{    env\_sel }\OtherTok{=}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ m)}\SpecialCharTok{*}\NormalTok{(theta }\SpecialCharTok{{-}}\NormalTok{ z) }\CommentTok{\# Step (5)}
+\NormalTok{    dlnw }\OtherTok{=}\NormalTok{ mut\_sel}\SpecialCharTok{+}\NormalTok{env\_sel }\CommentTok{\# Step (5)}
+    
+\NormalTok{    dz[t}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, ] }\OtherTok{=}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ h}\SpecialCharTok{*}\NormalTok{var\_z}\SpecialCharTok{*}\NormalTok{dlnw }\CommentTok{\# Step (6)}
+    
+\NormalTok{  \}}
+  
+  \CommentTok{\# Setting up a data farme with results}
+\NormalTok{  dz\_df}\OtherTok{\textless{}{-}}\FunctionTok{as.data.frame}\NormalTok{(dz)}
+\NormalTok{  dz\_df}\SpecialCharTok{$}\NormalTok{time}\OtherTok{\textless{}{-}}\DecValTok{1}\SpecialCharTok{:}\NormalTok{tmax}
+  \FunctionTok{names}\NormalTok{(dz\_df)[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_sp]}\OtherTok{\textless{}{-}}\FunctionTok{paste0}\NormalTok{(}\StringTok{"SP"}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_sp)}
+\NormalTok{  dz\_df}\OtherTok{\textless{}{-}}\FunctionTok{melt}\NormalTok{(dz\_df, }\AttributeTok{id.vars=}\StringTok{"time"}\NormalTok{)}
+  
+  \FunctionTok{return}\NormalTok{(dz\_df)}
+  
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+With the function in hand we can now run it and plot the results:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(reshape2)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+
+\NormalTok{var\_z}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }
+\NormalTok{h}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }
+\NormalTok{m}\OtherTok{=}\FunctionTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, n\_sp) }
+\NormalTok{z0}\OtherTok{=}\FunctionTok{runif}\NormalTok{(n\_sp, }\AttributeTok{min=}\DecValTok{0}\NormalTok{, }\AttributeTok{max=}\DecValTok{10}\NormalTok{)}
+\NormalTok{theta}\OtherTok{=}\FunctionTok{runif}\NormalTok{(n\_sp, }\AttributeTok{min=}\DecValTok{0}\NormalTok{, }\AttributeTok{max=}\DecValTok{10}\NormalTok{) }
+
+\NormalTok{r}\OtherTok{=}\FunctionTok{coevo\_network}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{net1, }\AttributeTok{m=}\NormalTok{m, }\AttributeTok{z0=}\NormalTok{z0, }\AttributeTok{theta=}\NormalTok{theta, }\AttributeTok{h=}\NormalTok{h, }\AttributeTok{var\_z=}\NormalTok{var\_z, }\AttributeTok{tmax=}\DecValTok{200}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data=}\NormalTok{r, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{time, }\AttributeTok{y=}\NormalTok{value, }\AttributeTok{color=}\NormalTok{variable))}\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Generation"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{ylab}\NormalTok{(}\StringTok{"Mean trait values"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_pubr}\NormalTok{()}\SpecialCharTok{+}\FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.65\linewidth,height=0.65\textheight]{_main_files/figure-latex/unnamed-chunk-33-1}
+
+In the plot above, lines of different colors represent the coevolutionary trajectory of the mean trait values of different species. With this function, try to explore how different values of \(m_{i}\) change the coevolutionary dynamics. Think about what differences can you observe from the scenario where only two mutualistic species coevolve.
+
+\hypertarget{quantifying-indirect-evolutionary-effects}{%
+\section{Quantifying indirect evolutionary effects}\label{quantifying-indirect-evolutionary-effects}}
+
+In the lecture we studied that our model for coevolution in mutualistic networks has a stable equilibrium point. This equilibrium point is depicted by the following matrix-vector equation:
+
+\[
+\vec{\overline{z}^*}=(I-Q)^{-1}\Psi\vec{\theta}
+\]
+
+In the equation above, the matrix \(\left(I-Q\right)^{-1}\) is a matrix containing the direct and indirect evolutionary effects that each species exert on each other. This interpretation can be recovered by the matrix power series:
+
+\[
+\left(I-Q\right)^{-1}=\sum_{k=0}^{\infty}Q^{k}
+\] The entries of each matrix \(Q^{k}\), in turn, contain the effects that species \(j\) exert on species \(i\) through a pathway of length \(k\). Thus, each matrix in the series depicted in the equation above corresponds to a matrix containing the effects from pathways of length \(k\) among all species. Therefore, the equilibrium solution of the coevolutionary model represents a scenario in which direct and indirect evolutionary effects connect the selective pressures coming from the environment (\(\theta_{i}\)) across all species in the network.
+
+Since the matrix of direct interactions is known, we can use the matrix \(T=(I-Q)^{-1}\Psi\) to quantify what is the contribution of indirect evolutionary effects to the evolution of species in the network. To do so, we need to perform the following steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Obtain the matrix of direct evolutionary effects, \(Q\) and the matrix \(\Psi\), which is a diagonal matrix with diagonal \(\Psi_{i}=(1-m_{i})\).
+\item
+  Compute the matrix \(T=(I-Q)^{-1}\Psi\) and set its diagonal to 0.
+\item
+  Create a new matrix, \(T_{indirect}\) and set all its entries of the matrix \(T\) containing direct interactions to 0.
+\item
+  Compute the contribution of indirect effects as the ratio of the sum of all of the entries of the matrix \(T_{indirect}\) to the sum of the entries of the complete matrix \(T\).
+\end{enumerate}
+
+The code to do so is reproduced inside a function below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{indirect\_effects}\OtherTok{=}\ControlFlowTok{function}\NormalTok{(incidence\_matrix, m)\{}
+  
+  \CommentTok{\# Getting adjacency matrix}
+\NormalTok{  A}\OtherTok{=}\FunctionTok{adjacency\_matrix}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{incidence\_matrix, }\AttributeTok{binary=}\ConstantTok{TRUE}\NormalTok{)}
+  
+\NormalTok{  n\_sp}\OtherTok{=}\FunctionTok{nrow}\NormalTok{(A)}
+  
+\NormalTok{  Q }\OtherTok{=}\NormalTok{ A }\SpecialCharTok{/} \FunctionTok{apply}\NormalTok{(A,}\DecValTok{1}\NormalTok{,sum) }\CommentTok{\# Step (1)}
+\NormalTok{  Q }\OtherTok{=}\NormalTok{ Q }\SpecialCharTok{*}\NormalTok{ m }\CommentTok{\# Step (1)}
+  
+\NormalTok{  Psi }\OtherTok{=} \FunctionTok{diag}\NormalTok{((}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{m), n\_sp) }\CommentTok{\# Step (1)}
+\NormalTok{  I }\OtherTok{=} \FunctionTok{diag}\NormalTok{(}\DecValTok{1}\NormalTok{, n\_sp) }\CommentTok{\# Creating identity matrix}
+  
+\NormalTok{  Tmat}\OtherTok{=}\NormalTok{(}\FunctionTok{solve}\NormalTok{(I}\SpecialCharTok{{-}}\NormalTok{Q)) }\SpecialCharTok{\%*\%}\NormalTok{ Psi }\CommentTok{\# Step (2)}
+  \FunctionTok{diag}\NormalTok{(Tmat)}\OtherTok{=}\DecValTok{0}
+  
+\NormalTok{  Tmat\_indirect}\OtherTok{=}\NormalTok{Tmat }\CommentTok{\#Step (3)}
+\NormalTok{  Tmat\_indirect}\OtherTok{=}\NormalTok{Tmat\_indirect}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{A) }\CommentTok{\#Step (3)}
+  
+\NormalTok{  ind\_contrib}\OtherTok{=}\FunctionTok{sum}\NormalTok{(Tmat\_indirect)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(Tmat) }\CommentTok{\#Step (4)}
+  
+  \FunctionTok{return}\NormalTok{(ind\_contrib)}
+  
+\NormalTok{\}}
+
+\CommentTok{\# Using the function}
+
+\NormalTok{ind\_net1 }\OtherTok{=} \FunctionTok{indirect\_effects}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{net1, }\AttributeTok{m=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{ind\_net2 }\OtherTok{=} \FunctionTok{indirect\_effects}\NormalTok{(}\AttributeTok{incidence\_matrix=}\NormalTok{net2, }\AttributeTok{m=}\FloatTok{0.5}\NormalTok{)}
+
+\FunctionTok{print}\NormalTok{(ind\_net1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2824513
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(ind\_net2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3639537
+\end{verbatim}
+
+Looking at these two networks, try to explain why there is a difference in the contribution of indirect effects. Furthermore, using the function, try to explore how changing the value of \(m_{i}\) modifies the contribution of indirect evolutionary effects.
 
   \bibliography{book.bib,packages.bib}
 
