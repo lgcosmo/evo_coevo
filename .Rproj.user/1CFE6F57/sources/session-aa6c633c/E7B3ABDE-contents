@@ -1,0 +1,17 @@
+library(reshape2)
+library(ggplot2)
+library(ggpubr)
+
+n_sp=nrow(net1)+ncol(net1)
+var_z=rep(0.5, n_sp) 
+h=rep(0.5, n_sp) 
+m=rep(0.5, n_sp) 
+z0=runif(n_sp, min=0, max=10)
+theta=runif(n_sp, min=0, max=10) 
+
+r=coevo_network(incidence_matrix=net1, m=m, z0=z0, theta=theta, h=h, var_z=var_z, tmax=200)
+
+ggplot()+
+  geom_line(data=r, aes(x=time, y=value, color=variable))+
+  xlab("Generation")+ylab("Mean trait values")+
+  theme_pubr()+theme(legend.position="none")

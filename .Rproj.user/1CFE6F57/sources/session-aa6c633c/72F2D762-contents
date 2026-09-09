@@ -1,0 +1,83 @@
+URL1="https://github.com/lgcosmo/evo_coevo/raw/main/networks/M_PA_002.csv" #Setting the URL to one plant-ant network
+
+URL2="https://github.com/lgcosmo/evo_coevo/raw/main/networks/M_PL_011.csv" #Setting the URL to one plant-pollinator network
+
+#Importing the matrices of interactions from the URLs
+
+net1=as.matrix(read.csv(URL1)) 
+net2=as.matrix(read.csv(URL2))
+
+#Getting number of species and total number of species
+
+n_p = nrow(net1) #Number of plant species
+n_a = ncol(net1) #Number of animal species
+n_sp = n_p+n_a #Total number of species
+
+# Creating adjacency matrix
+A1 = rbind(cbind(matrix(0, n_p, n_p), net1), cbind(t(net1), matrix(0, n_a, n_a)))
+
+#Changing labels
+
+rownames(A1) = c(paste0("P", 1:n_p), paste0("A", 1:n_a))
+colnames(A1) = c(paste0("P", 1:n_p), paste0("A", 1:n_a))
+
+coevo_network<-function(incidence_matrix, m, z0, theta, h, var_z, tmax){
+  
+  # Setting up adjacency matrix and the data structure to store mean trait values over time for the simulation
+  A=adjacency_matrix(incidence_matrix=incidence_matrix, binary=TRUE)
+  n_sp=nrow(A)
+  dz=matrix(NA, nrow = tmax, ncol = n_sp)
+  
+  dz[1,]<-z0 # Setting initial trait values
+  
+  for(t in 1:(tmax-1)){
+    
+    z = dz[t, ] # Step (1)
+    
+    Q = A / rowSums(A) # Step (2)
+    Q = Q * m # Step (2)
+    
+    z_dif = t(A*z) - A*z # Step (3)
+    
+    Q_dif = Q * z_dif # Step (4)
+    
+    mut_sel = rowSums(Q_dif) # Step (5)
+    env_sel = (1 - m)*(theta - z) # Step (5)
+    dlnw = mut_sel+env_sel # Step (5)
+    
+    dz[t+1, ] = z + h*var_z*dlnw # Step (6)
+    
+  }
+  
+  # Setting up a data farme with results
+  dz_df<-as.data.frame(dz)
+  dz_df$time<-1:tmax
+  names(dz_df)[1:n_sp]<-paste0("SP", 1:n_sp)
+  dz_df<-melt(dz_df, id.vars="time")
+  
+  return(dz_df)
+  
+}
+
+adjacency_matrix<-function(incidence_matrix, binary=TRUE){
+  
+  n_p <- nrow(incidence_matrix)
+  n_a <- ncol(incidence_matrix)
+  n_sp <- n_p + n_a
+  
+  A <- rbind(cbind(matrix(0, n_p, n_p), incidence_matrix),
+             cbind(t(incidence_matrix), matrix(0, n_a, n_a)))
+  
+  rownames(A) = c(paste0("P", 1:n_p), paste0("A", 1:n_a))
+  colnames(A) = c(paste0("P", 1:n_p), paste0("A", 1:n_a))
+  
+  if(binary==TRUE){A[A>0]<-1}
+  
+  return(A)
+  
+}
+
+# Using the function for the two networks
+
+A1=adjacency_matrix(incidence_matrix=net1, binary=TRUE)
+A2=adjacency_matrix(incidence_matrix=net2, binary=TRUE)
